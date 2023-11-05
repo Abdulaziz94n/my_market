@@ -1,0 +1,335 @@
+{
+    "language": "language",
+    "@language": {
+      "description": "language description"
+    },
+    "english": "english",
+    "@english": {
+      "descripion": "english text descripion"
+    },
+    "arabic": "arabic",
+    "@arabic": {
+      "descripion": "arabic text descripion"
+    },
+    "french": "french",
+    "@french": {
+      "descripion": "french text descripion"
+    },
+    "payments": "payments",
+    "@payments": {
+      "description": "payments description"
+    },
+    "daily": "daily",
+    "@daily": {
+      "description": "daily description"
+    },
+    "dues": "dues",
+    "@dues": {
+      "descripion": "dues text descripion"
+    },
+    "title": "title",
+    "@title": {
+      "descripion": "title text descripion"
+    },
+    "selectedCategory": "selected category",
+    "@selectedCategory": {
+      "descripion": "selectedCategory text descripion"
+    },
+    "paymentAmount": "payment amount",
+    "@paymentAmount": {
+      "descripion": "paymentAmount text descripion"
+    },
+    "addPayment": "add payment",
+    "@addPayment": {
+      "descripion": "addPayment text descripion"
+    },
+    "weekly": "weekly",
+    "@weekly": {
+      "descripion": "weekly text descripion"
+    },
+    "monthly": "monthly",
+    "@monthly": {
+      "descripion": "monthly text descripion"
+    },
+    "print": "print",
+    "@print": {
+      "descripion": "print text descripion"
+    },
+    "filter": "filter",
+    "@filter": {
+      "descripion": "filter text descripion"
+    },
+    "cancelFilter": "cancel filter",
+    "@cancelFilter": {
+      "descripion": "cancelFilter text descripion"
+    },
+    "description": "description",
+    "@description": {
+      "descripion": "description text descripion"
+    },
+    "name": "name",
+    "@name": {
+      "descripion": "name text descripion"
+    },
+    "iban": "IBAN",
+    "@iban": {
+      "descripion": "IBAN text descripion"
+    },
+    "requestPayment": "request payment",
+    "@requestPayment": {
+      "descripion": "requestPayment text descripion"
+    },
+    "settings": "settings",
+    "@settings": {
+      "descripion": "settings text descripion"
+    },
+    "seeAll": "see all",
+    "@seeAll": {
+      "descripion": "seeAll text descripion"
+    },
+    "notifications": "notifications",
+    "@notifications": {
+      "descripion": "notifications text descripion"
+    },
+    "transfer": "transfer",
+    "@transfer": {
+      "descripion": "transfer text descripion"
+    },
+    "quickView": "quick view",
+    "@quickView": {
+      "descripion": "quickView text descripion"
+    },
+    "wallets": "wallets",
+    "@wallets": {
+      "descripion": "wallets text descripion"
+    },
+    "wallet": "wallet",
+    "@wallet": {
+      "descripion": "wallet text descripion"
+    },
+    "deposit": "deposit",
+    "@deposit": {
+      "descripion": "deposit text descripion"
+    },
+    "history": "history",
+    "@history": {
+      "descripion": "history text descripion"
+    },
+    "users": "users",
+    "@users": {
+      "descripion": "users text descripion"
+    },
+    "wReport": "w.report",
+    "@wReport": {
+      "descripion": "wReport text descripion"
+    },
+    "mReport": "m.report",
+    "@mReport": {
+      "descripion": "mReport text descripion"
+    },
+    "changePassword": "change password",
+    "@changePassword": {
+      "descripion": "changePassword text descripion"
+    },
+    "stopAccount": "stop account",
+    "@stopAccount": {
+      "descripion": "stopAccount text descripion"
+    },
+    "activateAccount": "activate account",
+    "@activateAccount": {
+      "descripion": "activateAccount text descripion"
+    },
+    "addAccount": "add account",
+    "@addAccount": {
+      "descripion": "addAccount text descripion"
+    },
+    "deletedProcess": "deleted process",
+    "@deletedProcess": {
+      "descripion": "deletedProcess text descripion"
+    },
+    "signOut": "sign out",
+    "@signOut": {
+      "descripion": "signOut text descripion"
+    },
+    "category": "category",
+    "@category": {
+      "descripion": "category text descripion"
+    },
+    "total": "total",
+    "@total": {
+      "descripion": "total text descripion"
+    },
+    "summary": "summary",
+    "@summary": {
+      "descripion": "summary text descripion"
+    },
+    "welcome": "welcome",
+    "@welcome": {
+      "descripion": "welcome text descripion"
+    },
+    "accounts": "accounts",
+    "@accounts": {
+      "descripion": "accounts text descripion"
+    },
+    "username": "user name",
+    "@username": {
+      "descripion": "username text descripion"
+    },
+    "email": "email",
+    "@email": {
+      "descripion": "email text descripion"
+    },
+    "userName": "user name",
+    "@userName": {
+      "descripion": "userName text descripion"
+    },
+    "nameLastName": "name lastname",
+    "@nameLastName": {
+      "descripion": "nameLastName text descripion"
+    },
+    "password": "password",
+    "@password": {
+      "descripion": "password text descripion"
+    },
+    "login": "login",
+    "@login": {
+      "descripion": "login text descripion"
+    },
+    "error": "error",
+    "@error": {
+      "descripion": "error text descripion"
+    },
+    "success": "success",
+    "@success": {
+      "descripion": "success text descripion"
+    },
+    "add": "add",
+    "@add": {
+      "descripion": "add text descripion"
+    },
+    "submit": "submit",
+    "@submit": {
+      "descripion": "submit text descripion"
+    },
+    "addUser": "add user",
+    "@addUser": {
+      "descripion": "addUser text descripion"
+    },
+    "selectUser": "select user",
+    "@selectUser": {
+      "descripion": "selectUser text descripion"
+    },
+    "selectDate": "select date",
+    "@selectDate": {
+      "descripion": "selectDate text descripion"
+    },
+    "pleaseSelect": "please select",
+    "@pleaseSelect": {
+      "descripion": "pleaseSelect text descripion"
+    },
+    "resetFilter": "reset filter",
+    "@resetFilter": {
+      "descripion": "resetFilter text descripion"
+    },
+    "clearFilter": "clear filter",
+    "@clearFilter": {
+      "descripion": "clearFilter text descripion"
+    },
+    "accountOwner": "account owner",
+    "@accountOwner": {
+      "descripion": "accountOwner text descripion"
+    },
+    "service": "service",
+    "@service": {
+      "descripion": "service text descripion"
+    },
+    "subject": "subject",
+    "@subject": {
+      "descripion": "subject text descripion"
+    },
+    "lastName": "last name",
+    "@lastName": {
+      "descripion": "lastName text descripion"
+    },
+    "subjectOrService": "subject or service",
+    "@subjectOrService": {
+      "descripion": "subjectOrService text descripion"
+    },
+    "date": "date",
+    "@date": {
+      "descripion": "date text descripion"
+    },
+    "amount": "amount",
+    "@amount": {
+      "descripion": "amount text descripion"
+    },
+    "yourEmail": "your e-mail",
+    "@yourEmail": {
+      "descripion": "yourEmail text descripion"
+    },
+    "yourPassword": "your password",
+    "@yourPassword": {
+      "descripion": "yourPassword text descripion"
+    },
+    "paid": "paid",
+    "@paid": {
+      "descripion": "paid text descripion"
+    },
+    "unpaid": "unpaid",
+    "@unpaid": {
+      "descripion": "unpaid text descripion"
+    },
+    "payNow": "pay now",
+    "@payNow": {
+      "descripion": "payNow text descripion"
+    },
+    "edit": "edit",
+    "@edit": {
+      "descripion": "edit text descripion"
+    },
+    "editDue": "edit due",
+    "@editDue": {
+      "descripion": "editDue text descripion"
+    },
+    "editPayment": "edit payment",
+    "@editPayment": {
+      "descripion": "editPayment text descripion"
+    },
+    "startDate": "start date",
+    "@startDate": {
+      "descripion": "startDate text descripion"
+    },
+    "endDate": "end date",
+    "@endDate": {
+      "descripion": "endDate text descripion"
+    },
+    "minAmount": "min amount",
+    "@minAmount": {
+      "descripion": "minAmount text descripion"
+    },
+    "maxAmount": "max amount",
+    "@maxAmount": {
+      "descripion": "maxAmount text descripion"
+    },
+    "applyFilter": "apply filter",
+    "@applyFilter": {
+      "descripion": "applyFilter text descripion"
+    },
+    "cancel": "cancel",
+    "@cancel": {
+      "descripion": "cancel text descripion"
+    },
+    "tryAgain": "try again",
+    "@tryAgain": {
+      "descripion": "tryAgain text descripion"
+    },
+    "someThingWentWrong": "something went wrong please try again later",
+    "@someThingWentWrong": {
+      "descripion": "someThingWentWrong text descripion"
+    },
+    "ok": "OK",
+    "@ok": {
+      "description": "ok text"
+    }
+    
+  }

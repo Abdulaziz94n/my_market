@@ -1,0 +1,36 @@
+// TODO: delete after implementing
+
+- Create l10n.yaml file at the same level of pubspec.yaml
+
+arb-dir: lib/core/localization
+template-arb-file: app_en.arb
+output-localization-file: app_localizations.dart
+
+
+- add this dependency to pubspec:
+  flutter_localizations:
+    sdk: flutter
+
+  generate: true
+  uses-material-design: true
+
+- Stop and restart the app to generate gen_l10n folder inside dart_tool
+
+
+- import the following packages in main.dart: 
+
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+
+MaterialApp Configs : 
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      // TODO: Delete if Localization Working fine with the code above
+      // supportedLocales: L10n.all,
+      // localizationsDelegates: const [
+      //   AppLocalizations.delegate,
+      //   GlobalMaterialLocalizations.delegate,
+      //   GlobalCupertinoLocalizations.delegate,
+      //   GlobalWidgetsLocalizations.delegate,
+      // ],
