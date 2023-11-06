@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_market/core/constants/sizes.dart';
 import 'package:my_market/core/extensions/textstyle_extension.dart';
 
 import '/core/theme/colors_palette.dart';
@@ -10,6 +11,8 @@ class AppThemes {
   ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     buttonTheme: const ButtonThemeData(),
+    cardTheme: CardTheme(
+        shape: RoundedRectangleBorder(borderRadius: Sizes.defaultBorderRadius)),
     fontFamily: null, // replace with font family name,
     scaffoldBackgroundColor: Colors.white,
     brightness: Brightness.light,

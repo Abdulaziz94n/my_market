@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 class AppBorderedCircle extends StatelessWidget {
-  const AppBorderedCircle(
-      {super.key,
-      required this.outerRadius,
-      this.innerRadius,
-      this.innerColor,
-      this.outerColor,
-      this.onTap,
-      this.child}) // : assert(innerRadius != null ? innerRadius <= outerRadius : true)
+  const AppBorderedCircle({
+    super.key,
+    required this.outerRadius,
+    this.innerRadius,
+    this.innerColor,
+    this.outerColor,
+    this.onTap,
+    this.child,
+  }) // : assert(innerRadius != null ? innerRadius <= outerRadius : true)
   ;
 
   final Color? outerColor;

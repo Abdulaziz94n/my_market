@@ -25,7 +25,7 @@ class BackgroundShapePainter extends CustomPainter {
 
     final path = Path();
     final paint = Paint()
-      ..color = AppColorsPalette.background.withOpacity(0.3)
+      ..color = AppColorsPalette.background.withOpacity(0.2)
       ..style = PaintingStyle.fill
       ..strokeWidth = 5;
 

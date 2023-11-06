@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '/core/constants/sizes.dart';
+import 'package:my_market/core/theme/colors_palette.dart';
+import 'package:my_market/core/widgets/shared/app_background_shape.dart';
 
 class AppScaffold extends StatelessWidget {
   const AppScaffold({
@@ -14,13 +15,16 @@ class AppScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBar,
-      body: Padding(
-        padding: const EdgeInsets.all(Sizes.p8),
-        child: body,
+    return Container(
+      color: AppColorsPalette.imageBackground,
+      width: double.infinity,
+      height: double.infinity,
+      child: Stack(
+        children: [
+          Scaffold(backgroundColor: Colors.transparent, body: body),
+          const BackgroundShape()
+        ],
       ),
-      floatingActionButton: floatingActionButton,
     );
   }
 }

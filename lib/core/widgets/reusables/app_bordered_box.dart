@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_market/core/extensions/build_context_extension.dart';
 
 class AppBorderedBox extends StatelessWidget {
   const AppBorderedBox.withIcon({
@@ -51,7 +52,7 @@ class AppBorderedBox extends StatelessWidget {
   final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
       child: SizedBox(
         width: width,
@@ -75,7 +76,7 @@ class AppBorderedBox extends StatelessWidget {
             border: border ??
                 Border.all(
                   width: borderWidth ?? 1,
-                  color: borderColor ?? Colors.white,
+                  color: borderColor ?? context.appColors.primary,
                 ),
           ),
           child: Padding(

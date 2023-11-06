@@ -20,22 +20,28 @@ class AppTextField extends StatelessWidget {
     this.contentPadding,
     this.validator,
     this.suffixIcon,
+    this.width,
+    this.readOnly,
+    this.onTap,
   })  : initialValue = null,
         assert(controller != null);
 
   final TextEditingController? controller;
   final bool? enabled;
+  final bool? readOnly;
   final bool? obscure;
   final String label;
   final Widget? prefixIcon;
   final int? maxLines;
   final double? fontSize;
+  final double? width;
   final EdgeInsets? contentPadding;
   final bool? isDense;
   final String? initialValue;
   final TextInputType? inputType;
   final List<TextInputFormatter>? inputFormatters;
   final Widget? suffixIcon;
+  final VoidCallback? onTap;
   final String? Function(String?)? validator;
   final void Function(String?)? onChanged;
 
@@ -55,35 +61,21 @@ class AppTextField extends StatelessWidget {
     this.contentPadding,
     this.validator,
     this.suffixIcon,
+    this.width,
+    this.readOnly,
+    this.onTap,
   }) : controller = null;
-
-  const AppTextField.withControllerAndOnChanged({
-    super.key,
-    required this.onChanged,
-    required this.label,
-    this.inputFormatters,
-    this.obscure,
-    this.enabled,
-    this.prefixIcon,
-    this.maxLines,
-    this.fontSize,
-    this.inputType,
-    this.isDense,
-    this.controller,
-    this.contentPadding,
-    this.validator,
-    this.suffixIcon,
-  }) : initialValue = null;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: SizedBox(
-        // height: Sizes.kTextFieldHeight,
+    return SizedBox(
+      width: width,
+      child: InkWell(
+        onTap: readOnly == true ? onTap : null,
         child: TextFormField(
           initialValue: initialValue,
           obscureText: obscure ?? false,
+          readOnly: readOnly ?? false,
           enabled: enabled,
           controller: controller,
           style: TextStyle(fontSize: fontSize),
@@ -109,20 +101,6 @@ class AppTextField extends StatelessWidget {
       isDense: isDense,
       contentPadding: contentPadding,
       errorMaxLines: 2,
-      errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(_kBorderRadius)),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(_kBorderRadius),
-        borderSide: const BorderSide(color: Colors.black),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderSide: const BorderSide(color: Colors.black),
-        borderRadius: BorderRadius.circular(_kBorderRadius),
-      ),
-      border: OutlineInputBorder(
-        borderSide: const BorderSide(color: Colors.black),
-        borderRadius: BorderRadius.circular(_kBorderRadius),
-      ),
     );
   }
 }
