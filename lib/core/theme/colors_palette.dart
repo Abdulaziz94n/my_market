@@ -16,4 +16,5 @@ abstract class AppColorsPalette {
   static const Color onSecondary = Color(0xffffffff);
   static const Color active = Color(0xff5E3B37);
   static const Color inActive = Color(0xffD1D1D1);
+  static const Color imageBackground = Color(0xffEFEDED);
 }

@@ -1,12 +1,9 @@
-import 'package:flutter/material.dart';
-
 /// Constant sizes to be used in the app (paddings, gaps, rounded corners etc.)
 class Sizes {
   static const double appBarHeight = 50.0;
   static const double scaffoldBodyPadding = Sizes.p20;
   static const double defaultButtonHeight = Sizes.p48;
   static const double fabIconSize = 35;
-  static const Size authBtnSize = Size(Sizes.p24, Sizes.p24);
   static const double appBarBodyPadding = 10;
   static const double appCardHeight = 65;
   static const double bottomBarHeight = 75;
@@ -14,6 +11,8 @@ class Sizes {
   static const double girdCrossAxisSpacing = 15;
   static const double gridMainAxisSpacing = 15;
   static const double dialogDefaultHeight = 100;
+  static const double navigationRailWidth = 140;
+  static const double navigationRailMinHeight = 800;
 
   static const p2 = 2.0;
   static const p4 = 4.0;
