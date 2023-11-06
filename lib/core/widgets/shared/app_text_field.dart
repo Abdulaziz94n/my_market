@@ -86,6 +86,7 @@ class AppTextField extends StatelessWidget {
           validator: validator,
           decoration: _decoration(context),
           inputFormatters: inputFormatters,
+          textAlign: TextAlign.center,
         ),
       ),
     );

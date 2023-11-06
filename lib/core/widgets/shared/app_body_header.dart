@@ -4,6 +4,7 @@ import 'package:my_market/core/constants/sizes.dart';
 import 'package:my_market/core/extensions/build_context_extension.dart';
 import 'package:my_market/core/widgets/reusables/app_bordered_box.dart';
 import 'package:my_market/core/widgets/shared/app_text.dart';
+import 'package:my_market/core/widgets/shared/app_user_indicator.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 
 const Size _actionBtnSize = Size(36, 36);
@@ -40,12 +41,7 @@ class AppBodyHeader extends ConsumerWidget {
                 onTap: () {},
               ),
               const HorizontalSpacingWidget(Sizes.p8),
-              AppHeaderActionBtn(
-                icon: Icons.person,
-                onTap: () {},
-              ),
-              const HorizontalSpacingWidget(Sizes.p8),
-              const AppText(text: 'User Name'),
+              const AppUserIndicator(),
               const HorizontalSpacingWidget(Sizes.p8),
             ],
           )

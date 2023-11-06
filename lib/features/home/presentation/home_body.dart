@@ -18,6 +18,7 @@ class HomeBody extends ConsumerWidget {
       NavigationRailType.reports => Center(child: Text(' $selectedRail')),
       NavigationRailType.clients => Center(child: Text(' $selectedRail')),
       NavigationRailType.orders => Center(child: Text(' $selectedRail')),
+      NavigationRailType.settings => Center(child: Text(' $selectedRail')),
     };
   }
 }

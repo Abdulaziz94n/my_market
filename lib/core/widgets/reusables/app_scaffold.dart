@@ -8,10 +8,12 @@ class AppScaffold extends StatelessWidget {
     required this.body,
     this.appBar,
     this.floatingActionButton,
+    this.withBackgroundShape = true,
   });
   final Widget body;
   final PreferredSizeWidget? appBar;
   final Widget? floatingActionButton;
+  final bool withBackgroundShape;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class AppScaffold extends StatelessWidget {
       child: Stack(
         children: [
           Scaffold(backgroundColor: Colors.transparent, body: body),
-          const BackgroundShape()
+          if (withBackgroundShape) const BackgroundShape()
         ],
       ),
     );
