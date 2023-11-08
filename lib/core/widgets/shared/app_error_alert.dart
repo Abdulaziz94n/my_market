@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_market/core/constants/sizes.dart';
+import 'package:my_market/core/widgets/reusables/app_base_dialog.dart';
+import 'package:my_market/core/widgets/reusables/app_dialog_icon.dart';
+import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 
-import '/core/constants/sizes.dart';
 import '../../extensions/build_context_extension.dart';
 import 'app_text.dart';
 
@@ -10,59 +13,46 @@ class AppErrorAlert extends StatelessWidget {
   const AppErrorAlert({
     super.key,
     required this.contentText,
-    this.onAction,
     this.pop,
   });
   final String contentText;
-  final VoidCallback? onAction;
   final VoidCallback? pop;
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog.adaptive(
-      actionsAlignment: MainAxisAlignment.center,
-      contentPadding: const EdgeInsets.symmetric(
-        horizontal: 25,
-        vertical: 0,
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      buttonPadding: EdgeInsets.zero,
-      actionsPadding: EdgeInsets.zero,
-      actionsOverflowButtonSpacing: 0,
-      actionsOverflowAlignment: OverflowBarAlignment.end,
+    return AppBaseDialog(
       actions: [
         if (context.isIos) ...[
           CupertinoDialogAction(
-            onPressed: onAction,
-            child: const Text('Okay'),
-          ),
-          CupertinoDialogAction(
             onPressed: pop ?? context.pop,
-            child: const Text('Cancel'),
+            child: const Text('Okay'),
           ),
         ],
         if (!context.isIos) ...[
-          TextButton(
-            onPressed: onAction,
-            child: const Text('Okay'),
-          ),
-          TextButton(
+          FilledButton(
+            style: FilledButton.styleFrom(
+              backgroundColor: context.appColors.error,
+            ),
             onPressed: pop ?? context.pop,
-            child: const Text('Cancel'),
+            child: const Text('Okay'),
           ),
         ]
       ],
-      content: SizedBox(
-        height: Sizes.dialogDefaultHeight,
-        child: Center(
-          child: AppText(
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AppDialogIcon(
+            icon: Icons.close,
+            color: context.appColors.error,
+          ),
+          const VerticalSpacingWidget(Sizes.p16),
+          AppText(
             style: context.appTextTheme.bodyLarge!,
             text: contentText,
+            maxLines: 5,
             textAlign: TextAlign.center,
           ),
-        ),
+        ],
       ),
     );
   }

@@ -12,26 +12,25 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final selectedRail = ValueNotifier(NavigationRailType.dashboard);
     return AppScaffold(
-      body: Builder(builder: (context) {
-        final selectedRail = ValueNotifier(NavigationRailType.dashboard);
-        return ValueListenableBuilder(
-            valueListenable: selectedRail,
-            builder: (context, val, child) {
-              return Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppNavigationRail(
-                    selectedItem: selectedRail.value,
-                    onSelect: (value) => selectedRail.value = value,
-                  ),
-                  Expanded(
-                    child: HomeBody(selectedRail: selectedRail.value),
-                  )
-                ],
-              );
-            });
-      }),
+      body: ValueListenableBuilder(
+        valueListenable: selectedRail,
+        builder: (context, val, child) {
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppNavigationRail(
+                selectedItem: selectedRail.value,
+                onSelect: (value) => selectedRail.value = value,
+              ),
+              Expanded(
+                child: HomeBody(selectedRail: selectedRail.value),
+              )
+            ],
+          );
+        },
+      ),
     );
   }
 }

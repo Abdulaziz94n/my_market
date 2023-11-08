@@ -2,36 +2,83 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import '/core/widgets/shared/app_error_alert.dart';
+import 'package:my_market/core/widgets/shared/app_warning_alert.dart';
 
+import '/core/widgets/shared/app_error_alert.dart';
 import '../widgets/shared/app_loading_indicator.dart';
 import '../widgets/shared/app_success_alert.dart';
 
+const _kBarrierColor = Colors.black26;
+
 class AppDialogs {
-  static Future successDialog(
-      {required BuildContext context, required String contentText}) async {
+  static Future successDialog({
+    required BuildContext context,
+    required String contentText,
+    VoidCallback? pop,
+    bool isDismissable = true,
+  }) async {
     showAdaptiveDialog(
+      barrierColor: _kBarrierColor,
+      barrierDismissible: isDismissable,
       context: context,
-      builder: (context) => AppSuccessAlert(contentText: contentText),
+      builder: (context) => AppSuccessAlert(
+        contentText: contentText,
+        pop: pop,
+      ),
     );
   }
 
-  static Future warningDialog(
-      {required BuildContext context, required String contentText}) async {
+  static Future warningDialog({
+    required BuildContext context,
+    required String contentText,
+    VoidCallback? onAction,
+    VoidCallback? pop,
+    IconData? icon,
+    bool isDismissable = false,
+  }) async {
     showAdaptiveDialog(
+      barrierColor: _kBarrierColor,
+      barrierDismissible: isDismissable,
       context: context,
-      builder: (context) => AlertDialog.adaptive(content: Text(contentText)),
+      builder: (context) => AppWarningAlert(
+        contentText: contentText,
+        onAction: onAction,
+        pop: pop,
+        icon: icon,
+      ),
     );
   }
 
-  static Future failureDialog(
-      {required BuildContext context, required String contentText}) async {
+  static Future failureDialog({
+    required BuildContext context,
+    required String contentText,
+    VoidCallback? pop,
+    bool isDismissable = false,
+  }) async {
     showAdaptiveDialog(
+        barrierColor: _kBarrierColor,
+        barrierDismissible: isDismissable,
         context: context,
-        builder: (context) => AppErrorAlert(contentText: contentText));
+        builder: (context) => AppErrorAlert(
+              pop: pop,
+              contentText: contentText,
+            ));
   }
 
-  static Future<void> showAndDismissAsyncDialog({
+  static Future customDialog({
+    required BuildContext context,
+    required Widget dialog,
+    bool isDismissable = false,
+  }) {
+    return showAdaptiveDialog(
+      barrierColor: _kBarrierColor,
+      barrierDismissible: isDismissable,
+      context: context,
+      builder: (context) => dialog,
+    );
+  }
+
+  static Future<void> asyncDialog({
     required BuildContext context,
     required Future future,
     required VoidCallback? onSuccess,
@@ -72,13 +119,6 @@ class AppDialogs {
       pop();
       onError(errorMessage);
     }
-  }
-
-  static Future customDialog({
-    required BuildContext context,
-    required Widget dialog,
-  }) {
-    return showAdaptiveDialog(context: context, builder: (context) => dialog);
   }
 
   static Future<DateTime?> pickDateDialog(BuildContext context,

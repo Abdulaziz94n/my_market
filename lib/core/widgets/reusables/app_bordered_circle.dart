@@ -3,31 +3,33 @@ import 'package:flutter/material.dart';
 class AppBorderedCircle extends StatelessWidget {
   const AppBorderedCircle({
     super.key,
-    required this.outerRadius,
-    this.innerRadius,
-    this.innerColor,
-    this.outerColor,
+    required this.radius,
+    this.backgroundColor,
+    this.borderColor,
     this.onTap,
     this.child,
-  }) // : assert(innerRadius != null ? innerRadius <= outerRadius : true)
-  ;
+  });
 
-  final Color? outerColor;
-  final Color? innerColor;
-  final double? innerRadius;
-  final double outerRadius;
+  final Color? borderColor;
+  final Color? backgroundColor;
+  final double radius;
   final VoidCallback? onTap;
   final Widget? child;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: CircleAvatar(
-        radius: outerRadius,
-        backgroundColor: outerColor ?? Colors.black,
-        child: CircleAvatar(
-          radius: innerRadius ?? outerRadius - 1,
-          backgroundColor: innerColor ?? Colors.white,
+      child: SizedBox(
+        height: radius * 2,
+        width: radius * 2,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: backgroundColor,
+            border: Border.all(
+              color: borderColor ?? Colors.black,
+            ),
+          ),
           child: child,
         ),
       ),

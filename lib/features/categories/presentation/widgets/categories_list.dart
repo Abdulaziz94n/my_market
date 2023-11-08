@@ -59,11 +59,10 @@ class CategoryCard extends StatelessWidget {
             children: [
               Expanded(
                 child: AppBorderedCircle(
-                  outerRadius: 40,
-                  outerColor: borderColor,
-                  innerColor: color,
-                  child: FittedBox(
-                    fit: BoxFit.fill,
+                  radius: 40,
+                  borderColor: borderColor,
+                  backgroundColor: color,
+                  child: Center(
                     child: AppText(
                       text: category.name[0],
                       style: TextStyle(color: borderColor, fontSize: 50),
