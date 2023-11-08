@@ -9,8 +9,10 @@ class AppPrimaryButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.height,
+    this.textStyle,
   });
   final String text;
+  final TextStyle? textStyle;
   final double? height;
   final VoidCallback onPressed;
   @override
@@ -24,7 +26,7 @@ class AppPrimaryButton extends StatelessWidget {
         onPressed: onPressed,
         child: AppText(
           text: text,
-          style: TextStyle(color: context.appColors.onPrimary),
+          style: textStyle ?? TextStyle(color: context.appColors.onPrimary),
         ),
       ),
     );

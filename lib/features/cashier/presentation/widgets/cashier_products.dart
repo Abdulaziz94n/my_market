@@ -31,7 +31,7 @@ class _CashierProductsState extends ConsumerState<CashierProducts> {
     final show = useState(false);
     const traingleSide = 25.0;
     return Padding(
-      padding: const EdgeInsets.all(Sizes.p16),
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
       child: Column(
         children: [
           const AppText(text: '13 : 30 : 55 | 05 . Jan . 2023'),
@@ -39,27 +39,35 @@ class _CashierProductsState extends ConsumerState<CashierProducts> {
           const ProductsSearchRow(),
           const VerticalSpacingWidget(Sizes.p16),
           const Expanded(child: CashierProductsTable()),
-          TraingleWidget(
-            onTap: () {},
-            paintingStyle: PaintingStyle.fill,
-            height: traingleSide,
-            width: traingleSide * 2,
-          ),
-          SizedBox(
-            width: double.maxFinite,
-            child: CountSelector(
-              key: _counterSelectorKey,
-              onSelect: (value) {
-                print('selected val = $value');
-              },
+          AnimatedRotation(
+            duration: Duration.zero,
+            turns: !show.value ? 0 : 1 / 2,
+            child: TraingleWidget(
+              onTap: () => show.value = !show.value,
+              paintingStyle: PaintingStyle.fill,
+              height: traingleSide,
+              width: traingleSide * 2,
             ),
           ),
+          if (show.value) ...[
+            const VerticalSpacingWidget(Sizes.p8),
+            SizedBox(
+              width: double.maxFinite,
+              child: CountSelector(
+                key: _counterSelectorKey,
+                onSelect: (value) {
+                  print('selected val = $value');
+                },
+              ),
+            ),
+          ]
         ],
       ),
     );
   }
 }
 
+// TODO : check for refactor
 class ProductsSearchRow extends HookWidget {
   const ProductsSearchRow({
     super.key,

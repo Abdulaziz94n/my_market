@@ -62,9 +62,13 @@ class OrderContent extends ConsumerWidget {
               SizedBox(
                 child: IconButton(
                     style: IconButton.styleFrom(
-                        backgroundColor: context.appColors.error),
+                      backgroundColor: context.appColors.error,
+                    ),
                     onPressed: () {},
-                    icon: const Icon(Icons.delete)),
+                    icon: Icon(
+                      Icons.delete,
+                      color: context.appColors.onPrimary,
+                    )),
               ),
               const HorizontalSpacingWidget(Sizes.p8),
               Expanded(
