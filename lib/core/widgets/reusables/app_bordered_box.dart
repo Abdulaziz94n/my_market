@@ -50,6 +50,7 @@ class AppBorderedBox extends StatelessWidget {
   final double? iconSize;
   final Widget? child;
   final VoidCallback? onTap;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(

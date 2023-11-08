@@ -71,6 +71,8 @@ class OrderAction extends StatelessWidget {
               text: label,
               maxLines: 2,
               textAlign: TextAlign.center,
+              style: const TextStyle()
+                  .copyWith(color: context.appColors.onPrimary),
             )),
           ),
         ),
