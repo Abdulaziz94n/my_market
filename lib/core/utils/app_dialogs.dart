@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:my_market/core/widgets/shared/app_two_actions_dialog.dart';
 import 'package:my_market/core/widgets/shared/app_warning_alert.dart';
 
 import '/core/widgets/shared/app_error_alert.dart';
@@ -49,6 +50,29 @@ class AppDialogs {
     );
   }
 
+  static Future twoActionsDialog({
+    required BuildContext context,
+    required Widget content,
+    VoidCallback? onAction,
+    String? actionText,
+    String? cancelText,
+    VoidCallback? pop,
+    bool isDismissable = false,
+  }) async {
+    showAdaptiveDialog(
+      barrierColor: _kBarrierColor,
+      barrierDismissible: isDismissable,
+      context: context,
+      builder: (context) => AppTwoActionsAlert(
+        content: content,
+        onAction: onAction,
+        actionText: actionText,
+        cancelText: cancelText,
+        pop: pop,
+      ),
+    );
+  }
+
   static Future failureDialog({
     required BuildContext context,
     required String contentText,
@@ -74,7 +98,7 @@ class AppDialogs {
       barrierColor: _kBarrierColor,
       barrierDismissible: isDismissable,
       context: context,
-      builder: (context) => dialog,
+      builder: (context) => Dialog(child: dialog),
     );
   }
 
