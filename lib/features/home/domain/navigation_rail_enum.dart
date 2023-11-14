@@ -4,7 +4,7 @@ enum NavigationRailType {
   users('users', 2),
   reports('reports', 3),
   clients('clients', 4),
-  orders('orders', 5),
+  cashier('orders', 5),
   settings('settings', 6);
 
   const NavigationRailType(this.type, this.intVal);
@@ -18,7 +18,7 @@ enum NavigationRailType {
       'users' => NavigationRailType.users,
       'reports' => NavigationRailType.reports,
       'clients' => NavigationRailType.clients,
-      'orders' => NavigationRailType.orders,
+      'orders' => NavigationRailType.cashier,
       'settings' => NavigationRailType.settings,
       _ => throw UnimplementedError()
     };
@@ -31,7 +31,7 @@ enum NavigationRailType {
       2 => NavigationRailType.users,
       3 => NavigationRailType.reports,
       4 => NavigationRailType.clients,
-      5 => NavigationRailType.orders,
+      5 => NavigationRailType.cashier,
       6 => NavigationRailType.settings,
       _ => throw UnimplementedError()
     };

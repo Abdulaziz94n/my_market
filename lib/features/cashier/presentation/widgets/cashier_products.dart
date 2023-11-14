@@ -11,6 +11,8 @@ import 'package:my_market/core/widgets/shared/app_text_field_bordered.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/cashier/presentation/widgets/cashier_products_table.dart';
 import 'package:my_market/features/cashier/presentation/widgets/count_selector.dart';
+import 'package:my_market/features/home/domain/navigation_rail_enum.dart';
+import 'package:my_market/features/home/presentation/navigation_rail_controller.dart';
 
 class CashierProducts extends StatefulHookConsumerWidget {
   const CashierProducts({
@@ -30,40 +32,58 @@ class _CashierProductsState extends ConsumerState<CashierProducts> {
   Widget build(BuildContext context) {
     final show = useState(false);
     const traingleSide = 25.0;
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
-      child: Column(
-        children: [
-          const AppText(text: '13 : 30 : 55 | 05 . Jan . 2023'),
-          const VerticalSpacingWidget(Sizes.p16),
-          const ProductsSearchRow(),
-          const VerticalSpacingWidget(Sizes.p16),
-          const Expanded(child: CashierProductsTable()),
-          AnimatedRotation(
-            duration: Duration.zero,
-            turns: !show.value ? 0 : 1 / 2,
-            child: TraingleWidget(
-              onTap: () => show.value = !show.value,
-              paintingStyle: PaintingStyle.fill,
-              height: traingleSide,
-              width: traingleSide * 2,
-            ),
-          ),
-          if (show.value) ...[
-            const VerticalSpacingWidget(Sizes.p8),
+    return LayoutBuilder(builder: (context, c) {
+      return Padding(
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+        child: Column(
+          children: [
             SizedBox(
-              width: double.maxFinite,
-              child: CountSelector(
-                key: _counterSelectorKey,
-                onSelect: (value) {
-                  print('selected val = $value');
-                },
+              width: c.maxWidth,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  const AppText(text: '13 : 30 : 55 | 05 . Jan . 2023'),
+                  Positioned(
+                      right: 0,
+                      child: AppText.clickable(
+                        text: 'Retour au menu',
+                        onClick: () => ref
+                            .read(navigationRailProvider.notifier)
+                            .setTab(NavigationRailType.dashboard),
+                      ))
+                ],
               ),
             ),
-          ]
-        ],
-      ),
-    );
+            const VerticalSpacingWidget(Sizes.p16),
+            const ProductsSearchRow(),
+            const VerticalSpacingWidget(Sizes.p16),
+            const Expanded(child: CashierProductsTable()),
+            AnimatedRotation(
+              duration: Duration.zero,
+              turns: !show.value ? 0 : 1 / 2,
+              child: TraingleWidget(
+                onTap: () => show.value = !show.value,
+                paintingStyle: PaintingStyle.fill,
+                height: traingleSide,
+                width: traingleSide * 2,
+              ),
+            ),
+            if (show.value) ...[
+              const VerticalSpacingWidget(Sizes.p8),
+              SizedBox(
+                width: double.maxFinite,
+                child: CountSelector(
+                  key: _counterSelectorKey,
+                  onSelect: (value) {
+                    print('selected val = $value');
+                  },
+                ),
+              ),
+            ]
+          ],
+        ),
+      );
+    });
   }
 }
 
@@ -89,7 +109,7 @@ class ProductsSearchRow extends HookWidget {
       ),
       const HorizontalSpacingWidget(Sizes.p8),
       Expanded(
-        child: AppRoundedTextField(
+        child: AppBorderedTextField(
           contentPadding: const EdgeInsets.all(Sizes.p8),
           prefixIcon: const Icon(Icons.search),
           controller: searchCtrl,

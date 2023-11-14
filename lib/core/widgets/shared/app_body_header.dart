@@ -12,20 +12,29 @@ const Size _actionBtnSize = Size(36, 36);
 class AppBodyHeader extends ConsumerWidget {
   const AppBodyHeader({
     super.key,
+    required this.title,
   });
-
+  final String title;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      height: Sizes.p48,
+      height: Sizes.p64,
       decoration: BoxDecoration(
-        color: context.appColors.secondary,
-        borderRadius: Sizes.defaultBorderRadius,
-      ),
+          color: context.appColors.secondary.withOpacity(0.65),
+          borderRadius: Sizes.defaultBorderRadius,
+          boxShadow: [
+            BoxShadow(
+              offset: const Offset(0, 0),
+              color: context.appColors.black.withOpacity(0.2),
+              blurRadius: 10,
+              blurStyle: BlurStyle.outer,
+              spreadRadius: 0,
+            )
+          ]),
       child: Row(
         children: [
           const HorizontalSpacingWidget(Sizes.p8),
-          const AppText(text: 'Label Goes Here'),
+          AppText(text: title),
           const Spacer(),
           const AppText(text: 'DateTime Goes Here'),
           const Spacer(),

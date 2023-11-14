@@ -74,7 +74,7 @@ class AppNavigationRail extends StatelessWidget {
                       ),
                       AppNavigationRailItem(
                         icon: Icons.shopping_cart,
-                        type: NavigationRailType.orders,
+                        type: NavigationRailType.cashier,
                         selectedItem: selectedItem,
                         onSelect: onSelect,
                       ),

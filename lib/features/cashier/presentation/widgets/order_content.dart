@@ -37,8 +37,11 @@ class OrderContent extends ConsumerWidget {
           ),
           const VerticalSpacingWidget(Sizes.p20),
           const AppDivider(),
+          const VerticalSpacingWidget(Sizes.p20),
           const Expanded(child: OrderItemsList()),
+          const VerticalSpacingWidget(Sizes.p20),
           const AppDivider(),
+          const VerticalSpacingWidget(Sizes.p8),
           const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -54,9 +57,9 @@ class OrderContent extends ConsumerWidget {
               AppText(text: '144.50 DH'),
             ],
           ),
-          const VerticalSpacingWidget(Sizes.p8),
+          const VerticalSpacingWidget(Sizes.p12),
           const AppDivider(),
-          const VerticalSpacingWidget(Sizes.p8),
+          const VerticalSpacingWidget(Sizes.p32),
           Row(
             children: [
               SizedBox(

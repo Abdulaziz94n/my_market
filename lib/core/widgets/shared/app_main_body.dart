@@ -7,8 +7,10 @@ class AppMainBody extends StatelessWidget {
   const AppMainBody({
     super.key,
     required this.children,
+    required this.title,
   });
   final List<Widget> children;
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,7 +18,7 @@ class AppMainBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const AppBodyHeader(),
+          AppBodyHeader(title: title),
           const VerticalSpacingWidget(Sizes.p24),
           ...children,
         ],

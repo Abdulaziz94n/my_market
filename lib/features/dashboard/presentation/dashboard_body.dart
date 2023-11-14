@@ -11,6 +11,7 @@ class DashboardBody extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AppMainBody(
+      title: 'Tableau de bord',
       children: [
         Row(
           children: [

@@ -32,7 +32,7 @@ class AppText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onClick,
       child: Padding(
         padding: padding ?? const EdgeInsets.all(0),

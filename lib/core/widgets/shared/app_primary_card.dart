@@ -26,6 +26,8 @@ class AppPrimaryCard extends ConsumerWidget {
       width: width,
       height: height ?? Sizes.appCardHeight,
       child: Card(
+        elevation: 0,
+        color: context.appColors.background.withOpacity(0.7),
         child: InkWell(
           borderRadius: Sizes.defaultBorderRadius,
           onTap: onTap,

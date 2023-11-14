@@ -46,7 +46,8 @@ class OrderItem extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final quantity = useState(1);
     return ListTile(
-      contentPadding: EdgeInsets.zero,
+      onTap: () {},
+      contentPadding: const EdgeInsets.only(left: Sizes.p12),
       title: AppText(text: productName.capEach),
       subtitle: AppText(text: '$price MAD'),
       trailing: Row(

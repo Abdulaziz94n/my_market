@@ -9,7 +9,7 @@ abstract class AppColorsPalette {
   static const Color grey = Color(0xffECECEC);
   static const Color blue = Color(0xff558AE2);
   static const Color primary = Color(0xff3E110B);
-  static const Color secondary = Color(0xffF2E5E3);
+  static const Color secondary = Color(0xffF2DEDB);
   static const Color background = Color(0xffFCFCFC);
   static const Color onBackground = Color(0xff5E3B37);
   static const Color onPrimary = Color(0xffffffff);

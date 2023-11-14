@@ -25,14 +25,14 @@ class BackgroundShapePainter extends CustomPainter {
 
     final path = Path();
     final paint = Paint()
-      ..color = AppColorsPalette.background.withOpacity(0.2)
+      ..color = AppColorsPalette.background.withOpacity(0.05)
       ..style = PaintingStyle.fill
       ..strokeWidth = 5;
 
-    path.lineTo(width * 0.30, height * 0.70);
+    path.lineTo(width * 0.20, height * 0.70);
     path.lineTo(width * 0.50, height * 0.80);
     path.lineTo(width * 0.50, height * 0.80);
-    path.lineTo(width * 0.70, height * 0.70);
+    path.lineTo(width * 0.80, height * 0.70);
     path.lineTo(width, 0);
 
     canvas.drawPath(path, paint);

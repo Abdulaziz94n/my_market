@@ -25,7 +25,7 @@ class AppScaffold extends StatelessWidget {
           image: AssetImage(AppAssets.bgImage),
           fit: BoxFit.contain,
           repeat: ImageRepeat.repeat,
-          opacity: 0.07,
+          opacity: 0.15,
         ),
       ),
       width: double.infinity,

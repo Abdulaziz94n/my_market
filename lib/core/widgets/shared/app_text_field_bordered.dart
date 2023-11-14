@@ -4,11 +4,11 @@ import 'package:my_market/core/extensions/build_context_extension.dart';
 
 final _borderRadius = BorderRadius.circular(50);
 
-class AppRoundedTextField extends StatelessWidget {
-  const AppRoundedTextField({
+class AppBorderedTextField extends StatelessWidget {
+  const AppBorderedTextField({
     super.key,
-    required this.controller,
     required this.hintText,
+    this.controller,
     this.obscure,
     this.readOnly = false,
     this.enabled = true,
@@ -21,9 +21,13 @@ class AppRoundedTextField extends StatelessWidget {
     this.initialValue,
     this.inputType,
     this.inputFormatters,
+    this.validator,
+    this.onChanged,
+    this.onFieldSubmitted,
+    this.textAlign,
   });
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final bool readOnly;
   final bool enabled;
   final bool? obscure;
@@ -36,17 +40,24 @@ class AppRoundedTextField extends StatelessWidget {
   final bool? isDense;
   final String? initialValue;
   final TextInputType? inputType;
+  final String? Function(String?)? validator;
   final List<TextInputFormatter>? inputFormatters;
+  final ValueChanged<String>? onChanged;
+  final TextAlign? textAlign;
+  final ValueChanged<String>? onFieldSubmitted;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      onChanged: onChanged,
+      onFieldSubmitted: onFieldSubmitted,
+      validator: validator,
       style: context.appTextTheme.bodySmall,
       enabled: enabled,
       readOnly: readOnly,
       inputFormatters: inputFormatters,
-      textAlign: TextAlign.center,
+      textAlign: textAlign ?? TextAlign.center,
       decoration: InputDecoration(
         isDense: isDense,
         contentPadding: contentPadding,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_market/core/constants/sizes.dart';
 import 'package:my_market/core/extensions/build_context_extension.dart';
 
 class AppBaseDialog extends StatelessWidget {
@@ -28,7 +29,7 @@ class AppBaseDialog extends StatelessWidget {
       actionsOverflowAlignment: OverflowBarAlignment.end,
       actions: actions,
       content: Padding(
-        padding: const EdgeInsets.all(36),
+        padding: Sizes.defaultDialogPadding,
         child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 500), child: content),
       ),

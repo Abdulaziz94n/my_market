@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_market/features/cashier/presentation/cashier_screen.dart';
+import 'package:my_market/features/dashboard/presentation/dashboard_body.dart';
 import 'package:my_market/features/home/domain/navigation_rail_enum.dart';
-import 'package:my_market/features/home/presentation/dashboard_body.dart';
+import 'package:my_market/features/product/presentation/stock_products_body.dart';
 
 class HomeBody extends ConsumerWidget {
   const HomeBody({
@@ -13,11 +15,11 @@ class HomeBody extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return switch (selectedRail) {
       NavigationRailType.dashboard => const DashboardBody(),
-      NavigationRailType.store => Center(child: Text(' $selectedRail')),
-      NavigationRailType.users => Center(child: Text(' $selectedRail')),
-      NavigationRailType.reports => Center(child: Text(' $selectedRail')),
+      NavigationRailType.store => const ProductsTabBody(),
       NavigationRailType.clients => Center(child: Text(' $selectedRail')),
-      NavigationRailType.orders => Center(child: Text(' $selectedRail')),
+      NavigationRailType.reports => Center(child: Text(' $selectedRail')),
+      NavigationRailType.users => Center(child: Text(' $selectedRail')),
+      NavigationRailType.cashier => const CashierScreen(),
       NavigationRailType.settings => Center(child: Text(' $selectedRail')),
     };
   }

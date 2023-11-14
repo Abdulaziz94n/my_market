@@ -10,6 +10,9 @@ import '/core/theme/text_theme_extension.dart';
 class AppThemes {
   ThemeData lightTheme = ThemeData(
     useMaterial3: true,
+    iconButtonTheme: IconButtonThemeData(
+      style: IconButton.styleFrom(backgroundColor: AppColorsPalette.primary),
+    ),
     buttonTheme: const ButtonThemeData(),
     cardTheme: CardTheme(
         shape: RoundedRectangleBorder(borderRadius: Sizes.defaultBorderRadius)),
