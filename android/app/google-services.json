@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1083041642321",
+    "project_id": "my-market-4b747",
+    "storage_bucket": "my-market-4b747.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1083041642321:android:a1f3aa1da4cb6340844570",
+        "android_client_info": {
+          "package_name": "com.devnejim.my_market"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDP0Gsg088fXj1DRb7vZug2U2Oaxp_F_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

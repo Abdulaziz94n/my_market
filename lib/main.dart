@@ -1,14 +1,17 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_market/core/router/app_router.dart';
 import 'package:my_market/core/theme/themes.dart';
+import 'package:my_market/firebase_options.dart';
 import 'package:window_size/window_size.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     setWindowMaxSize(const Size(1920, 1200));
     setWindowMinSize(const Size(1000, 800));
