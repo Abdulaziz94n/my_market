@@ -1,19 +1,19 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class ProviderDetails {
+class ProvidersDetails {
   final double buyPrice;
   final String providerName;
-  ProviderDetails({
+  ProvidersDetails({
     required this.buyPrice,
     required this.providerName,
   });
 
-  ProviderDetails copyWith({
+  ProvidersDetails copyWith({
     double? buyPrice,
     String? providerName,
   }) {
-    return ProviderDetails(
+    return ProvidersDetails(
       buyPrice: buyPrice ?? this.buyPrice,
       providerName: providerName ?? this.providerName,
     );
@@ -26,8 +26,8 @@ class ProviderDetails {
     };
   }
 
-  factory ProviderDetails.fromMap(Map<String, dynamic> map) {
-    return ProviderDetails(
+  factory ProvidersDetails.fromMap(Map<String, dynamic> map) {
+    return ProvidersDetails(
       buyPrice: map['buyPrice'] as double,
       providerName: map['providerName'] as String,
     );
@@ -35,15 +35,15 @@ class ProviderDetails {
 
   String toJson() => json.encode(toMap());
 
-  factory ProviderDetails.fromJson(String source) =>
-      ProviderDetails.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory ProvidersDetails.fromJson(String source) =>
+      ProvidersDetails.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() =>
       'ProviderDetails(buyPrice: $buyPrice, providerName: $providerName)';
 
   @override
-  bool operator ==(covariant ProviderDetails other) {
+  bool operator ==(covariant ProvidersDetails other) {
     if (identical(this, other)) return true;
 
     return other.buyPrice == buyPrice && other.providerName == providerName;
