@@ -1,49 +1,54 @@
-class CategoryModel {
-  CategoryModel({
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
+class Category {
+  Category({
+    required this.id,
     required this.name,
-    required this.productsCount,
   });
 
+  final String id;
   final String name;
-  final int productsCount;
 
-  CategoryModel copyWith({
+  Category copyWith({
+    String? id,
     String? name,
-    int? productsCount,
   }) {
-    return CategoryModel(
+    return Category(
+      id: id ?? this.id,
       name: name ?? this.name,
-      productsCount: productsCount ?? this.productsCount,
     );
   }
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
+      'id': id,
       'name': name,
-      'productsCount': productsCount,
     };
   }
 
-  factory CategoryModel.fromMap(Map<String, dynamic> map) {
-    return CategoryModel(
-      name: map['name'] ?? '',
-      productsCount: map['productsCount']?.toInt() ?? 0,
+  factory Category.fromMap(Map<String, dynamic> map) {
+    return Category(
+      id: map['id'] as String,
+      name: map['name'] as String,
     );
   }
 
   @override
-  String toString() =>
-      'CategoryModel(name: $name, productsCount: $productsCount)';
+  String toString() => 'CategoryModel(id: $id, name: $name)';
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(covariant Category other) {
     if (identical(this, other)) return true;
 
-    return other is CategoryModel &&
-        other.name == name &&
-        other.productsCount == productsCount;
+    return other.id == id && other.name == name;
   }
 
   @override
-  int get hashCode => name.hashCode ^ productsCount.hashCode;
+  int get hashCode => id.hashCode ^ name.hashCode;
+
+  String toJson() => json.encode(toMap());
+
+  factory Category.fromJson(String source) =>
+      Category.fromMap(json.decode(source) as Map<String, dynamic>);
 }

@@ -16,7 +16,7 @@ class EditProductDialog extends ConsumerWidget {
     required this.product,
   });
 
-  final ProductModel product;
+  final Product product;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

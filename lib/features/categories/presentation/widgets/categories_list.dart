@@ -42,7 +42,7 @@ class CategoryCard extends StatelessWidget {
     required this.category,
     required this.isSelected,
   });
-  final CategoryModel category;
+  final Category category;
   final bool isSelected;
   @override
   Widget build(BuildContext context) {
@@ -75,7 +75,7 @@ class CategoryCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AppText(text: category.name.capEach),
-                  AppText(text: '${category.productsCount} Produits'),
+                  const AppText(text: '255 Produits'),
                 ],
               ),
             ],
