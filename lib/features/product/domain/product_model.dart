@@ -13,8 +13,9 @@ class Product {
   final String categoryId;
   final double buyPrice;
   final double sellPrice;
+  final int? stockCount;
   final int alertCount;
-  final ProviderDetails providerDetails;
+  final ProvidersDetails providersDetails;
   final String createdBy;
   final DateTime? createdAt;
   Product({
@@ -27,9 +28,10 @@ class Product {
     required this.buyPrice,
     required this.sellPrice,
     required this.alertCount,
-    required this.providerDetails,
+    required this.providersDetails,
     required this.createdBy,
     required this.createdAt,
+    this.stockCount,
   });
 
   Product copyWith({
@@ -42,7 +44,8 @@ class Product {
     double? buyPrice,
     double? sellPrice,
     int? alertCount,
-    ProviderDetails? providerDetails,
+    int? stockCount,
+    ProvidersDetails? providersDetails,
     String? createdBy,
     DateTime? createdAt,
   }) {
@@ -56,7 +59,8 @@ class Product {
       buyPrice: buyPrice ?? this.buyPrice,
       sellPrice: sellPrice ?? this.sellPrice,
       alertCount: alertCount ?? this.alertCount,
-      providerDetails: providerDetails ?? this.providerDetails,
+      stockCount: stockCount ?? this.stockCount,
+      providersDetails: providersDetails ?? this.providersDetails,
       createdBy: createdBy ?? this.createdBy,
       createdAt: createdAt ?? this.createdAt,
     );
@@ -73,7 +77,8 @@ class Product {
       'buyPrice': buyPrice,
       'sellPrice': sellPrice,
       'alertCount': alertCount,
-      'providerDetails': providerDetails.toMap(),
+      'stockCount': stockCount ?? 0,
+      'providerDetails': providersDetails.toMap(),
       'createdBy': createdBy,
       if (createdAt != null) 'createdAt': Timestamp.fromDate(createdAt!),
     };
@@ -90,7 +95,8 @@ class Product {
       buyPrice: map['buyPrice'] as double,
       sellPrice: map['sellPrice'] as double,
       alertCount: map['alertCount'] as int,
-      providerDetails: ProviderDetails.fromMap(
+      stockCount: map['stockCount'] as int,
+      providersDetails: ProvidersDetails.fromMap(
         map['providerDetails'] as Map<String, dynamic>,
       ),
       createdBy: map['createdBy'] as String,
@@ -107,7 +113,7 @@ class Product {
 
   @override
   String toString() {
-    return 'ProductModel(id: $id, name: $name, desc: $desc, barcode: $barcode, shortCode: $shortCode, categoryId: $categoryId, buyPrice: $buyPrice, sellPrice: $sellPrice, alertCount: $alertCount, providerDetails: $providerDetails, createdBy: $createdBy, createdAt: $createdAt)';
+    return 'ProductModel(id: $id, name: $name, desc: $desc, barcode: $barcode, shortCode: $shortCode, categoryId: $categoryId, buyPrice: $buyPrice, sellPrice: $sellPrice, alertCount: $alertCount, providerDetails: $providersDetails, createdBy: $createdBy, createdAt: $createdAt)';
   }
 
   @override
@@ -123,7 +129,7 @@ class Product {
         other.buyPrice == buyPrice &&
         other.sellPrice == sellPrice &&
         other.alertCount == alertCount &&
-        other.providerDetails == providerDetails &&
+        other.providersDetails == providersDetails &&
         other.createdBy == createdBy &&
         other.createdAt == createdAt;
   }
@@ -139,7 +145,7 @@ class Product {
         buyPrice.hashCode ^
         sellPrice.hashCode ^
         alertCount.hashCode ^
-        providerDetails.hashCode ^
+        providersDetails.hashCode ^
         createdBy.hashCode ^
         createdAt.hashCode;
   }
