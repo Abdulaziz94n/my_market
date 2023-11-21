@@ -3,44 +3,51 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_market/core/exceptions/app_exceptions.dart';
 import 'package:my_market/core/extensions/firestore_extension.dart';
 import 'package:my_market/features/categories/domain/categories_model.dart';
-import 'package:my_market/features/product/domain/product_model.dart';
 
 class CategoriesRepository {
   CategoriesRepository(this.firestore);
   final FirebaseFirestore firestore;
 
-  CollectionReference<Category> get _categoriesCollection =>
-      firestore.collection('categories').withConverter<Category>(
-            fromFirestore: (data, options) {
-              return Category.fromMap(data.data()!);
-            },
-            toFirestore: (data, options) => data.toMap(),
-          );
-
-  Stream<List<Category>> watchCategories() {
-    return _categoriesCollection.snapshots().toDataModel();
+  CollectionReference<Category> get _collectionRef {
+    return firestore.collection('categories').withConverter<Category>(
+          fromFirestore: (data, options) {
+            return Category.fromMap(data.data()!);
+          },
+          toFirestore: (data, options) => data.toMap(),
+        );
   }
 
-  Stream<Product> watchCategory(String id) {
-    return _docRef(id).snapshots().map((event) => event.data()!);
+  Stream<List<Category>> watchCategoryList() {
+    return _collectionRef.snapshots().toDataModel();
   }
 
-  Future<List<Category>> fetchCategories() async {
+  Stream<Category> watchCategory(String id) {
+    return _collectionRef.doc(id).snapshots().toDataModel();
+  }
+
+  Future<void> addCategory(Category data) async {
     try {
-      final data = await _categoriesCollection.get();
-      return data.toDataModel();
+      await _collectionRef.add(data);
     } catch (e) {
-      throw CustomException(message: 'Something went wrong');
+      throw CustomException(message: 'Error Adding Category');
     }
   }
 
-  DocumentReference<Product> _docRef(String id) =>
-      firestore.collection('products').doc(id).withConverter<Product>(
-            fromFirestore: (data, options) {
-              return Product.fromMap(data.data()!);
-            },
-            toFirestore: (data, options) => data.toMap(),
-          );
+  Future<void> editCategory(String id, Category newData) async {
+    try {
+      await _collectionRef.doc(id).update(newData.toMap());
+    } catch (e) {
+      throw CustomException(message: 'Error Editing Category');
+    }
+  }
+
+  Future<void> deleteCategory(String id) async {
+    try {
+      await _collectionRef.doc(id).delete();
+    } catch (e) {
+      throw CustomException(message: 'Error Deleting Category');
+    }
+  }
 }
 
 final categoriesRepo = Provider<CategoriesRepository>((ref) {

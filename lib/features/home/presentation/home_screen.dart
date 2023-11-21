@@ -17,7 +17,7 @@ class HomeScreen extends ConsumerWidget {
     final selectedRail = ref.watch(navigationRailProvider);
     return AppScaffold(
       floatingActionButton: FloatingActionButton(onPressed: () async {
-        final res = ref.read(categoriesRepo).watchCategories();
+        final res = ref.read(categoriesRepo).watchCategoryList();
         print(res.first);
       }),
       body: Row(
