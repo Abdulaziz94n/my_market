@@ -14,13 +14,15 @@ class AppErrorAlert extends StatelessWidget {
     super.key,
     required this.contentText,
     this.pop,
+    this.backgroundColor,
   });
   final String contentText;
   final VoidCallback? pop;
-
+  final Color? backgroundColor;
   @override
   Widget build(BuildContext context) {
     return AppBaseDialog(
+      backgroundColor: backgroundColor,
       actions: [
         if (context.isIos) ...[
           CupertinoDialogAction(

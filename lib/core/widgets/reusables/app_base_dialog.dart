@@ -7,17 +7,20 @@ class AppBaseDialog extends StatelessWidget {
     super.key,
     required this.content,
     this.actions,
+    this.backgroundColor,
     this.pop,
   });
   final Widget content;
   final VoidCallback? pop;
   final List<Widget>? actions;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog.adaptive(
       elevation: 0,
-      backgroundColor: context.appColors.background.withOpacity(0.5),
+      backgroundColor:
+          backgroundColor ?? context.appColors.background.withOpacity(0.5),
       actionsAlignment: MainAxisAlignment.center,
       contentPadding: EdgeInsets.zero,
       shape: RoundedRectangleBorder(

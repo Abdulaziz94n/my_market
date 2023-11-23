@@ -1,10 +1,12 @@
 import 'package:flutter/services.dart';
+import 'package:my_market/core/utils/patterns_utils.dart';
 
 mixin AppTextFormatter {
   TextInputFormatter numOnlyZeroFormatter() =>
-      FilteringTextInputFormatter.allow(
-        RegExp(r'^\d*\.?\d{0,2}'),
-      );
+      FilteringTextInputFormatter.allow(Patterns.double);
+
+  TextInputFormatter amountInputFormatter() =>
+      FilteringTextInputFormatter.allow(Patterns.amountTextFieldInputter);
 
   CommaTextInputFormatter intWithCommasFormatter() {
     CommaTextInputFormatter commaFormatter = CommaTextInputFormatter();

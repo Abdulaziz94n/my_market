@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_market/features/product/domain/product_price_info_model.dart';
+import 'package:uuid/uuid.dart';
 
 class Product {
   final String id;
@@ -11,28 +12,46 @@ class Product {
   final String barcode;
   final String shortCode;
   final String categoryId;
-  final double buyPrice;
   final double sellPrice;
-  final int? stockCount;
+  final int stockCount;
   final int alertCount;
   final ProvidersDetails providersDetails;
   final String createdBy;
   final DateTime? createdAt;
-  Product({
+  const Product({
     required this.id,
     required this.name,
     required this.desc,
     required this.barcode,
     required this.shortCode,
     required this.categoryId,
-    required this.buyPrice,
     required this.sellPrice,
     required this.alertCount,
     required this.providersDetails,
     required this.createdBy,
     required this.createdAt,
-    this.stockCount,
+    required this.stockCount,
   });
+
+  double get buyPrice => providersDetails.buyPrice;
+
+  static Product initial() {
+    final uuid = const Uuid().v4();
+    return Product(
+      id: uuid,
+      name: '',
+      desc: 'desc',
+      barcode: '',
+      shortCode: uuid.substring(0, 5),
+      categoryId: '',
+      sellPrice: 0,
+      alertCount: 0,
+      providersDetails: const ProvidersDetails(buyPrice: 0, providerName: ''),
+      createdBy: 'created by',
+      createdAt: null,
+      stockCount: 0,
+    );
+  }
 
   Product copyWith({
     String? id,
@@ -41,7 +60,6 @@ class Product {
     String? barcode,
     String? shortCode,
     String? categoryId,
-    double? buyPrice,
     double? sellPrice,
     int? alertCount,
     int? stockCount,
@@ -56,7 +74,6 @@ class Product {
       barcode: barcode ?? this.barcode,
       shortCode: shortCode ?? this.shortCode,
       categoryId: categoryId ?? this.categoryId,
-      buyPrice: buyPrice ?? this.buyPrice,
       sellPrice: sellPrice ?? this.sellPrice,
       alertCount: alertCount ?? this.alertCount,
       stockCount: stockCount ?? this.stockCount,
@@ -74,10 +91,9 @@ class Product {
       'barcode': barcode,
       'shortCode': shortCode,
       'categoryId': categoryId,
-      'buyPrice': buyPrice,
       'sellPrice': sellPrice,
       'alertCount': alertCount,
-      'stockCount': stockCount ?? 0,
+      'stockCount': stockCount,
       'providerDetails': providersDetails.toMap(),
       'createdBy': createdBy,
       if (createdAt != null) 'createdAt': Timestamp.fromDate(createdAt!),
@@ -92,7 +108,6 @@ class Product {
       barcode: map['barcode'] as String,
       shortCode: map['shortCode'] as String,
       categoryId: map['categoryId'] as String,
-      buyPrice: map['buyPrice'] as double,
       sellPrice: map['sellPrice'] as double,
       alertCount: map['alertCount'] as int,
       stockCount: map['stockCount'] as int,
@@ -113,7 +128,7 @@ class Product {
 
   @override
   String toString() {
-    return 'ProductModel(id: $id, name: $name, desc: $desc, barcode: $barcode, shortCode: $shortCode, categoryId: $categoryId, buyPrice: $buyPrice, sellPrice: $sellPrice, alertCount: $alertCount, providerDetails: $providersDetails, createdBy: $createdBy, createdAt: $createdAt)';
+    return 'Product(id: $id, name: $name, desc: $desc, barcode: $barcode, shortCode: $shortCode, categoryId: $categoryId, sellPrice: $sellPrice, stockCount: $stockCount, alertCount: $alertCount, providersDetails: $providersDetails, createdBy: $createdBy, createdAt: $createdAt)';
   }
 
   @override
@@ -126,12 +141,10 @@ class Product {
         other.barcode == barcode &&
         other.shortCode == shortCode &&
         other.categoryId == categoryId &&
-        other.buyPrice == buyPrice &&
         other.sellPrice == sellPrice &&
+        other.stockCount == stockCount &&
         other.alertCount == alertCount &&
-        other.providersDetails == providersDetails &&
-        other.createdBy == createdBy &&
-        other.createdAt == createdAt;
+        other.providersDetails == providersDetails;
   }
 
   @override
@@ -142,11 +155,9 @@ class Product {
         barcode.hashCode ^
         shortCode.hashCode ^
         categoryId.hashCode ^
-        buyPrice.hashCode ^
         sellPrice.hashCode ^
+        stockCount.hashCode ^
         alertCount.hashCode ^
-        providersDetails.hashCode ^
-        createdBy.hashCode ^
-        createdAt.hashCode;
+        providersDetails.hashCode;
   }
 }

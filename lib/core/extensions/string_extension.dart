@@ -68,6 +68,8 @@ extension NumberParsing on String {
   double get parseDouble => double.parse(this);
 
   double? get tryParseDouble => double.tryParse(this);
+
+  double? get tryParseMaskedNum => replaceAll(RegExp(r','), '').tryParseDouble;
 }
 
 extension FileTypesChecker on String {

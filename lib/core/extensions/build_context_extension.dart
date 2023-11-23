@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '/core/constants/breakpoints.dart';
 import '/core/theme/colors_palette_extension.dart';
@@ -57,6 +58,16 @@ extension BuildContextExtension on BuildContext {
   bool get isSmall => screenWidth < 850.0 && screenWidth >= 560.0;
 
   bool get isDarkMode => theme.brightness == Brightness.dark;
+
+  void actionAndPop(VoidCallback action) {
+    action();
+    pop();
+  }
+
+  void doublePop() {
+    pop();
+    pop();
+  }
 
   // getter for orientations can be added
 

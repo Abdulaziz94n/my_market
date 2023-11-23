@@ -15,16 +15,18 @@ class AppDropDown<T> extends StatelessWidget {
     this.onChanged,
     this.height,
     this.textAlign,
+    this.validator,
   });
   final List<DropdownMenuItem<T>> items;
   final bool isDense;
   final bool isExpanded;
   final T? value;
-  final Function(T?)? onChanged;
+  final void Function(T?)? onChanged;
   final EdgeInsets? contentPadding;
   final double? height;
   final String hint;
   final TextAlign? textAlign;
+  final String? Function(T?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +54,7 @@ class AppDropDown<T> extends StatelessWidget {
           disabledBorder: OutlineInputBorder(borderRadius: _borderRadius),
           errorBorder: OutlineInputBorder(borderRadius: _borderRadius),
         ),
+        validator: validator,
       ),
     );
   }

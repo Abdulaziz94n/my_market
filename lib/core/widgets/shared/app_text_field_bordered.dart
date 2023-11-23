@@ -23,9 +23,10 @@ class AppBorderedTextField extends StatelessWidget {
     this.inputFormatters,
     this.validator,
     this.onChanged,
-    this.onFieldSubmitted,
     this.textAlign,
-  });
+    this.onFieldSubmitted,
+    this.onSave,
+  }) : assert(initialValue == null || controller == null);
 
   final TextEditingController? controller;
   final bool readOnly;
@@ -45,13 +46,16 @@ class AppBorderedTextField extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final TextAlign? textAlign;
   final ValueChanged<String>? onFieldSubmitted;
+  final ValueChanged<String?>? onSave;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      initialValue: initialValue,
       onChanged: onChanged,
       onFieldSubmitted: onFieldSubmitted,
+      onSaved: onSave,
       validator: validator,
       style: context.appTextTheme.bodySmall,
       enabled: enabled,

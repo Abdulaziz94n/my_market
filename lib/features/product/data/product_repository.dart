@@ -53,3 +53,14 @@ class ProductsRepository {
 final productsRepo = Provider<ProductsRepository>((ref) {
   return ProductsRepository(FirebaseFirestore.instance);
 });
+
+final watchProductListProvider = StreamProvider<List<Product>>((ref) {
+  final productsList = ref.read(productsRepo).watchProductList();
+  return productsList;
+});
+
+final watchProductProvider =
+    StreamProvider.autoDispose.family<Product, String>((ref, id) {
+  final product = ref.read(productsRepo).watchProduct(id);
+  return product;
+});

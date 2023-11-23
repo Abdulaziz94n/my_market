@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_market/core/constants/dummy_data.dart';
 import 'package:my_market/core/constants/sizes.dart';
 import 'package:my_market/core/extensions/build_context_extension.dart';
+import 'package:my_market/core/utils/app_dialogs.dart';
 import 'package:my_market/core/widgets/shared/app_filter_button.dart';
 import 'package:my_market/core/widgets/shared/app_main_body.dart';
 import 'package:my_market/core/widgets/shared/app_primary_card.dart';
 import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:my_market/core/widgets/shared/app_text_field_bordered.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
+import 'package:my_market/features/product/presentation/widgets/add_product_dialog.dart';
+import 'package:my_market/features/product/presentation/widgets/edit_product_dialog.dart';
+import 'package:my_market/features/product/presentation/widgets/product_details_dialog.dart';
 import 'package:scrollable_table_view/scrollable_table_view.dart';
 
 class ProductsTabBody extends HookConsumerWidget {
@@ -109,7 +115,7 @@ class ProductsTabBody extends HookConsumerWidget {
   }
 }
 
-class _ActionsRow extends HookWidget {
+class _ActionsRow extends HookConsumerWidget {
   const _ActionsRow({
     required this.showActions,
     required this.onChanged,
@@ -117,7 +123,7 @@ class _ActionsRow extends HookWidget {
   final bool showActions;
   final ValueChanged<bool> onChanged;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.appColors;
     final searchCtrl = useTextEditingController();
     return Row(
@@ -169,7 +175,10 @@ class _ActionsRow extends HookWidget {
                           ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: colors.success),
-                            onPressed: () {},
+                            onPressed: () => AppDialogs.customDialog(
+                              context: context,
+                              dialog: const AddProductDialog(),
+                            ),
                             icon: const Icon(Icons.add),
                             label: const AppText(text: 'Ajouter'),
                           ),
@@ -180,8 +189,11 @@ class _ActionsRow extends HookWidget {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 6),
                             ),
-                            onPressed: () {},
-                            icon: const Icon(Icons.add),
+                            onPressed: () => AppDialogs.customDialog(
+                              context: context,
+                              dialog: const ProductDetailsDialog(),
+                            ),
+                            icon: const Icon(Icons.remove_red_eye_sharp),
                             label: const AppText(text: 'Vair la produit'),
                           ),
                           const HorizontalSpacingWidget(Sizes.p4),
@@ -191,8 +203,13 @@ class _ActionsRow extends HookWidget {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 6),
                             ),
-                            onPressed: () {},
-                            icon: const Icon(Icons.add),
+                            onPressed: () => AppDialogs.customDialog(
+                              context: context,
+                              dialog: EditProductDialog(
+                                product: DummyData.product,
+                              ),
+                            ),
+                            icon: const Icon(Icons.edit),
                             label: const AppText(text: 'Modifier'),
                           ),
                           const HorizontalSpacingWidget(Sizes.p4),
@@ -202,8 +219,16 @@ class _ActionsRow extends HookWidget {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 6),
                             ),
-                            onPressed: () {},
-                            icon: const Icon(Icons.add),
+                            onPressed: () => AppDialogs.warningDialog(
+                                context: context,
+                                icon: Icons.delete,
+                                contentText:
+                                    'Are you sure you want to delete this product ?',
+                                onAction: () {
+                                  print('product deleted');
+                                  context.pop();
+                                }),
+                            icon: const Icon(Icons.close),
                             label: const AppText(text: 'Supprimer'),
                           ),
                           const HorizontalSpacingWidget(Sizes.p4),
@@ -214,7 +239,7 @@ class _ActionsRow extends HookWidget {
                                   const EdgeInsets.symmetric(horizontal: 6),
                             ),
                             onPressed: () {},
-                            icon: const Icon(Icons.add),
+                            icon: const Icon(Icons.arrow_drop_up),
                             label: const AppText(text: 'Importer'),
                           ),
                           const HorizontalSpacingWidget(Sizes.p4),
@@ -225,7 +250,7 @@ class _ActionsRow extends HookWidget {
                                   const EdgeInsets.symmetric(horizontal: 6),
                             ),
                             onPressed: () {},
-                            icon: const Icon(Icons.add),
+                            icon: const Icon(Icons.arrow_drop_down),
                             label: const AppText(text: 'Exporter'),
                           ),
                         ],

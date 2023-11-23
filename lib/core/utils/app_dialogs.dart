@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:my_market/core/widgets/shared/app_two_actions_dialog.dart';
 import 'package:my_market/core/widgets/shared/app_warning_alert.dart';
 
-import '/core/widgets/shared/app_error_alert.dart';
 import '../widgets/shared/app_loading_indicator.dart';
 import '../widgets/shared/app_success_alert.dart';
+import '/core/widgets/shared/app_error_alert.dart';
 
 const _kBarrierColor = Colors.black26;
 
@@ -15,6 +15,7 @@ class AppDialogs {
   static Future successDialog({
     required BuildContext context,
     required String contentText,
+    Color? backgroundColor,
     VoidCallback? pop,
     bool isDismissable = true,
   }) async {
@@ -23,6 +24,7 @@ class AppDialogs {
       barrierDismissible: isDismissable,
       context: context,
       builder: (context) => AppSuccessAlert(
+        backgroundColor: backgroundColor,
         contentText: contentText,
         pop: pop,
       ),
@@ -35,6 +37,8 @@ class AppDialogs {
     VoidCallback? onAction,
     VoidCallback? pop,
     IconData? icon,
+    Color? iconColor,
+    Color? backgroundColor,
     bool isDismissable = false,
   }) async {
     showAdaptiveDialog(
@@ -42,10 +46,12 @@ class AppDialogs {
       barrierDismissible: isDismissable,
       context: context,
       builder: (context) => AppWarningAlert(
+        backgroundColor: backgroundColor,
         contentText: contentText,
         onAction: onAction,
         pop: pop,
         icon: icon,
+        iconColor: iconColor,
       ),
     );
   }
@@ -57,6 +63,7 @@ class AppDialogs {
     String? actionText,
     String? cancelText,
     VoidCallback? pop,
+    Color? backgroundColor,
     bool isDismissable = false,
   }) async {
     showAdaptiveDialog(
@@ -64,6 +71,7 @@ class AppDialogs {
       barrierDismissible: isDismissable,
       context: context,
       builder: (context) => AppTwoActionsAlert(
+        backgroundColor: backgroundColor,
         content: content,
         onAction: onAction,
         actionText: actionText,
@@ -77,6 +85,7 @@ class AppDialogs {
     required BuildContext context,
     required String contentText,
     VoidCallback? pop,
+    Color? backgroundColor,
     bool isDismissable = false,
   }) async {
     showAdaptiveDialog(
@@ -84,6 +93,7 @@ class AppDialogs {
         barrierDismissible: isDismissable,
         context: context,
         builder: (context) => AppErrorAlert(
+              backgroundColor: backgroundColor,
               pop: pop,
               contentText: contentText,
             ));
@@ -92,7 +102,7 @@ class AppDialogs {
   static Future customDialog({
     required BuildContext context,
     required Widget dialog,
-    bool isDismissable = false,
+    bool isDismissable = true,
   }) {
     return showAdaptiveDialog(
       barrierColor: _kBarrierColor,

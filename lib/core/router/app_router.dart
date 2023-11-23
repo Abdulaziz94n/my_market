@@ -19,7 +19,7 @@ enum AppRoutes {
 final goRouterProvider = Provider(
   (ref) => GoRouter(
     debugLogDiagnostics: kDebugMode ? true : false,
-    initialLocation: '/cashier',
+    initialLocation: '/home',
     redirect: (context, state) {
       return null;
     },

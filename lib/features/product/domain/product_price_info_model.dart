@@ -4,7 +4,7 @@ import 'dart:convert';
 class ProvidersDetails {
   final double buyPrice;
   final String providerName;
-  ProvidersDetails({
+  const ProvidersDetails({
     required this.buyPrice,
     required this.providerName,
   });

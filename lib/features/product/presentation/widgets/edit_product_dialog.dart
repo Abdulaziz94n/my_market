@@ -1,212 +1,218 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_market/core/constants/dummy_data.dart';
 import 'package:my_market/core/constants/sizes.dart';
 import 'package:my_market/core/extensions/build_context_extension.dart';
-import 'package:my_market/core/extensions/list_extenstion.dart';
-import 'package:my_market/core/widgets/shared/app_dropdown.dart';
-import 'package:my_market/core/widgets/shared/app_primary_button.dart';
+import 'package:my_market/core/extensions/string_extension.dart';
+import 'package:my_market/core/mixins/text_formatters_mixin.dart';
+import 'package:my_market/core/mixins/validators_mixin.dart';
+import 'package:my_market/core/utils/async_value_utils.dart';
+import 'package:my_market/core/widgets/shared/app_dialog_form_field.dart';
 import 'package:my_market/core/widgets/shared/app_text.dart';
-import 'package:my_market/core/widgets/shared/app_text_field_bordered.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
+import 'package:my_market/features/categories/domain/categories_model.dart';
 import 'package:my_market/features/product/domain/product_model.dart';
+import 'package:my_market/features/product/presentation/products_controller.dart';
+import 'package:my_market/features/product/presentation/widgets/edit_product_dialog_actions.dart';
 
-class EditProductDialog extends ConsumerWidget {
+class EditProductDialog extends StatefulHookConsumerWidget {
   const EditProductDialog({
     super.key,
     required this.product,
   });
-
   final Product product;
-
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final colors = context.appColors;
-    const horizontalSpace = HorizontalSpacingWidget(Sizes.p16);
-    return SizedBox(
-      width: 900,
-      child: Padding(
-        padding: Sizes.defaultDialogPadding,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-                child: AppText(
-              text: 'Modifier le Produit',
-              style: context.appTextTheme.titleMedium,
-            )),
-            const VerticalSpacingWidget(Sizes.p32),
-            Row(
-              children: [
-                Expanded(
-                  child: _ProductField(
-                    title: 'Code Bare',
-                    hint: '1558475654',
-                    onSumbitted: (value) {},
-                  ),
-                ),
-                horizontalSpace,
-                Expanded(
-                  child: _ProductField(
-                    title: 'Nom de Produit',
-                    hint: 'Danetter Chocolat 55ml',
-                    onSumbitted: (value) {},
-                  ),
-                ),
-              ],
-            ),
-            const VerticalSpacingWidget(Sizes.p16),
-            Row(
-              children: [
-                Expanded(
-                  child: _ProductField(
-                    title: 'Code Bare',
-                    hint: '1558475654',
-                    onSumbitted: (value) {},
-                  ),
-                ),
-                horizontalSpace,
-                Expanded(
-                  child: _ProductField(
-                    title: 'Nom de Produit',
-                    hint: 'Danetter Chocolat 55ml',
-                    onSumbitted: (value) {},
-                  ),
-                ),
-                horizontalSpace,
-                Expanded(
-                  child: _ProductField(
-                    title: 'Nom de Produit',
-                    hint: 'Danetter Chocolat 55ml',
-                    onSumbitted: (value) {},
-                  ),
-                ),
-                horizontalSpace,
-                Expanded(
-                  child: _ProductField(
-                    title: 'Nom de Produit',
-                    hint: 'Danetter Chocolat 55ml',
-                    onSumbitted: (value) {},
-                  ),
-                ),
-              ],
-            ),
-            const VerticalSpacingWidget(Sizes.p16),
-            Row(
-              children: [
-                Expanded(
-                  child: _ProductField(
-                    title: 'Code Bare',
-                    hint: '1558475654',
-                    onSumbitted: (value) {},
-                  ),
-                ),
-                horizontalSpace,
-                Expanded(
-                  child: _ProductField(
-                    title: 'Nom de Produit',
-                    hint: 'Danetter Chocolat 55ml',
-                    onSumbitted: (value) {},
-                  ),
-                ),
-              ],
-            ),
-            const VerticalSpacingWidget(Sizes.p32),
-            Row(
-              children: [
-                horizontalSpace,
-                Expanded(
-                  child: AppPrimaryButton.icon(
-                    icon: Icons.edit,
-                    color: colors.warning,
-                    onPressed: () {},
-                    text: 'Modifier',
-                  ),
-                ),
-                horizontalSpace,
-                Expanded(
-                  child: AppPrimaryButton.icon(
-                    icon: Icons.close,
-                    color: colors.error,
-                    onPressed: () {},
-                    text: 'Annuler',
-                  ),
-                ),
-                horizontalSpace,
-                Expanded(
-                  child: AppPrimaryButton.icon(
-                    icon: Icons.close,
-                    onPressed: () {},
-                    text: 'Imprimer le prix',
-                  ),
-                ),
-                horizontalSpace,
-                Expanded(
-                  child: AppPrimaryButton.icon(
-                    icon: Icons.close,
-                    text: 'Imprimer le QR',
-                    onPressed: () {},
-                  ),
-                ),
-                horizontalSpace,
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  ConsumerState<EditProductDialog> createState() => _EditProductDialogState();
 }
 
-class _ProductField<T> extends StatelessWidget {
-  const _ProductField({
-    super.key,
-    required this.title,
-    required this.hint,
-    required this.onSumbitted,
-    this.asDropDown,
-    this.icon,
-    this.textAlign = TextAlign.start,
-  });
-
-  final String title;
-  final String hint;
-  final TextAlign? textAlign;
-  final ({
-    bool isDropDown,
-    List<T> items,
-    T value,
-    T Function(T?)? onChanged,
-    Widget Function(T) childBuilder,
-  })? asDropDown;
-  final ValueChanged<String>? onSumbitted;
-  final IconData? icon;
+class _EditProductDialogState extends ConsumerState<EditProductDialog>
+    with Validators, AppTextFormatter {
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        AppText(
-          text: '$title:',
-        ),
-        const VerticalSpacingWidget(Sizes.p4),
-        if (asDropDown == null)
-          AppBorderedTextField(
-            hintText: hint,
-            textAlign: textAlign,
-            onFieldSubmitted: onSumbitted,
-            prefixIcon: Icon(icon ?? Icons.abc),
+    final colors = context.appColors;
+    final newProduct = useState<Product>(widget.product);
+    final selectedCategory = useState<Category?>(null);
+    final selectedProductProvider = useState<String?>(null);
+    const horizontalSpace = HorizontalSpacingWidget(Sizes.p16);
+
+    ref.listen(productsController, (previous, next) {
+      AsyncValueUtils.handleAsyncVal(
+        context: context,
+        previous: previous,
+        next: next,
+        successMessage: 'Product Added Successfully',
+        onSuccessAction: () => context.pop(),
+      );
+    });
+    print('////////////////////');
+    print(widget.product.categoryId == newProduct.value.categoryId);
+    print('products equal ${widget.product == newProduct.value}');
+    print('////////////////////');
+    return Form(
+      key: formKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      child: SizedBox(
+        width: 900,
+        child: Padding(
+          padding: Sizes.defaultDialogPadding,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                  child: AppText(
+                text: 'Modifier le Produit',
+                style: context.appTextTheme.titleMedium,
+              )),
+              const VerticalSpacingWidget(Sizes.p32),
+              Row(
+                children: [
+                  Expanded(
+                    child: AppDialogFromField(
+                      initialValue: widget.product.barcode,
+                      title: 'Code Bare',
+                      hint: '1558475654',
+                      textFieldValidator: validateIsEmpty,
+                      onSave: (value) => newProduct.value =
+                          newProduct.value.copyWith(barcode: value),
+                    ),
+                  ),
+                  horizontalSpace,
+                  Expanded(
+                    child: AppDialogFromField(
+                      initialValue: widget.product.name,
+                      title: 'Nom de Produit',
+                      hint: 'Danetter Chocolat 55ml',
+                      textFieldValidator: validateIsEmpty,
+                      onSave: (value) => newProduct.value =
+                          newProduct.value.copyWith(name: value),
+                    ),
+                  ),
+                ],
+              ),
+              const VerticalSpacingWidget(Sizes.p16),
+              Row(
+                children: [
+                  Expanded(
+                    child: AppDialogFromField(
+                      initialValue: widget.product.buyPrice.toString(),
+                      title: 'Prix d\'achat',
+                      textFieldValidator: validateIsEmpty,
+                      inputFormatter: [amountInputFormatter()],
+                      hint: 'Le Prix est',
+                      onSave: (value) =>
+                          newProduct.value = newProduct.value.copyWith(
+                        providersDetails: newProduct.value.providersDetails
+                            .copyWith(buyPrice: value!.tryParseDouble),
+                      ),
+                    ),
+                  ),
+                  horizontalSpace,
+                  Expanded(
+                    child: AppDialogFromField(
+                      initialValue: widget.product.sellPrice.toString(),
+                      title: 'Prix de vente',
+                      hint: 'Le Prix est',
+                      textFieldValidator: validateIsEmpty,
+                      inputFormatter: [amountInputFormatter()],
+                      onSave: (value) => newProduct.value = newProduct.value
+                          .copyWith(sellPrice: value!.tryParseDouble),
+                    ),
+                  ),
+                  horizontalSpace,
+                  Expanded(
+                    child: AppDialogFromField(
+                      initialValue: widget.product.stockCount.toString(),
+                      title: 'Stock',
+                      hint: 'Stock est',
+                      textFieldValidator: validateIsEmpty,
+                      inputFormatter: [FilteringTextInputFormatter.digitsOnly],
+                      onSave: (value) {
+                        newProduct.value = newProduct.value
+                            .copyWith(stockCount: value!.tryParseInt);
+                      },
+                    ),
+                  ),
+                  horizontalSpace,
+                  Expanded(
+                    child: AppDialogFromField(
+                      initialValue: widget.product.alertCount.toString(),
+                      title: 'Stock d\'alert',
+                      hint: 'Stock est',
+                      textFieldValidator: validateIsEmpty,
+                      inputFormatter: [FilteringTextInputFormatter.digitsOnly],
+                      onSave: (value) => newProduct.value = newProduct.value
+                          .copyWith(alertCount: value!.tryParseInt),
+                    ),
+                  ),
+                ],
+              ),
+              const VerticalSpacingWidget(Sizes.p16),
+              Row(
+                children: [
+                  Expanded(
+                    child: AppDialogFromField<Category>(
+                      title: 'Famille',
+                      hint: 'Ajouter n Code a barre',
+                      asDropDown: (
+                        items: DummyData.categoriesList,
+                        childBuilder: (value) => AppText(text: value.name),
+                        dropDownvalidator: validateGenericIsEmpty,
+                        isDropDown: true,
+                        onChanged: (val) {
+                          selectedCategory.value = val;
+                          newProduct.value =
+                              newProduct.value.copyWith(categoryId: val!.id);
+                        },
+                        value: DummyData.categoriesList.firstWhere((element) =>
+                            element.id == widget.product.categoryId),
+                      ),
+                    ),
+                  ),
+                  horizontalSpace,
+                  Expanded(
+                    child: AppDialogFromField<String>(
+                      title: 'Fournisseur',
+                      hint: 'Ajouter n Code a barre',
+                      asDropDown: (
+                        items: DummyData.productProviders,
+                        childBuilder: (value) => AppText(text: value),
+                        dropDownvalidator: validateIsEmpty,
+                        isDropDown: true,
+                        onChanged: (val) {
+                          selectedProductProvider.value = val!;
+                          newProduct.value = newProduct.value.copyWith(
+                            providersDetails:
+                                newProduct.value.providersDetails.copyWith(
+                              providerName: selectedProductProvider.value,
+                            ),
+                          );
+                        },
+                        value: DummyData.productProviders.firstWhere(
+                            (element) =>
+                                element ==
+                                widget.product.providersDetails.providerName),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const VerticalSpacingWidget(Sizes.p32),
+              EditProductDialogActions(
+                horizontalSpace: horizontalSpace,
+                colors: colors,
+                formKey: formKey,
+                product: newProduct.value,
+                isValidUpdate: widget.product != newProduct.value,
+              ),
+            ],
           ),
-        if (asDropDown != null)
-          AppDropDown(
-            value: asDropDown!.value,
-            items: asDropDown!.items.toDropdownItems(
-              childBuilder: asDropDown!.childBuilder,
-            ),
-            onChanged: asDropDown!.onChanged,
-            hint: hint,
-          )
-      ],
+        ),
+      ),
     );
   }
 }

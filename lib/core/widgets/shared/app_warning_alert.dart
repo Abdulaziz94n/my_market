@@ -5,8 +5,8 @@ import 'package:my_market/core/widgets/reusables/app_base_dialog.dart';
 import 'package:my_market/core/widgets/reusables/app_dialog_icon.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 
-import '/core/constants/sizes.dart';
 import '../../extensions/build_context_extension.dart';
+import '/core/constants/sizes.dart';
 import 'app_text.dart';
 
 class AppWarningAlert extends StatelessWidget {
@@ -16,15 +16,20 @@ class AppWarningAlert extends StatelessWidget {
     this.icon,
     this.onAction,
     this.pop,
+    this.iconColor,
+    this.backgroundColor,
   });
   final String contentText;
   final VoidCallback? onAction;
   final VoidCallback? pop;
   final IconData? icon;
+  final Color? iconColor;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return AppBaseDialog(
+      backgroundColor: backgroundColor,
       actions: [
         if (context.isIos) ...[
           CupertinoDialogAction(
@@ -59,7 +64,7 @@ class AppWarningAlert extends StatelessWidget {
         children: [
           AppDialogIcon(
             icon: icon ?? Icons.priority_high_rounded,
-            color: context.appColors.warning,
+            color: iconColor ?? context.appColors.warning,
           ),
           const VerticalSpacingWidget(Sizes.p16),
           AppText(

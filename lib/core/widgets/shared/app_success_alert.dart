@@ -5,8 +5,8 @@ import 'package:my_market/core/widgets/reusables/app_base_dialog.dart';
 import 'package:my_market/core/widgets/reusables/app_dialog_icon.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 
-import '/core/constants/sizes.dart';
 import '../../extensions/build_context_extension.dart';
+import '/core/constants/sizes.dart';
 import 'app_text.dart';
 
 class AppSuccessAlert extends StatelessWidget {
@@ -14,13 +14,15 @@ class AppSuccessAlert extends StatelessWidget {
     super.key,
     required this.contentText,
     this.pop,
+    this.backgroundColor,
   });
   final String contentText;
   final VoidCallback? pop;
-
+  final Color? backgroundColor;
   @override
   Widget build(BuildContext context) {
     return AppBaseDialog(
+      backgroundColor: backgroundColor,
       actions: [
         if (context.isIos) ...[
           CupertinoDialogAction(
