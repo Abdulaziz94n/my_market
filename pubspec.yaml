@@ -50,6 +50,7 @@ dependencies:
   firebase_auth: ^4.14.0
   cloud_firestore: ^4.13.1
   uuid: ^4.2.1
+  two_dimensional_scrollables: ^0.0.4
 
 
 

@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_market/core/widgets/reusables/app_base_dialog.dart';
-import 'package:my_market/core/widgets/reusables/app_dialog_icon.dart';
-import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 
 import '../../extensions/build_context_extension.dart';
 import '/core/constants/sizes.dart';
+import '/core/widgets/reusables/app_base_dialog.dart';
+import '/core/widgets/reusables/app_dialog_icon.dart';
+import '/core/widgets/shared/spacing_widgets.dart';
 import 'app_text.dart';
 
 class AppWarningAlert extends StatelessWidget {

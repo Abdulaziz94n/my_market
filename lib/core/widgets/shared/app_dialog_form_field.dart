@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:my_market/core/constants/sizes.dart';
-import 'package:my_market/core/extensions/list_extenstion.dart';
-import 'package:my_market/core/widgets/shared/app_dropdown.dart';
-import 'package:my_market/core/widgets/shared/app_text.dart';
-import 'package:my_market/core/widgets/shared/app_text_field_bordered.dart';
-import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
+import 'package:my_market/core/widgets/shared/app_bordered_text_field.dart';
+
+import '/core/constants/sizes.dart';
+import '/core/extensions/list_extenstion.dart';
+import '/core/widgets/shared/app_dropdown.dart';
+import '/core/widgets/shared/app_text.dart';
+import '/core/widgets/shared/spacing_widgets.dart';
 
 class AppDialogFromField<T> extends StatelessWidget {
   AppDialogFromField({

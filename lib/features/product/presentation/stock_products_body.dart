@@ -6,16 +6,16 @@ import 'package:my_market/core/constants/dummy_data.dart';
 import 'package:my_market/core/constants/sizes.dart';
 import 'package:my_market/core/extensions/build_context_extension.dart';
 import 'package:my_market/core/utils/app_dialogs.dart';
+import 'package:my_market/core/widgets/shared/app_2d_scrollable_table.dart';
+import 'package:my_market/core/widgets/shared/app_bordered_text_field.dart';
 import 'package:my_market/core/widgets/shared/app_filter_button.dart';
 import 'package:my_market/core/widgets/shared/app_main_body.dart';
 import 'package:my_market/core/widgets/shared/app_primary_card.dart';
 import 'package:my_market/core/widgets/shared/app_text.dart';
-import 'package:my_market/core/widgets/shared/app_text_field_bordered.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/product/presentation/widgets/add_product_dialog.dart';
 import 'package:my_market/features/product/presentation/widgets/edit_product_dialog.dart';
 import 'package:my_market/features/product/presentation/widgets/product_details_dialog.dart';
-import 'package:scrollable_table_view/scrollable_table_view.dart';
 
 class ProductsTabBody extends HookConsumerWidget {
   const ProductsTabBody({
@@ -25,9 +25,10 @@ class ProductsTabBody extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.appColors;
+    final productList = DummyData.productsList;
     final showActions = useState(false);
+    final selectedItems = useState<List<String>>([]);
     const horizontalSpacing = HorizontalSpacingWidget(Sizes.p12);
-
     return AppMainBody(
       title: 'Stocke & Produits',
       children: [
@@ -82,27 +83,43 @@ class ProductsTabBody extends HookConsumerWidget {
                       onChanged: (value) => showActions.value = value,
                     ),
                     Expanded(
-                      child: ScrollableTableView(
-                        headerBackgroundColor: colors.grey,
-                        headers: const [
-                          TableViewHeader(
-                            label: 'label',
-                          )
-                        ],
-                        rows: [
-                          TableViewRow(
-                            cells: [
-                              TableViewCell(
-                                child: Radio(
-                                  value: 'groupValue',
-                                  groupValue: 'groupValue',
-                                  onChanged: (value) {},
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
+                      child: AppTwoDimensionScrollableTable(
+                          items: DummyData.productsList,
+                          headers: const [
+                            '',
+                            'ID',
+                            'Nome de Produit',
+                            'Prix',
+                            'Prix d\'achat',
+                            'Stock',
+                            'Stock d\'alert'
+                          ],
+                          cellValues: (index) => [
+                                productList[index].id,
+                                productList[index].name,
+                                productList[index].sellPrice.toString(),
+                                productList[index].buyPrice.toString(),
+                                productList[index].stockCount.toString(),
+                                productList[index].alertCount.toString(),
+                              ],
+                          rowSelectionId: (index) {
+                            return productList[index].id;
+                          },
+                          selectedRows: selectedItems.value,
+                          onSelect: (val) {
+                            selectedItems.value.isNotEmpty
+                                ? selectedItems.value.clear()
+                                : null;
+                            selectedItems.value = [...selectedItems.value, val];
+                          },
+                          onSelectAll: () {
+                            if (selectedItems.value.contains('all')) {
+                              selectedItems.value = [];
+                              return;
+                            }
+                            final ids = productList.map((e) => e.id).toList();
+                            selectedItems.value = [...ids, 'all'];
+                          }),
                     )
                   ],
                 ),

@@ -2,12 +2,12 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:my_market/core/widgets/shared/app_two_actions_dialog.dart';
-import 'package:my_market/core/widgets/shared/app_warning_alert.dart';
 
 import '../widgets/shared/app_loading_indicator.dart';
 import '../widgets/shared/app_success_alert.dart';
 import '/core/widgets/shared/app_error_alert.dart';
+import '/core/widgets/shared/app_two_actions_dialog.dart';
+import '/core/widgets/shared/app_warning_alert.dart';
 
 const _kBarrierColor = Colors.black26;
 
