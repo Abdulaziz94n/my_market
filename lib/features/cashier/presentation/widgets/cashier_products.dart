@@ -11,6 +11,7 @@ import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/cashier/presentation/widgets/cashier_products_table.dart';
 import 'package:my_market/features/cashier/presentation/widgets/count_selector.dart';
+import 'package:my_market/features/categories/domain/categories_model.dart';
 import 'package:my_market/features/home/domain/navigation_rail_enum.dart';
 import 'package:my_market/features/home/presentation/navigation_rail_controller.dart';
 
@@ -27,7 +28,8 @@ class _CashierProductsState extends ConsumerState<CashierProducts> {
   final _counterSelectorKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    final show = useState(false);
+    final showCountSelector = useState(false);
+    final selectedCategory = useState<Category?>(null);
     const traingleSide = 25.0;
     return LayoutBuilder(builder: (context, c) {
       return Padding(
@@ -54,18 +56,20 @@ class _CashierProductsState extends ConsumerState<CashierProducts> {
             const VerticalSpacingWidget(Sizes.p16),
             const ProductsSearchRow(),
             const VerticalSpacingWidget(Sizes.p16),
-            const Expanded(child: CashierProductsTable()),
+            Expanded(
+              child: CashierProductsTable(selectedCategory: selectedCategory),
+            ),
             AnimatedRotation(
               duration: Duration.zero,
-              turns: !show.value ? 0 : 1 / 2,
+              turns: !showCountSelector.value ? 0 : 1 / 2,
               child: TraingleWidget(
-                onTap: () => show.value = !show.value,
+                onTap: () => showCountSelector.value = !showCountSelector.value,
                 paintingStyle: PaintingStyle.fill,
                 height: traingleSide,
                 width: traingleSide * 2,
               ),
             ),
-            if (show.value) ...[
+            if (showCountSelector.value) ...[
               const VerticalSpacingWidget(Sizes.p8),
               SizedBox(
                 width: double.maxFinite,
@@ -102,15 +106,16 @@ class _ProductsSearchRowState extends State<ProductsSearchRow> {
       Expanded(
         child: LayoutBuilder(builder: (context, c) {
           return PopupMenuButton(
+            clipBehavior: Clip.hardEdge,
             constraints: BoxConstraints(maxWidth: c.maxWidth),
             child: AppBorderedTextField(
               controller: null,
               suffixIcon: Icon(
                 Icons.arrow_drop_down,
-                size: 20,
+                size: 30,
                 color: context.appColors.primary,
               ),
-              hintText: 'asd',
+              hintText: 'Recherche par categorie',
               enabled: false,
             ),
             itemBuilder: (context) => DummyData.categoriesList.toPopupItems(
@@ -120,16 +125,6 @@ class _ProductsSearchRowState extends State<ProductsSearchRow> {
                     )),
           );
         }),
-        // child: AppDropDown(
-        //   iconDisabledColor: context.appColors.primary,
-        //   enabled: false,
-        //   height: 40,
-        //   hint: 'Recherche par categorie...',
-        //   items: DummyData.categoriesList
-        //       .toDropdownItems(childBuilder: (item) => Text(item.name)),
-        //   contentPadding: const EdgeInsets.all(Sizes.p8),
-        //   onChanged: (val) {},
-        // ),
       ),
       const HorizontalSpacingWidget(Sizes.p8),
       Expanded(

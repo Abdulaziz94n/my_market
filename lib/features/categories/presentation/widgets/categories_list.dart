@@ -4,16 +4,20 @@ import 'package:my_market/core/constants/dummy_data.dart';
 import 'package:my_market/core/constants/sizes.dart';
 import 'package:my_market/core/extensions/build_context_extension.dart';
 import 'package:my_market/core/extensions/string_extension.dart';
+import 'package:my_market/core/extensions/textstyle_extension.dart';
 import 'package:my_market/core/widgets/reusables/app_bordered_circle.dart';
 import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/categories/domain/categories_model.dart';
 
-class CategoriesList extends ConsumerWidget {
-  const CategoriesList({
+class CategorySelectionList extends ConsumerWidget {
+  const CategorySelectionList({
     super.key,
+    required this.onSelect,
+    required this.selectedCategory,
   });
-
+  final ValueChanged<Category> onSelect;
+  final Category? selectedCategory;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final categoriesList = DummyData.categoriesList;
@@ -27,8 +31,14 @@ class CategoriesList extends ConsumerWidget {
           child: ListView.builder(
             itemCount: categoriesList.length,
             scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) => CategoryCard(
-                category: categoriesList[index], isSelected: false),
+            itemBuilder: (context, index) {
+              final isSelected = selectedCategory == categoriesList[index];
+              return CategoryCard(
+                category: categoriesList[index],
+                isSelected: isSelected,
+                onSelect: onSelect,
+              );
+            },
           ),
         ),
       ],
@@ -41,9 +51,11 @@ class CategoryCard extends StatelessWidget {
     super.key,
     required this.category,
     required this.isSelected,
+    required this.onSelect,
   });
   final Category category;
   final bool isSelected;
+  final ValueChanged<Category> onSelect;
   @override
   Widget build(BuildContext context) {
     final colors = context.appColors;
@@ -51,34 +63,40 @@ class CategoryCard extends StatelessWidget {
     final color = isSelected ? colors.primary : colors.background;
     return SizedBox(
       width: 125,
-      child: Card(
-        color: color,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Expanded(
-                child: AppBorderedCircle(
-                  radius: 40,
-                  borderColor: borderColor,
-                  backgroundColor: color,
-                  child: Center(
-                    child: AppText(
-                      text: category.name[0],
-                      style: TextStyle(color: borderColor, fontSize: 50),
+      child: InkWell(
+        onTap: () => onSelect(category),
+        child: Card(
+          color: color,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Expanded(
+                  child: AppBorderedCircle(
+                    radius: 40,
+                    borderColor: borderColor,
+                    backgroundColor: color,
+                    child: Center(
+                      child: AppText(
+                        text: category.name[0],
+                        style: TextStyle(color: borderColor, fontSize: 50),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const VerticalSpacingWidget(Sizes.p4),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText(text: category.name.capEach),
-                  const AppText(text: '255 Produits'),
-                ],
-              ),
-            ],
+                const VerticalSpacingWidget(Sizes.p4),
+                DefaultTextStyle(
+                  style: context.appTextTheme.bodyMedium!.colorize(borderColor),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppText(text: category.name.capEach),
+                      const AppText(text: '255 Produits'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

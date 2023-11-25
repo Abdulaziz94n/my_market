@@ -1,35 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:my_market/core/constants/dummy_data.dart';
 import 'package:my_market/core/constants/sizes.dart';
 import 'package:my_market/core/widgets/shared/app_text_field.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/cashier/presentation/widgets/cashier_products_table_headers.dart';
 import 'package:my_market/features/cashier/presentation/widgets/cashier_products_table_items.dart';
+import 'package:my_market/features/categories/domain/categories_model.dart';
 import 'package:my_market/features/categories/presentation/widgets/categories_list.dart';
 
 class CashierProductsTable extends HookWidget {
-  const CashierProductsTable({super.key});
-
+  const CashierProductsTable({
+    super.key,
+    required this.selectedCategory,
+  });
+  final ValueNotifier<Category?> selectedCategory;
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        CategoriesList(),
-        VerticalSpacingWidget(Sizes.p8),
-        CashierProductsTableHeaders(),
-        VerticalSpacingWidget(Sizes.p16),
-        Flexible(child: CashierProductsTableItems(items: ['1', '2', '3', '4'])),
-        VerticalSpacingWidget(Sizes.p32),
-        BarcodeSearchFields()
+        CategorySelectionList(
+          onSelect: (val) => selectedCategory.value = val,
+          selectedCategory: selectedCategory.value,
+        ),
+        const VerticalSpacingWidget(Sizes.p8),
+        const CashierProductsTableHeaders(),
+        const VerticalSpacingWidget(Sizes.p16),
+        Flexible(
+          child: CashierProductsTableItems(products: DummyData.productsList),
+        ),
+        const VerticalSpacingWidget(Sizes.p32),
+        const _BarcodeSearchFields()
       ],
     );
   }
 }
 
-class BarcodeSearchFields extends HookWidget {
-  const BarcodeSearchFields({
-    super.key,
-  });
+class _BarcodeSearchFields extends HookWidget {
+  const _BarcodeSearchFields();
 
   @override
   Widget build(BuildContext context) {

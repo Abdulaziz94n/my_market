@@ -13,6 +13,13 @@ class AppThemes {
     iconButtonTheme: IconButtonThemeData(
       style: IconButton.styleFrom(backgroundColor: AppColorsPalette.primary),
     ),
+    popupMenuTheme: PopupMenuThemeData(
+      elevation: 0,
+      color: Colors.white,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+          side: const BorderSide(color: AppColorsPalette.primary)),
+    ),
     buttonTheme: const ButtonThemeData(),
     cardTheme: CardTheme(
         shape: RoundedRectangleBorder(borderRadius: Sizes.defaultBorderRadius)),

@@ -15,10 +15,7 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedRail = ref.watch(navigationRailProvider);
     return AppScaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () async {
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => const MyHomePage()));
-      }),
+      floatingActionButton: FloatingActionButton(onPressed: () async {}),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
