@@ -12,10 +12,12 @@ class AppDropDown<T> extends StatelessWidget {
     this.value,
     this.isDense = true,
     this.isExpanded = true,
+    this.enabled = true,
     this.onChanged,
     this.height,
     this.textAlign,
     this.validator,
+    this.iconDisabledColor,
   });
   final List<DropdownMenuItem<T>> items;
   final bool isDense;
@@ -26,6 +28,8 @@ class AppDropDown<T> extends StatelessWidget {
   final double? height;
   final String hint;
   final TextAlign? textAlign;
+  final bool enabled;
+  final Color? iconDisabledColor;
   final String? Function(T?)? validator;
 
   @override
@@ -35,7 +39,8 @@ class AppDropDown<T> extends StatelessWidget {
       child: DropdownButtonFormField(
         value: value,
         items: items,
-        onChanged: onChanged,
+        onChanged: enabled ? null : onChanged,
+        iconDisabledColor: iconDisabledColor,
         hint: SizedBox(
           width: double.infinity,
           child: Text(
@@ -48,6 +53,7 @@ class AppDropDown<T> extends StatelessWidget {
         isExpanded: isExpanded,
         borderRadius: _borderRadius,
         decoration: InputDecoration(
+          enabled: enabled,
           contentPadding: contentPadding,
           enabledBorder: OutlineInputBorder(borderRadius: _borderRadius),
           focusedBorder: OutlineInputBorder(borderRadius: _borderRadius),

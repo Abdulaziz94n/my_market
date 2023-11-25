@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_market/core/constants/dummy_data.dart';
 import 'package:my_market/core/constants/sizes.dart';
 import 'package:my_market/core/extensions/build_context_extension.dart';
 import 'package:my_market/core/extensions/list_extenstion.dart';
 import 'package:my_market/core/widgets/reusables/traingle_painter.dart';
 import 'package:my_market/core/widgets/shared/app_bordered_text_field.dart';
-import 'package:my_market/core/widgets/shared/app_dropdown.dart';
 import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/cashier/presentation/widgets/cashier_products_table.dart';
@@ -19,15 +19,12 @@ class CashierProducts extends StatefulHookConsumerWidget {
     super.key,
   });
 
-  // offset: show.value ? const Offset(0, 0) : const Offset(0, 112),
-
   @override
   ConsumerState<CashierProducts> createState() => _CashierProductsState();
 }
 
 class _CashierProductsState extends ConsumerState<CashierProducts> {
   final _counterSelectorKey = GlobalKey();
-  double animationVal = 0.0;
   @override
   Widget build(BuildContext context) {
     final show = useState(false);
@@ -88,24 +85,51 @@ class _CashierProductsState extends ConsumerState<CashierProducts> {
 }
 
 // TODO : check for refactor
-class ProductsSearchRow extends HookWidget {
+class ProductsSearchRow extends StatefulHookWidget {
   const ProductsSearchRow({
     super.key,
   });
 
   @override
+  State<ProductsSearchRow> createState() => _ProductsSearchRowState();
+}
+
+class _ProductsSearchRowState extends State<ProductsSearchRow> {
+  @override
   Widget build(BuildContext context) {
     final searchCtrl = useTextEditingController();
-
     return Row(children: [
       Expanded(
-        child: AppDropDown(
-          height: 40,
-          hint: 'Recherche par categorie...',
-          items: ['1', '2'].toDropdownItems(childBuilder: (item) => Text(item)),
-          contentPadding: const EdgeInsets.all(Sizes.p8),
-          onChanged: (val) {},
-        ),
+        child: LayoutBuilder(builder: (context, c) {
+          return PopupMenuButton(
+            constraints: BoxConstraints(maxWidth: c.maxWidth),
+            child: AppBorderedTextField(
+              controller: null,
+              suffixIcon: Icon(
+                Icons.arrow_drop_down,
+                size: 20,
+                color: context.appColors.primary,
+              ),
+              hintText: 'asd',
+              enabled: false,
+            ),
+            itemBuilder: (context) => DummyData.categoriesList.toPopupItems(
+                childBuilder: (item) => SizedBox(
+                      width: double.maxFinite,
+                      child: AppText(text: item.name),
+                    )),
+          );
+        }),
+        // child: AppDropDown(
+        //   iconDisabledColor: context.appColors.primary,
+        //   enabled: false,
+        //   height: 40,
+        //   hint: 'Recherche par categorie...',
+        //   items: DummyData.categoriesList
+        //       .toDropdownItems(childBuilder: (item) => Text(item.name)),
+        //   contentPadding: const EdgeInsets.all(Sizes.p8),
+        //   onChanged: (val) {},
+        // ),
       ),
       const HorizontalSpacingWidget(Sizes.p8),
       Expanded(

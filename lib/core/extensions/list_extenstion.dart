@@ -7,6 +7,12 @@ extension ListExtension<T> on List<T> {
         .toList();
   }
 
+  List<PopupMenuItem<T>> toPopupItems(
+      {required Widget Function(T item) childBuilder}) {
+    return map((e) => PopupMenuItem<T>(value: e, child: childBuilder(e)))
+        .toList();
+  }
+
   void sortBy<R extends Comparable>(R Function(T) selector,
       {bool descending = false}) {
     if (descending) {

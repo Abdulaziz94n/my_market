@@ -13,6 +13,7 @@ class AppBorderedTextField extends StatelessWidget {
     this.readOnly = false,
     this.enabled = true,
     this.prefixIcon,
+    this.suffixIcon,
     this.maxLines,
     this.fontSize,
     this.width,
@@ -34,6 +35,7 @@ class AppBorderedTextField extends StatelessWidget {
   final bool? obscure;
   final String hintText;
   final Widget? prefixIcon;
+  final Widget? suffixIcon;
   final int? maxLines;
   final double? fontSize;
   final double? width;
@@ -67,6 +69,7 @@ class AppBorderedTextField extends StatelessWidget {
         contentPadding: contentPadding,
         hintText: hintText,
         prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
         enabledBorder: OutlineInputBorder(borderRadius: _borderRadius),
         focusedBorder: OutlineInputBorder(borderRadius: _borderRadius),
         disabledBorder: OutlineInputBorder(borderRadius: _borderRadius),
