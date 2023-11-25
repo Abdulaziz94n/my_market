@@ -32,18 +32,28 @@ class AppText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onClick,
-      child: Padding(
-        padding: padding ?? const EdgeInsets.all(0),
-        child: Text(
-          text,
-          overflow: overflow ?? TextOverflow.ellipsis,
-          textAlign: textAlign,
-          maxLines: maxLines,
-          style: style,
-        ),
-      ),
-    );
+    return onClick != null
+        ? InkWell(
+            onTap: onClick,
+            child: Padding(
+              padding: padding ?? const EdgeInsets.all(0),
+              child: Text(
+                text,
+                overflow: overflow ?? TextOverflow.ellipsis,
+                textAlign: textAlign,
+                maxLines: maxLines,
+                style: style,
+              ),
+            ),
+          )
+        : Padding(
+            padding: padding ?? const EdgeInsets.all(0),
+            child: Text(
+              text,
+              overflow: overflow ?? TextOverflow.ellipsis,
+              textAlign: textAlign,
+              maxLines: maxLines,
+              style: style,
+            ));
   }
 }

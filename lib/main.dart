@@ -14,10 +14,10 @@ import 'package:window_size/window_size.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-  //   setWindowMaxSize(const Size(1920, 1200));
-  //   setWindowMinSize(const Size(1000, 800));
-  // }
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    setWindowMaxSize(const Size(1920, 1200));
+    setWindowMinSize(const Size(1000, 800));
+  }
 
   runApp(const ProviderScope(child: MyApp()));
 }

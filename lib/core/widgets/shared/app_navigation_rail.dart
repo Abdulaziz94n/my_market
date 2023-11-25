@@ -78,6 +78,12 @@ class AppNavigationRail extends StatelessWidget {
                         selectedItem: selectedItem,
                         onSelect: onSelect,
                       ),
+                      AppNavigationRailItem(
+                        icon: Icons.settings,
+                        type: NavigationRailType.settings,
+                        selectedItem: selectedItem,
+                        onSelect: onSelect,
+                      ),
                     ],
                   ),
                   const ShutdownButton()
@@ -133,7 +139,7 @@ class AppNavigationRailItem extends StatelessWidget {
             child: Icon(
               icon,
               color: context.appColors.onPrimary,
-              size: Sizes.p48,
+              size: 38,
             ),
           ),
         ),

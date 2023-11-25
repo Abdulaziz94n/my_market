@@ -8,7 +8,6 @@ import 'package:my_market/core/extensions/build_context_extension.dart';
 import 'package:my_market/core/utils/app_dialogs.dart';
 import 'package:my_market/core/widgets/shared/app_2d_scrollable_table.dart';
 import 'package:my_market/core/widgets/shared/app_bordered_text_field.dart';
-import 'package:my_market/core/widgets/shared/app_filter_button.dart';
 import 'package:my_market/core/widgets/shared/app_main_body.dart';
 import 'package:my_market/core/widgets/shared/app_primary_card.dart';
 import 'package:my_market/core/widgets/shared/app_text.dart';
@@ -16,6 +15,7 @@ import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/product/presentation/widgets/add_product_dialog.dart';
 import 'package:my_market/features/product/presentation/widgets/edit_product_dialog.dart';
 import 'package:my_market/features/product/presentation/widgets/product_details_dialog.dart';
+import 'package:my_market/features/product/presentation/widgets/product_filter_popup_button.dart';
 
 class ProductsTabBody extends HookConsumerWidget {
   const ProductsTabBody({
@@ -82,9 +82,11 @@ class ProductsTabBody extends HookConsumerWidget {
                       showActions: showActions.value,
                       onChanged: (value) => showActions.value = value,
                     ),
+                    const VerticalSpacingWidget(Sizes.p16),
                     Expanded(
                       child: AppTwoDimensionScrollableTable(
                           items: DummyData.productsList,
+                          headerBackground: colors.grey,
                           headers: const [
                             '',
                             'ID',
@@ -179,7 +181,7 @@ class _ActionsRow extends HookConsumerWidget {
                 ),
               ),
               const HorizontalSpacingWidget(Sizes.p8),
-              if (!showActions) AppFilterButton(onPressed: () {}),
+              if (!showActions) const ProductFilterPopupButton(),
               if (showActions)
                 Expanded(
                   child: Align(

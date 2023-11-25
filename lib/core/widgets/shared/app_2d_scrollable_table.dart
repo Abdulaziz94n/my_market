@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_market/core/extensions/textstyle_extension.dart';
 import 'package:my_market/core/widgets/reusables/app_bordered_circle.dart';
 import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:two_dimensional_scrollables/two_dimensional_scrollables.dart';
@@ -17,6 +18,7 @@ class AppTwoDimensionScrollableTable<T> extends StatefulWidget {
     required this.selectedRows,
     this.pinnedColumnCount,
     this.pinnedRowCount,
+    this.headerBackground,
   });
 
   final List<T> items;
@@ -28,6 +30,7 @@ class AppTwoDimensionScrollableTable<T> extends StatefulWidget {
   final String Function(int index) rowSelectionId;
   final ValueChanged<String> onSelect;
   final VoidCallback onSelectAll;
+  final Color? headerBackground;
   @override
   State<AppTwoDimensionScrollableTable> createState() =>
       _AppTwoDimensionScrollableTableState();
@@ -67,11 +70,9 @@ class _AppTwoDimensionScrollableTableState
   Widget? cellBuilder(BuildContext context, TableVicinity vicinity) {
     final rowIndex = vicinity.row;
     final columnIndex = vicinity.column;
-    final selectedRowId =
-        widget.selectedRows.isEmpty ? null : widget.selectedRows.first;
     // Build the Special First Column
     if (columnIndex == 0 && rowIndex == 0) {
-      return RowSelector(
+      return _RowSelector(
           selectedRows: widget.selectedRows,
           rowId: 'all',
           onSelect: (val) {
@@ -80,7 +81,7 @@ class _AppTwoDimensionScrollableTableState
     }
     if (columnIndex == 0 && rowIndex != 0) {
       final rowId = widget.rowSelectionId(rowIndex - 1);
-      return RowSelector(
+      return _RowSelector(
         selectedRows: widget.selectedRows,
         rowId: rowId,
         onSelect: widget.onSelect,
@@ -88,19 +89,38 @@ class _AppTwoDimensionScrollableTableState
     }
     // Build The Header Row
     if (columnIndex != 0 && rowIndex == 0) {
-      return Center(child: AppText(text: widget.headers[columnIndex]));
+      return Center(
+          child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          AppText(
+            text: widget.headers[columnIndex],
+            style: const TextStyle().bold,
+          ),
+          const RotatedBox(
+            quarterTurns: 3,
+            child: Icon(
+              Icons.compare_arrows_sharp,
+              size: 15,
+            ),
+          )
+        ],
+      ));
     }
     return Center(
-        child: AppText(text: widget.cellValues(rowIndex - 1)[columnIndex - 1]));
+      child: AppText(text: widget.cellValues(rowIndex - 1)[columnIndex - 1]),
+    );
   }
 
   TableSpan rowBuilder(int index) {
     return TableSpan(
-      backgroundDecoration: TableSpanDecoration(
-        color: index == 0 ? Colors.red : null,
-      ),
-      extent: const FixedTableSpanExtent(50),
-    );
+        backgroundDecoration: TableSpanDecoration(
+            color: index == 0 ? widget.headerBackground ?? Colors.grey : null,
+            border: const TableSpanBorder(
+                trailing: BorderSide(color: Colors.black))),
+        extent: const FixedTableSpanExtent(50),
+        padding: TableSpanPadding(trailing: index == 0 ? 0 : 15));
   }
 
   TableSpan columnBuilder(int index) {
@@ -114,20 +134,20 @@ class _AppTwoDimensionScrollableTableState
   }
 }
 
-class RowSelector extends StatelessWidget {
-  const RowSelector({
-    super.key,
+class _RowSelector extends StatelessWidget {
+  const _RowSelector({
     required this.selectedRows,
     required this.rowId,
     required this.onSelect,
   });
+
   final List<String> selectedRows;
   final String rowId;
   final ValueChanged<String> onSelect;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(18.0),
       child: AppBorderedCircle(
         radius: 5,
         child: Padding(
@@ -135,13 +155,10 @@ class RowSelector extends StatelessWidget {
           child: CircleAvatar(
             backgroundColor: !selectedRows.contains(rowId)
                 ? Colors.transparent
-                : Colors.blue,
+                : Colors.black87,
             child: InkResponse(
               radius: 10,
-              onTap: () {
-                print(rowId);
-                onSelect(rowId);
-              },
+              onTap: () => onSelect(rowId),
             ),
           ),
         ),
