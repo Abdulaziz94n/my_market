@@ -15,7 +15,6 @@ class ProductDetailsDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colors = context.appColors;
     return Padding(
       padding: Sizes.defaultDialogPadding,
       child: SizedBox(

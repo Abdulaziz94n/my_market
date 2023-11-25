@@ -6,8 +6,8 @@ import 'package:my_market/core/extensions/string_extension.dart';
 import 'package:my_market/core/widgets/shared/app_rounded_box.dart';
 import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
-import 'package:my_market/features/cashier/presentation/new_order_controller.dart';
 import 'package:my_market/features/order/domain/order_item_model.dart';
+import 'package:my_market/features/order/presentation/new_order_controller.dart';
 import 'package:my_market/features/product/domain/product_model.dart';
 
 class CashierProductsTableItems extends ConsumerWidget {

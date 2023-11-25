@@ -11,6 +11,9 @@ import 'package:my_market/core/theme/themes.dart';
 import 'package:my_market/firebase_options.dart';
 import 'package:window_size/window_size.dart';
 
+/// ref.read(notifier).fn() of B Controller called in A Controller ? or go Like like [OrderItemsList] onIncrease...
+//
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);

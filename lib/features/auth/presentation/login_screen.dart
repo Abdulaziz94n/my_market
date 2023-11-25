@@ -25,7 +25,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     final emailCtrl = useTextEditingController();
     final passwordCtrl = useTextEditingController();
-    final emptyCtrl = useTextEditingController();
 
     return AppScaffold(
       body: Form(

@@ -9,6 +9,7 @@ import 'package:my_market/core/widgets/shared/app_user_indicator.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/cashier/presentation/widgets/order_item_list.dart';
 import 'package:my_market/features/cashier/presentation/widgets/user_status_indicator.dart';
+import 'package:my_market/features/order/presentation/new_order_controller.dart';
 
 class OrderContent extends ConsumerWidget {
   const OrderContent({
@@ -67,7 +68,8 @@ class OrderContent extends ConsumerWidget {
                     style: IconButton.styleFrom(
                       backgroundColor: context.appColors.error,
                     ),
-                    onPressed: () {},
+                    onPressed: () =>
+                        ref.read(newOrderController.notifier).clearItems(),
                     icon: Icon(
                       Icons.delete,
                       color: context.appColors.onPrimary,

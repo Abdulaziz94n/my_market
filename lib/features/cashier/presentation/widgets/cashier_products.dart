@@ -14,6 +14,7 @@ import 'package:my_market/features/cashier/presentation/widgets/count_selector.d
 import 'package:my_market/features/categories/domain/categories_model.dart';
 import 'package:my_market/features/home/domain/navigation_rail_enum.dart';
 import 'package:my_market/features/home/presentation/navigation_rail_controller.dart';
+import 'package:my_market/features/order/presentation/order_item_controller.dart';
 
 class CashierProducts extends StatefulHookConsumerWidget {
   const CashierProducts({
@@ -28,7 +29,8 @@ class _CashierProductsState extends ConsumerState<CashierProducts> {
   final _counterSelectorKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    final showCountSelector = useState(false);
+    final selectedOrder = ref.watch(selectedOrderItem);
+    final showCountSelector = selectedOrder != null;
     final selectedCategory = useState<Category?>(null);
     const traingleSide = 25.0;
     return LayoutBuilder(builder: (context, c) {
@@ -61,23 +63,23 @@ class _CashierProductsState extends ConsumerState<CashierProducts> {
             ),
             AnimatedRotation(
               duration: Duration.zero,
-              turns: !showCountSelector.value ? 0 : 1 / 2,
+              turns: !showCountSelector ? 0 : 1 / 2,
               child: TraingleWidget(
-                onTap: () => showCountSelector.value = !showCountSelector.value,
+                onTap: showCountSelector
+                    ? () =>
+                        ref.read(selectedOrderItem.notifier).unselectOrderItem()
+                    : null,
                 paintingStyle: PaintingStyle.fill,
                 height: traingleSide,
                 width: traingleSide * 2,
               ),
             ),
-            if (showCountSelector.value) ...[
+            if (showCountSelector) ...[
               const VerticalSpacingWidget(Sizes.p8),
               SizedBox(
                 width: double.maxFinite,
                 child: CountSelector(
                   key: _counterSelectorKey,
-                  onSelect: (value) {
-                    print('selected val = $value');
-                  },
                 ),
               ),
             ]
