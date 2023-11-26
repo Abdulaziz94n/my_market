@@ -5,6 +5,7 @@ import 'package:my_market/core/widgets/shared/app_navigation_rail.dart';
 import 'package:my_market/features/home/domain/navigation_rail_enum.dart';
 import 'package:my_market/features/home/presentation/home_body.dart';
 import 'package:my_market/features/home/presentation/navigation_rail_controller.dart';
+import 'package:my_market/features/order/data/order_ticket_no_repo.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({
@@ -15,7 +16,10 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedRail = ref.watch(navigationRailProvider);
     return AppScaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () async {}),
+      floatingActionButton: FloatingActionButton(onPressed: () async {
+        ref.read(orderTicketRepo).increaseTicketNo();
+        ref.invalidate(fetchTicketNo);
+      }),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

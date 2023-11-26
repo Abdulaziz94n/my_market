@@ -6,9 +6,11 @@ import 'package:my_market/core/widgets/reusables/app_divider.dart';
 import 'package:my_market/core/widgets/shared/app_primary_button.dart';
 import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:my_market/core/widgets/shared/app_user_indicator.dart';
+import 'package:my_market/core/widgets/shared/async_value_widget.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/cashier/presentation/widgets/order_item_list.dart';
 import 'package:my_market/features/cashier/presentation/widgets/user_status_indicator.dart';
+import 'package:my_market/features/order/data/order_ticket_no_repo.dart';
 import 'package:my_market/features/order/presentation/new_order_controller.dart';
 import 'package:my_market/features/order/presentation/submit_order_controller.dart';
 
@@ -31,10 +33,14 @@ class OrderContent extends ConsumerWidget {
             ],
           ),
           const VerticalSpacingWidget(Sizes.p4),
-          const Row(
+          Row(
             children: [
-              AppText(text: 'Ticket Number'),
-              AppText(text: '#00125'),
+              const AppText(text: 'Ticket Number '),
+              AsyncValueWidget(
+                value: ref.watch(fetchTicketNo),
+                data: (ticketNo) => AppText(text: '#$ticketNo'),
+                loadingIndicator: const AppText(text: 'xxxxxx'),
+              ),
             ],
           ),
           const VerticalSpacingWidget(Sizes.p20),
@@ -82,7 +88,8 @@ class OrderContent extends ConsumerWidget {
                   height: Sizes.defaultButtonHeight,
                   onPressed: () {
                     final order = ref.read(newOrderController);
-                    ref.read(submitOrderController.notifier).submitOrder(order);
+                    ref.read(submitOrderController.notifier).submitOrder(
+                        order, ref.read(fetchTicketNo).requireValue);
                   },
                   text: 'REGLEMENT',
                 ),

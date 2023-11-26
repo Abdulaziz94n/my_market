@@ -25,9 +25,10 @@ class OrdersRepository {
     return _collectionRef.doc(id).snapshots().toDataModel();
   }
 
+  // Call this method only from Service class
   Future<void> addOrderModel(OrderModel data) async {
     try {
-      await _collectionRef.add(data);
+      await _collectionRef.doc(data.orderId).set(data);
     } catch (e) {
       throw CustomException(message: 'Error Adding OrderModel');
     }

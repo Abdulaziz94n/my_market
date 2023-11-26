@@ -7,7 +7,10 @@ import 'package:my_market/features/users/presentation/user_controller.dart';
 class NewOrderController extends Notifier<OrderModel> {
   @override
   build() {
-    return OrderModel(orderItems: [], createdBy: ref.read(userProvider)!.id);
+    return OrderModel(
+      orderItems: [],
+      createdBy: ref.read(userProvider)!.id,
+    );
   }
 
   void addOrderItem(OrderItemModel orderItem) {

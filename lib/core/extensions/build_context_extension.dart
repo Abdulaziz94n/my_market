@@ -60,8 +60,8 @@ extension BuildContextExtension on BuildContext {
   bool get isDarkMode => theme.brightness == Brightness.dark;
 
   void actionAndPop(VoidCallback action) {
-    action();
     pop();
+    action();
   }
 
   void doublePop() {
