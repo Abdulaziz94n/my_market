@@ -10,6 +10,7 @@ import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/cashier/presentation/widgets/order_item_list.dart';
 import 'package:my_market/features/cashier/presentation/widgets/user_status_indicator.dart';
 import 'package:my_market/features/order/presentation/new_order_controller.dart';
+import 'package:my_market/features/order/presentation/submit_order_controller.dart';
 
 class OrderContent extends ConsumerWidget {
   const OrderContent({
@@ -79,7 +80,10 @@ class OrderContent extends ConsumerWidget {
               Expanded(
                 child: AppPrimaryButton(
                   height: Sizes.defaultButtonHeight,
-                  onPressed: () {},
+                  onPressed: () {
+                    final order = ref.read(newOrderController);
+                    ref.read(submitOrderController.notifier).submitOrder(order);
+                  },
                   text: 'REGLEMENT',
                 ),
               )

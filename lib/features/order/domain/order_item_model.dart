@@ -1,10 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:my_market/features/product/domain/product_model.dart';
+import 'package:my_market/features/order/domain/order_product_model.dart';
 
 class OrderItemModel {
-  final Product product;
+  final OrderProductModel product;
   final int quantity;
   OrderItemModel({
     required this.product,
@@ -12,7 +12,7 @@ class OrderItemModel {
   });
 
   OrderItemModel copyWith({
-    Product? product,
+    OrderProductModel? product,
     int? quantity,
   }) {
     return OrderItemModel(
@@ -30,7 +30,8 @@ class OrderItemModel {
 
   factory OrderItemModel.fromMap(Map<String, dynamic> map) {
     return OrderItemModel(
-      product: Product.fromMap(map['product'] as Map<String, dynamic>),
+      product:
+          OrderProductModel.fromMap(map['product'] as Map<String, dynamic>),
       quantity: map['quantity'] as int,
     );
   }

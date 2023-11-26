@@ -1,6 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_market/features/product/domain/product_price_info_model.dart';
 import 'package:uuid/uuid.dart';
@@ -120,11 +118,6 @@ class Product {
           : null,
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory Product.fromJson(String source) =>
-      Product.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {

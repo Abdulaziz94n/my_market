@@ -78,7 +78,7 @@ class OrderItem extends HookConsumerWidget {
       onTap: onTap,
       contentPadding: const EdgeInsets.only(left: Sizes.p12),
       title: AppText(text: product.name.capEach),
-      subtitle: AppText(text: '${product.sellPrice} MAD'),
+      subtitle: AppText(text: '${product.price} MAD'),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

@@ -11,7 +11,8 @@ class NewOrderController extends Notifier<OrderModel> {
   }
 
   void addOrderItem(OrderItemModel orderItem) {
-    if (state.orderItems.any((item) => item.product == orderItem.product)) {
+    if (state.orderItems
+        .any((item) => item.product.id == orderItem.product.id)) {
       return;
     }
 

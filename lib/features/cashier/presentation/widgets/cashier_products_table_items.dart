@@ -7,6 +7,7 @@ import 'package:my_market/core/widgets/shared/app_rounded_box.dart';
 import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/order/domain/order_item_model.dart';
+import 'package:my_market/features/order/domain/order_product_model.dart';
 import 'package:my_market/features/order/presentation/new_order_controller.dart';
 import 'package:my_market/features/product/domain/product_model.dart';
 
@@ -50,7 +51,11 @@ class _ProductRow extends ConsumerWidget {
           child: AppRoundedBox(
               onTap: () {
                 ref.read(newOrderController.notifier).addOrderItem(
-                    OrderItemModel(product: product, quantity: 1));
+                      OrderItemModel(
+                        product: OrderProductModel.fromProduct(product),
+                        quantity: 1,
+                      ),
+                    );
               },
               child: AppText(text: product.name.capEach)),
         ),
