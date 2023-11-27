@@ -7,8 +7,9 @@ import 'package:my_market/features/cashier/presentation/widgets/order_content.da
 class CashierCard extends ConsumerWidget {
   const CashierCard({
     super.key,
+    required this.addItem,
   });
-
+  final VoidCallback addItem;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
@@ -16,15 +17,17 @@ class CashierCard extends ConsumerWidget {
         Expanded(
           child: ClipRRect(
             borderRadius: Sizes.defaultBorderRadius,
-            child: const Card(
+            child: Card(
               margin: EdgeInsets.zero,
               child: SizedBox(
                 height: double.infinity,
                 width: double.infinity,
                 child: Row(
                   children: [
-                    Expanded(child: OrderContent()),
-                    OrderActions(),
+                    const Expanded(child: OrderContent()),
+                    OrderActions(
+                      addItem: addItem,
+                    ),
                   ],
                 ),
               ),

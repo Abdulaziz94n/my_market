@@ -6,8 +6,9 @@ import 'package:my_market/core/widgets/shared/app_text.dart';
 class OrderActions extends ConsumerWidget {
   const OrderActions({
     super.key,
+    required this.addItem,
   });
-
+  final VoidCallback addItem;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
@@ -40,7 +41,7 @@ class OrderActions extends ConsumerWidget {
         OrderAction(
           color: context.appColors.success,
           label: 'Ajouter',
-          onTap: () {},
+          onTap: addItem,
         ),
       ],
     );

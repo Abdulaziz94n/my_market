@@ -1,5 +1,8 @@
 import 'package:my_market/features/auth/domain/app_user_model.dart';
 import 'package:my_market/features/categories/domain/categories_model.dart';
+import 'package:my_market/features/order/domain/order_item_model.dart';
+import 'package:my_market/features/order/domain/order_model.dart';
+import 'package:my_market/features/order/domain/order_product_model.dart';
 import 'package:my_market/features/product/domain/product_model.dart';
 import 'package:my_market/features/product/domain/product_price_info_model.dart';
 
@@ -150,4 +153,18 @@ class DummyData {
     'Provider 3',
     'Provider 4',
   ];
+
+  static OrderModel order = OrderModel(
+    orderItems: [
+      OrderItemModel(
+        product: OrderProductModel.fromProduct(productsList[0]),
+        quantity: 1,
+      ),
+      OrderItemModel(
+        product: OrderProductModel.fromProduct(productsList[1]),
+        quantity: 1,
+      ),
+    ],
+    createdBy: usersList[0].id,
+  );
 }

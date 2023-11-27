@@ -15,12 +15,16 @@ import 'package:my_market/features/categories/domain/categories_model.dart';
 import 'package:my_market/features/home/domain/navigation_rail_enum.dart';
 import 'package:my_market/features/home/presentation/navigation_rail_controller.dart';
 import 'package:my_market/features/order/presentation/order_item_controller.dart';
+import 'package:my_market/features/product/domain/product_model.dart';
 
 class CashierProducts extends StatefulHookConsumerWidget {
   const CashierProducts({
     super.key,
+    required this.onSelect,
+    required this.selectedProduct,
   });
-
+  final ValueChanged<Product> onSelect;
+  final Product? selectedProduct;
   @override
   ConsumerState<CashierProducts> createState() => _CashierProductsState();
 }
@@ -59,7 +63,11 @@ class _CashierProductsState extends ConsumerState<CashierProducts> {
             const ProductsSearchRow(),
             const VerticalSpacingWidget(Sizes.p16),
             Expanded(
-              child: CashierProductsTable(selectedCategory: selectedCategory),
+              child: CashierProductsTable(
+                selectedCategory: selectedCategory,
+                onSelect: widget.onSelect,
+                selectedProduct: widget.selectedProduct,
+              ),
             ),
             AnimatedRotation(
               duration: Duration.zero,

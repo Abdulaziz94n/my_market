@@ -11,6 +11,7 @@ import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/cashier/presentation/widgets/order_item_list.dart';
 import 'package:my_market/features/cashier/presentation/widgets/user_status_indicator.dart';
 import 'package:my_market/features/order/data/order_ticket_no_repo.dart';
+import 'package:my_market/features/order/domain/order_items_list_extension.dart';
 import 'package:my_market/features/order/presentation/new_order_controller.dart';
 import 'package:my_market/features/order/presentation/submit_order_controller.dart';
 
@@ -21,6 +22,7 @@ class OrderContent extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final orderItems = ref.watch(newOrderController).orderItems;
     return Padding(
       padding: const EdgeInsets.all(Sizes.p24),
       child: Column(
@@ -50,19 +52,19 @@ class OrderContent extends ConsumerWidget {
           const VerticalSpacingWidget(Sizes.p20),
           const AppDivider(),
           const VerticalSpacingWidget(Sizes.p8),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppText(text: 'Total HT : 115.60'),
-              AppText(text: 'Total Items : 15'),
+              const AppText(text: 'Total HT : ???'),
+              AppText(text: 'Total Items : ${orderItems.length}'),
             ],
           ),
           const VerticalSpacingWidget(Sizes.p8),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AppText(text: 'Total'),
-              AppText(text: '144.50 DH'),
+              const AppText(text: 'Total'),
+              AppText(text: '${orderItems.calcTotal} DH'),
             ],
           ),
           const VerticalSpacingWidget(Sizes.p12),

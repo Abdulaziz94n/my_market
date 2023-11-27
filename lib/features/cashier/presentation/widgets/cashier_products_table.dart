@@ -8,13 +8,18 @@ import 'package:my_market/features/cashier/presentation/widgets/cashier_products
 import 'package:my_market/features/cashier/presentation/widgets/cashier_products_table_items.dart';
 import 'package:my_market/features/categories/domain/categories_model.dart';
 import 'package:my_market/features/categories/presentation/widgets/categories_list.dart';
+import 'package:my_market/features/product/domain/product_model.dart';
 
 class CashierProductsTable extends HookWidget {
   const CashierProductsTable({
     super.key,
     required this.selectedCategory,
+    required this.onSelect,
+    required this.selectedProduct,
   });
   final ValueNotifier<Category?> selectedCategory;
+  final ValueChanged<Product> onSelect;
+  final Product? selectedProduct;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -27,7 +32,11 @@ class CashierProductsTable extends HookWidget {
         const CashierProductsTableHeaders(),
         const VerticalSpacingWidget(Sizes.p16),
         Flexible(
-          child: CashierProductsTableItems(products: DummyData.productsList),
+          child: CashierProductsTableItems(
+            products: DummyData.productsList,
+            selectedProduct: selectedProduct,
+            onSelect: onSelect,
+          ),
         ),
         const VerticalSpacingWidget(Sizes.p32),
         const _BarcodeSearchFields()

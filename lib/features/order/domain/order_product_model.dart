@@ -41,7 +41,10 @@ class OrderProductModel {
 
   factory OrderProductModel.fromProduct(Product product) {
     return OrderProductModel(
-        id: product.id, name: product.name, price: product.sellPrice);
+      id: product.id,
+      name: product.name,
+      price: product.sellPrice,
+    );
   }
 
   @override
