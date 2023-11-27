@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -22,9 +23,11 @@ import 'package:window_size/window_size.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-    setWindowMaxSize(const Size(1920, 1200));
-    setWindowMinSize(const Size(1000, 800));
+  if (!kIsWeb) {
+    if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+      setWindowMaxSize(const Size(1920, 1200));
+      setWindowMinSize(const Size(1000, 800));
+    }
   }
 
   runApp(const ProviderScope(child: MyApp()));

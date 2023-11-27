@@ -6,7 +6,7 @@ import 'package:my_market/core/widgets/shared/app_text_field.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/cashier/presentation/widgets/cashier_products_table_headers.dart';
 import 'package:my_market/features/cashier/presentation/widgets/cashier_products_table_items.dart';
-import 'package:my_market/features/categories/domain/categories_model.dart';
+import 'package:my_market/features/categories/domain/category_model.dart';
 import 'package:my_market/features/categories/presentation/widgets/categories_list.dart';
 import 'package:my_market/features/product/domain/product_model.dart';
 
@@ -33,7 +33,8 @@ class CashierProductsTable extends HookWidget {
         const VerticalSpacingWidget(Sizes.p16),
         Flexible(
           child: CashierProductsTableItems(
-            products: DummyData.productsList,
+            products:
+                DummyData.categoryProducts(selectedCategory.value?.id ?? '1'),
             selectedProduct: selectedProduct,
             onSelect: onSelect,
           ),

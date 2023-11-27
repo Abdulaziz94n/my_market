@@ -8,7 +8,7 @@ import 'package:my_market/core/extensions/textstyle_extension.dart';
 import 'package:my_market/core/widgets/reusables/app_bordered_circle.dart';
 import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
-import 'package:my_market/features/categories/domain/categories_model.dart';
+import 'package:my_market/features/categories/domain/category_model.dart';
 
 class CategorySelectionList extends ConsumerWidget {
   const CategorySelectionList({

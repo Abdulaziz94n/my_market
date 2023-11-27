@@ -13,7 +13,7 @@ import 'package:my_market/core/utils/async_value_utils.dart';
 import 'package:my_market/core/widgets/shared/app_dialog_form_field.dart';
 import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
-import 'package:my_market/features/categories/domain/categories_model.dart';
+import 'package:my_market/features/categories/domain/category_model.dart';
 import 'package:my_market/features/product/domain/product_model.dart';
 import 'package:my_market/features/product/presentation/products_controller.dart';
 import 'package:my_market/features/product/presentation/widgets/edit_product_dialog_actions.dart';

@@ -26,9 +26,15 @@ class ProductsRepository {
   }
 
   Future<void> addProduct(Product data) async {
+    const categoryId = 'fa074e6b-dfbf-4c8a-9199-9319782b8ec4';
     try {
-      await _collectionRef.add(data);
+      data = data.copyWith(categoryId: categoryId);
+      await _collectionRef.doc(data.id).set(data);
+      await firestore.collection('categories').doc(categoryId).update(
+        {'productsCount': FieldValue.increment(1)},
+      );
     } catch (e) {
+      deleteProduct(data.id, data.categoryId);
       throw CustomException(message: 'Error Adding Product');
     }
   }
@@ -41,9 +47,12 @@ class ProductsRepository {
     }
   }
 
-  Future<void> deleteProduct(String id) async {
+  Future<void> deleteProduct(String id, String categoryId) async {
     try {
       await _collectionRef.doc(id).delete();
+      await firestore.collection('categories').doc(categoryId).update(
+        {'productsCount': FieldValue.increment(-1)},
+      );
     } catch (e) {
       throw CustomException(message: 'Error Deleting Product');
     }

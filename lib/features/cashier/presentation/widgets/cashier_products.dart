@@ -11,7 +11,7 @@ import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/cashier/presentation/widgets/cashier_products_table.dart';
 import 'package:my_market/features/cashier/presentation/widgets/count_selector.dart';
-import 'package:my_market/features/categories/domain/categories_model.dart';
+import 'package:my_market/features/categories/domain/category_model.dart';
 import 'package:my_market/features/home/domain/navigation_rail_enum.dart';
 import 'package:my_market/features/home/presentation/navigation_rail_controller.dart';
 import 'package:my_market/features/order/presentation/order_item_controller.dart';
@@ -99,16 +99,11 @@ class _CashierProductsState extends ConsumerState<CashierProducts> {
 }
 
 // TODO : check for refactor
-class ProductsSearchRow extends StatefulHookWidget {
+class ProductsSearchRow extends HookWidget {
   const ProductsSearchRow({
     super.key,
   });
 
-  @override
-  State<ProductsSearchRow> createState() => _ProductsSearchRowState();
-}
-
-class _ProductsSearchRowState extends State<ProductsSearchRow> {
   @override
   Widget build(BuildContext context) {
     final searchCtrl = useTextEditingController();

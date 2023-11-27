@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_market/core/exceptions/app_exceptions.dart';
 import 'package:my_market/core/extensions/firestore_extension.dart';
-import 'package:my_market/features/categories/domain/categories_model.dart';
+import 'package:my_market/features/categories/domain/category_model.dart';
 
 class CategoriesRepository {
   CategoriesRepository(this.firestore);
@@ -27,7 +27,7 @@ class CategoriesRepository {
 
   Future<void> addCategory(Category data) async {
     try {
-      await _collectionRef.add(data);
+      await _collectionRef.doc(data.id).set(data);
     } catch (e) {
       throw CustomException(message: 'Error Adding Category');
     }
@@ -52,4 +52,9 @@ class CategoriesRepository {
 
 final categoriesRepo = Provider<CategoriesRepository>((ref) {
   return CategoriesRepository(FirebaseFirestore.instance);
+});
+
+final watchCategoryList = StreamProvider<List<Category>>((ref) {
+  final repo = ref.read(categoriesRepo);
+  return repo.watchCategoryList();
 });

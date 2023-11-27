@@ -11,7 +11,7 @@ class OrderTicketRepository {
   OrderTicketRepository(this.firestore);
   final FirebaseFirestore firestore;
 
-  int get startinglocalTicketNo {
+  int get _startinglocalTicketNo {
     final now = DateTime.now();
     final year = now.year.toString().substring(2);
     final res = '${year}0000001';
@@ -22,8 +22,8 @@ class OrderTicketRepository {
     try {
       final doc = await _docRef.get();
       if (!doc.exists) {
-        _docRef.set({_ticketFieldName: startinglocalTicketNo});
-        return startinglocalTicketNo;
+        _docRef.set({_ticketFieldName: _startinglocalTicketNo});
+        return _startinglocalTicketNo;
       } else {
         return doc.get(_ticketFieldName);
       }
@@ -50,6 +50,5 @@ final orderTicketRepo = Provider<OrderTicketRepository>((ref) {
 
 final fetchTicketNo = AutoDisposeFutureProvider<int>((ref) async {
   final repo = ref.read(orderTicketRepo);
-  print('object');
   return repo.fetchTicketNo();
 });

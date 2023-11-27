@@ -22,10 +22,10 @@ class ProductsController extends AsyncNotifier<void> {
     );
   }
 
-  Future<void> deleteProdcut(String id) async {
+  Future<void> deleteProdcut(String id, String categoryId) async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(
-      () => ref.read(productsRepo).deleteProduct(id),
+      () => ref.read(productsRepo).deleteProduct(id, categoryId),
     );
   }
 }

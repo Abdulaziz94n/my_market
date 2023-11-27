@@ -1,10 +1,11 @@
 import 'package:my_market/features/auth/domain/app_user_model.dart';
-import 'package:my_market/features/categories/domain/categories_model.dart';
+import 'package:my_market/features/categories/domain/category_model.dart';
 import 'package:my_market/features/order/domain/order_item_model.dart';
 import 'package:my_market/features/order/domain/order_model.dart';
 import 'package:my_market/features/order/domain/order_product_model.dart';
 import 'package:my_market/features/product/domain/product_model.dart';
 import 'package:my_market/features/product/domain/product_price_info_model.dart';
+import 'package:uuid/uuid.dart';
 
 class DummyData {
   static List<Category> categoriesList = [
@@ -24,7 +25,7 @@ class DummyData {
   ];
 
   static Product product = Product(
-    id: '1',
+    id: const Uuid().v4(),
     name: 'coffee',
     desc: '200 mg latte',
     barcode: '123456789',
@@ -61,7 +62,7 @@ class DummyData {
       desc: '200 mg Ulker chocolate',
       barcode: '123456789',
       shortCode: 'asd123',
-      categoryId: '2',
+      categoryId: '1',
       sellPrice: 27,
       alertCount: 25,
       stockCount: 10,
@@ -91,7 +92,7 @@ class DummyData {
       desc: '10 piece bread bag',
       barcode: '313456789',
       shortCode: 'aqz157',
-      categoryId: '2',
+      categoryId: '4',
       sellPrice: 10,
       alertCount: 25,
       stockCount: 10,
@@ -106,7 +107,7 @@ class DummyData {
       desc: '100g meat bag',
       barcode: '413456789',
       shortCode: 'aqp157',
-      categoryId: '2',
+      categoryId: '5',
       sellPrice: 10,
       alertCount: 25,
       stockCount: 10,
@@ -121,7 +122,7 @@ class DummyData {
       desc: '500 g chicken bag',
       barcode: '353456719',
       shortCode: 'aqy157',
-      categoryId: '2',
+      categoryId: '6',
       sellPrice: 15,
       alertCount: 25,
       stockCount: 10,
@@ -136,7 +137,7 @@ class DummyData {
       desc: '1 piece biskuit bag',
       barcode: '313456779',
       shortCode: 'aqz167',
-      categoryId: '3',
+      categoryId: '7',
       sellPrice: 11,
       alertCount: 25,
       stockCount: 10,
@@ -145,7 +146,58 @@ class DummyData {
       createdBy: usersList.first.id,
       createdAt: DateTime.now(),
     ),
+    Product(
+      id: '9',
+      name: '3 biskuit',
+      desc: '3 piece biskuit bag',
+      barcode: '313456721',
+      shortCode: 'aqq167',
+      categoryId: '7',
+      sellPrice: 30,
+      alertCount: 25,
+      stockCount: 10,
+      providersDetails:
+          ProvidersDetails(buyPrice: 20, providerName: productProviders[2]),
+      createdBy: usersList.first.id,
+      createdAt: DateTime.now(),
+    ),
+    Product(
+      id: '10',
+      name: 'kinder',
+      desc: '1 piece kinder bag',
+      barcode: '313456731',
+      shortCode: 'aqw167',
+      categoryId: '7',
+      sellPrice: 15,
+      alertCount: 25,
+      stockCount: 10,
+      providersDetails:
+          ProvidersDetails(buyPrice: 10, providerName: productProviders[2]),
+      createdBy: usersList.first.id,
+      createdAt: DateTime.now(),
+    ),
+    Product(
+      id: '11',
+      name: 'mars',
+      desc: '1 piece mars bag',
+      barcode: '313456777',
+      shortCode: 'aqx167',
+      categoryId: '1',
+      sellPrice: 15,
+      alertCount: 25,
+      stockCount: 10,
+      providersDetails:
+          ProvidersDetails(buyPrice: 9, providerName: productProviders[2]),
+      createdBy: usersList.first.id,
+      createdAt: DateTime.now(),
+    ),
   ];
+
+  static List<Product> categoryProducts(String categoryId) {
+    return productsList
+        .where((element) => element.categoryId == categoryId)
+        .toList();
+  }
 
   static List<String> productProviders = [
     'Provider 1',
@@ -166,5 +218,10 @@ class DummyData {
       ),
     ],
     createdBy: usersList[0].id,
+  );
+
+  static Category category = Category(
+    id: const Uuid().v4(),
+    name: 'test category',
   );
 }
