@@ -13,30 +13,31 @@ import 'package:my_market/features/product/domain/product_model.dart';
 class CashierProductsTable extends HookWidget {
   const CashierProductsTable({
     super.key,
-    required this.selectedCategory,
-    required this.onSelect,
     required this.selectedProduct,
+    required this.onProductSelect,
+    required this.selectedCategory,
+    required this.onCategorySelect,
   });
-  final ValueNotifier<Category?> selectedCategory;
-  final ValueChanged<Product> onSelect;
+  final Category? selectedCategory;
+  final ValueChanged<Product> onProductSelect;
+  final ValueChanged<Category> onCategorySelect;
   final Product? selectedProduct;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         CategorySelectionList(
-          onSelect: (val) => selectedCategory.value = val,
-          selectedCategory: selectedCategory.value,
+          onCategorySelect: onCategorySelect,
+          selectedCategory: selectedCategory,
         ),
         const VerticalSpacingWidget(Sizes.p8),
         const CashierProductsTableHeaders(),
         const VerticalSpacingWidget(Sizes.p16),
         Flexible(
           child: CashierProductsTableItems(
-            products:
-                DummyData.categoryProducts(selectedCategory.value?.id ?? '1'),
+            products: DummyData.categoryProducts(selectedCategory?.id ?? '1'),
             selectedProduct: selectedProduct,
-            onSelect: onSelect,
+            onSelect: onProductSelect,
           ),
         ),
         const VerticalSpacingWidget(Sizes.p32),

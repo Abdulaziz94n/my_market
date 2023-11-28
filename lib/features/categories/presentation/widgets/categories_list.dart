@@ -13,10 +13,10 @@ import 'package:my_market/features/categories/domain/category_model.dart';
 class CategorySelectionList extends ConsumerWidget {
   const CategorySelectionList({
     super.key,
-    required this.onSelect,
+    required this.onCategorySelect,
     required this.selectedCategory,
   });
-  final ValueChanged<Category> onSelect;
+  final ValueChanged<Category> onCategorySelect;
   final Category? selectedCategory;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -36,7 +36,7 @@ class CategorySelectionList extends ConsumerWidget {
               return CategoryCard(
                 category: categoriesList[index],
                 isSelected: isSelected,
-                onSelect: onSelect,
+                onSelect: onCategorySelect,
               );
             },
           ),

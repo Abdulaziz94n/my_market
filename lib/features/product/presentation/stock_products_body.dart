@@ -26,9 +26,13 @@ class ProductsTabBody extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.appColors;
     final productList = DummyData.productsList;
-    final showActions = useState(false);
     final selectedItems = useState<List<String>>([]);
+    final showActions = useState(false);
     const horizontalSpacing = HorizontalSpacingWidget(Sizes.p12);
+    useEffect(() {
+      showActions.value = selectedItems.value.length == 1;
+      return null;
+    }, [selectedItems.value]);
     return AppMainBody(
       title: 'Stocke & Produits',
       children: [
@@ -109,9 +113,10 @@ class ProductsTabBody extends HookConsumerWidget {
                           },
                           selectedRows: selectedItems.value,
                           onSelect: (val) {
-                            selectedItems.value.isNotEmpty
-                                ? selectedItems.value.clear()
-                                : null;
+                            if (selectedItems.value.isNotEmpty) {
+                              selectedItems.value = [];
+                              return;
+                            }
                             selectedItems.value = [...selectedItems.value, val];
                           },
                           onSelectAll: () {

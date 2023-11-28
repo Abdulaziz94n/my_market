@@ -20,11 +20,15 @@ import 'package:my_market/features/product/domain/product_model.dart';
 class CashierProducts extends StatefulHookConsumerWidget {
   const CashierProducts({
     super.key,
-    required this.onSelect,
+    required this.onProductSelect,
     required this.selectedProduct,
+    required this.selectedCategory,
+    required this.onCategorySelect,
   });
-  final ValueChanged<Product> onSelect;
+  final ValueChanged<Product> onProductSelect;
+  final ValueChanged<Category> onCategorySelect;
   final Product? selectedProduct;
+  final Category? selectedCategory;
   @override
   ConsumerState<CashierProducts> createState() => _CashierProductsState();
 }
@@ -35,7 +39,6 @@ class _CashierProductsState extends ConsumerState<CashierProducts> {
   Widget build(BuildContext context) {
     final selectedOrder = ref.watch(selectedOrderItem);
     final showCountSelector = selectedOrder != null;
-    final selectedCategory = useState<Category?>(null);
     const traingleSide = 25.0;
     return LayoutBuilder(builder: (context, c) {
       return Padding(
@@ -64,9 +67,10 @@ class _CashierProductsState extends ConsumerState<CashierProducts> {
             const VerticalSpacingWidget(Sizes.p16),
             Expanded(
               child: CashierProductsTable(
-                selectedCategory: selectedCategory,
-                onSelect: widget.onSelect,
+                selectedCategory: widget.selectedCategory,
+                onCategorySelect: widget.onCategorySelect,
                 selectedProduct: widget.selectedProduct,
+                onProductSelect: widget.onProductSelect,
               ),
             ),
             AnimatedRotation(

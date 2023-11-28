@@ -14,6 +14,7 @@ import 'package:my_market/features/home/domain/navigation_rail_enum.dart';
 import 'package:my_market/features/home/presentation/home_body.dart';
 import 'package:my_market/features/home/presentation/navigation_rail_controller.dart';
 import 'package:my_market/features/product/data/product_repository.dart';
+import 'package:uuid/uuid.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({
@@ -24,7 +25,11 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedRail = ref.watch(navigationRailProvider);
     return AppScaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () async {}),
+      floatingActionButton: FloatingActionButton(onPressed: () async {
+        ref.read(categoriesRepo).addCategory(
+              Category(id: const Uuid().v4(), name: 'test 5'),
+            );
+      }),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
