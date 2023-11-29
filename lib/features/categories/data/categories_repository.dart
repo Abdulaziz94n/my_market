@@ -27,7 +27,6 @@ class CategoriesRepository {
 
   Future<void> addCategory(Category data) async {
     try {
-      print(data.id);
       await _collectionRef.doc(data.id).set(data);
     } catch (e) {
       throw CustomException(message: 'Error Adding Category');

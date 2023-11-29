@@ -14,6 +14,9 @@ import 'package:my_market/features/home/domain/navigation_rail_enum.dart';
 import 'package:my_market/features/home/presentation/home_body.dart';
 import 'package:my_market/features/home/presentation/navigation_rail_controller.dart';
 import 'package:my_market/features/product/data/product_repository.dart';
+import 'package:my_market/features/product/domain/product_model.dart';
+import 'package:my_market/features/product/domain/product_price_info_model.dart';
+import 'package:my_market/features/product/presentation/products_controller.dart';
 import 'package:uuid/uuid.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -26,9 +29,24 @@ class HomeScreen extends ConsumerWidget {
     final selectedRail = ref.watch(navigationRailProvider);
     return AppScaffold(
       floatingActionButton: FloatingActionButton(onPressed: () async {
-        ref.read(categoriesRepo).addCategory(
-              Category(id: const Uuid().v4(), name: 'test 5'),
-            );
+        print(ref.read(watchCategoryList).requireValue.length);
+        // ref.read(categoriesRepo).addCategory(DummyData.category);
+        // ref.read(productsController.notifier).addProduct(Product(
+        //     id: const Uuid().v4(),
+        //     name: 'test 1',
+        //     desc: 'desc',
+        //     barcode: '123456',
+        //     shortCode: '123',
+        //     categoryId: '262f843f-0f3a-44d4-b397-6941470a91db',
+        //     sellPrice: 15,
+        //     alertCount: 10,
+        //     providersDetails: ProvidersDetails(
+        //       buyPrice: 10,
+        //       providerName: DummyData.productProviders[0],
+        //     ),
+        //     createdBy: DummyData.usersList[0].id,
+        //     createdAt: null,
+        //     stockCount: 10));
       }),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
