@@ -16,6 +16,7 @@ class Product {
   final ProvidersDetails providersDetails;
   final String createdBy;
   final DateTime? createdAt;
+  final DateTime? expirationDate;
   const Product({
     required this.id,
     required this.name,
@@ -29,6 +30,7 @@ class Product {
     required this.createdBy,
     required this.createdAt,
     required this.stockCount,
+    this.expirationDate,
   });
 
   double get buyPrice => providersDetails.buyPrice;
@@ -48,6 +50,7 @@ class Product {
       createdBy: 'created by',
       createdAt: null,
       stockCount: 0,
+      expirationDate: null,
     );
   }
 
@@ -64,6 +67,7 @@ class Product {
     ProvidersDetails? providersDetails,
     String? createdBy,
     DateTime? createdAt,
+    DateTime? expirationDate,
   }) {
     return Product(
       id: id ?? this.id,
@@ -78,6 +82,7 @@ class Product {
       providersDetails: providersDetails ?? this.providersDetails,
       createdBy: createdBy ?? this.createdBy,
       createdAt: createdAt ?? this.createdAt,
+      expirationDate: expirationDate ?? this.expirationDate,
     );
   }
 
@@ -95,6 +100,8 @@ class Product {
       'providerDetails': providersDetails.toMap(),
       'createdBy': createdBy,
       if (createdAt != null) 'createdAt': Timestamp.fromDate(createdAt!),
+      'expirationDate': expirationDate,
+      if (createdAt != null) 'expirationDate': Timestamp.fromDate(createdAt!),
     };
   }
 
@@ -116,12 +123,15 @@ class Product {
       createdAt: map['createdAt'] != null
           ? (map['createdAt'] as Timestamp).toDate()
           : null,
+      expirationDate: map['expirationDate'] != null
+          ? (map['expirationDate'] as Timestamp).toDate()
+          : null,
     );
   }
 
   @override
   String toString() {
-    return 'Product(id: $id, name: $name, desc: $desc, barcode: $barcode, shortCode: $shortCode, categoryId: $categoryId, sellPrice: $sellPrice, stockCount: $stockCount, alertCount: $alertCount, providersDetails: $providersDetails, createdBy: $createdBy, createdAt: $createdAt)';
+    return 'Product(id: $id, name: $name, desc: $desc, barcode: $barcode, shortCode: $shortCode, categoryId: $categoryId, sellPrice: $sellPrice, stockCount: $stockCount, alertCount: $alertCount, providersDetails: $providersDetails, createdBy: $createdBy, createdAt: $createdAt, expirationDate: $expirationDate)';
   }
 
   @override
@@ -137,6 +147,7 @@ class Product {
         other.sellPrice == sellPrice &&
         other.stockCount == stockCount &&
         other.alertCount == alertCount &&
+        other.expirationDate == expirationDate &&
         other.providersDetails == providersDetails;
   }
 
@@ -151,6 +162,7 @@ class Product {
         sellPrice.hashCode ^
         stockCount.hashCode ^
         alertCount.hashCode ^
+        expirationDate.hashCode ^
         providersDetails.hashCode;
   }
 }
