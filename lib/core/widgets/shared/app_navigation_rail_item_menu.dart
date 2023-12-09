@@ -5,53 +5,161 @@ import 'package:my_market/core/widgets/reusables/app_bordered_box.dart';
 import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:my_market/features/home/domain/navigation_rail_enum.dart';
 
+// TODO: Refactor RemoveOverlay calls and widgets params, isLast
+
 const double _menuWidth = 200.0;
 
 class AppNavigationRailItemMenu extends StatelessWidget {
   const AppNavigationRailItemMenu({
     super.key,
-    required this.isShowingOverlay,
     required this.removeOverlay,
-    required this.navigationRailType,
+    required this.railType,
   });
-  final bool isShowingOverlay;
-  final NavigationRailType navigationRailType;
+  final NavigationRailType railType;
   final void Function() removeOverlay;
 
   @override
+  Widget build(BuildContext context) {
+    return switch (railType) {
+      NavigationRailType.dashboard => NavigationRailSubMenu(
+          removeOverlay: removeOverlay,
+          children: [
+            RailMenuItem(
+              onPressed: () {},
+              text: 'text 1',
+              removeOverlay: removeOverlay,
+              isLast: true,
+            ),
+          ],
+        ),
+      NavigationRailType.store => NavigationRailSubMenu(
+          removeOverlay: removeOverlay,
+          children: [
+            RailMenuItem(
+              onPressed: () {},
+              text: 'Stocke et Produits',
+              removeOverlay: removeOverlay,
+            ),
+            RailMenuItem(
+              onPressed: () {},
+              text: 'Stocke de la Perte',
+              removeOverlay: removeOverlay,
+              isLast: true,
+            ),
+          ],
+        ),
+      NavigationRailType.clients => NavigationRailSubMenu(
+          removeOverlay: removeOverlay,
+          children: [
+            RailMenuItem(
+              onPressed: () {},
+              text: 'Gestion de Credits',
+              removeOverlay: removeOverlay,
+              isLast: true,
+            ),
+            RailMenuItem(
+              onPressed: () {},
+              text: 'Facturation',
+              removeOverlay: removeOverlay,
+              isLast: true,
+            ),
+            RailMenuItem(
+              onPressed: () {},
+              text: 'Historique de Reg',
+              removeOverlay: removeOverlay,
+              isLast: true,
+            )
+          ],
+        ),
+      NavigationRailType.reports => NavigationRailSubMenu(
+          removeOverlay: removeOverlay,
+          children: [
+            RailMenuItem(
+              onPressed: () {},
+              text: 'text',
+              removeOverlay: removeOverlay,
+              isLast: true,
+            )
+          ],
+        ),
+      NavigationRailType.users => NavigationRailSubMenu(
+          removeOverlay: removeOverlay,
+          children: [
+            RailMenuItem(
+              onPressed: () {},
+              text: 'text',
+              removeOverlay: removeOverlay,
+              isLast: true,
+            )
+          ],
+        ),
+      NavigationRailType.cashier => NavigationRailSubMenu(
+          removeOverlay: removeOverlay,
+          children: [
+            RailMenuItem(
+              onPressed: () {},
+              text: 'text',
+              removeOverlay: removeOverlay,
+              isLast: true,
+            )
+          ],
+        ),
+      NavigationRailType.settings => NavigationRailSubMenu(
+          removeOverlay: removeOverlay,
+          children: [
+            RailMenuItem(
+              onPressed: () {},
+              text: 'text',
+              removeOverlay: removeOverlay,
+              isLast: true,
+            )
+          ],
+        ),
+    };
+  }
+}
+
+class NavigationRailSubMenu extends StatelessWidget {
+  const NavigationRailSubMenu({
+    super.key,
+    required this.removeOverlay,
+    required this.children,
+  });
+
+  final void Function() removeOverlay;
+  final List<RailMenuItem> children;
+
   @override
   Widget build(BuildContext context) {
     return Material(
       child: TapRegion(
-          onTapOutside: (_) => removeOverlay(),
-          child: LayoutBuilder(builder: (context, c) {
-            return AppBorderedBox.withChild(
-              width: _menuWidth,
-              background: context.appColors.primary,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _MenuItem(
-                    text: '+ Gestion de Credits',
-                    onPressed: () {},
-                  ),
-                  _MenuItem(
-                    text: '+ Gestion de Credits 2',
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-            );
-          })),
+        onTapOutside: (_) => removeOverlay(),
+        child: AppBorderedBox.withChild(
+          width: _menuWidth,
+          background: context.appColors.primary,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: children,
+          ),
+        ),
+      ),
     );
   }
 }
 
-class _MenuItem extends StatelessWidget {
-  const _MenuItem({required this.onPressed, required this.text});
+class RailMenuItem extends StatelessWidget {
+  const RailMenuItem({
+    super.key,
+    required this.onPressed,
+    required this.text,
+    required this.removeOverlay,
+    this.isLast = false,
+  });
 
   final VoidCallback onPressed;
+  final VoidCallback removeOverlay;
   final String text;
+  final bool isLast;
   @override
   Widget build(BuildContext context) {
     final colors = context.appColors;
@@ -67,13 +175,16 @@ class _MenuItem extends StatelessWidget {
             fixedSize: const Size(200, 25),
             alignment: Alignment.centerLeft,
           ),
-          onPressed: onPressed,
+          onPressed: () {
+            onPressed();
+            removeOverlay();
+          },
           child: AppText(
-            text: text,
+            text: '+ $text',
             style: textStyle,
           ),
         ),
-        const _Divider(),
+        if (!isLast) const _Divider(),
       ],
     );
   }

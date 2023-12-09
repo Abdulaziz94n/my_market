@@ -69,10 +69,8 @@ class _AppNavigationRailState extends State<AppNavigationRail>
                               }
                               toggleOverlay(
                                 child: AppNavigationRailItemMenu(
-                                  isShowingOverlay: isShowingOverlay,
                                   removeOverlay: removeOverlay,
-                                  navigationRailType:
-                                      NavigationRailType.dashboard,
+                                  railType: NavigationRailType.dashboard,
                                 ),
                                 offset: offset,
                               );
@@ -89,9 +87,44 @@ class _AppNavigationRailState extends State<AppNavigationRail>
                               }
                               toggleOverlay(
                                 child: AppNavigationRailItemMenu(
-                                  isShowingOverlay: isShowingOverlay,
                                   removeOverlay: removeOverlay,
-                                  navigationRailType: NavigationRailType.store,
+                                  railType: NavigationRailType.store,
+                                ),
+                                offset: offset,
+                              );
+                            },
+                          ),
+                          AppNavigationRailItem(
+                            icon: Icons.people_alt_sharp,
+                            type: NavigationRailType.clients,
+                            selectedItem: widget.selectedItem,
+                            onSelect: widget.onSelect,
+                            onEnter: (event, context, offset) {
+                              if (isShowingOverlay) {
+                                removeOverlay();
+                              }
+                              toggleOverlay(
+                                child: AppNavigationRailItemMenu(
+                                  removeOverlay: removeOverlay,
+                                  railType: NavigationRailType.clients,
+                                ),
+                                offset: offset,
+                              );
+                            },
+                          ),
+                          AppNavigationRailItem(
+                            icon: Icons.analytics,
+                            type: NavigationRailType.reports,
+                            selectedItem: widget.selectedItem,
+                            onSelect: widget.onSelect,
+                            onEnter: (event, context, offset) {
+                              if (isShowingOverlay) {
+                                removeOverlay();
+                              }
+                              toggleOverlay(
+                                child: AppNavigationRailItemMenu(
+                                  removeOverlay: removeOverlay,
+                                  railType: NavigationRailType.reports,
                                 ),
                                 offset: offset,
                               );
@@ -107,37 +140,10 @@ class _AppNavigationRailState extends State<AppNavigationRail>
                                 removeOverlay();
                               }
                               toggleOverlay(
-                                child: const Text('Dataaa 3'),
-                                offset: offset,
-                              );
-                            },
-                          ),
-                          AppNavigationRailItem(
-                            icon: Icons.analytics,
-                            type: NavigationRailType.reports,
-                            selectedItem: widget.selectedItem,
-                            onSelect: widget.onSelect,
-                            onEnter: (event, context, offset) {
-                              if (isShowingOverlay) {
-                                removeOverlay();
-                              }
-                              toggleOverlay(
-                                child: const Text('Dataaa 4'),
-                                offset: offset,
-                              );
-                            },
-                          ),
-                          AppNavigationRailItem(
-                            icon: Icons.people_alt_sharp,
-                            type: NavigationRailType.clients,
-                            selectedItem: widget.selectedItem,
-                            onSelect: widget.onSelect,
-                            onEnter: (event, context, offset) {
-                              if (isShowingOverlay) {
-                                removeOverlay();
-                              }
-                              toggleOverlay(
-                                child: const Text('Dataaa 5'),
+                                child: AppNavigationRailItemMenu(
+                                  removeOverlay: removeOverlay,
+                                  railType: NavigationRailType.users,
+                                ),
                                 offset: offset,
                               );
                             },
@@ -152,7 +158,10 @@ class _AppNavigationRailState extends State<AppNavigationRail>
                                 removeOverlay();
                               }
                               toggleOverlay(
-                                child: const Text('Dataaa 6'),
+                                child: AppNavigationRailItemMenu(
+                                  removeOverlay: removeOverlay,
+                                  railType: NavigationRailType.cashier,
+                                ),
                                 offset: offset,
                               );
                             },
@@ -167,7 +176,10 @@ class _AppNavigationRailState extends State<AppNavigationRail>
                                 removeOverlay();
                               }
                               toggleOverlay(
-                                child: const Text('Dataaa 7'),
+                                child: AppNavigationRailItemMenu(
+                                  removeOverlay: removeOverlay,
+                                  railType: NavigationRailType.settings,
+                                ),
                                 offset: offset,
                               );
                             },
