@@ -4,18 +4,25 @@ import 'package:my_market/core/extensions/build_context_extension.dart';
 import 'package:my_market/core/mixins/overlay_mixin.dart';
 import 'package:my_market/core/widgets/shared/app_navigation_rail_item.dart';
 import 'package:my_market/core/widgets/shared/app_navigation_rail_item_menu.dart';
+import 'package:my_market/features/home/domain/navigation_rail_destination_enum.dart';
 import 'package:my_market/features/home/domain/navigation_rail_enum.dart';
+
+// TODO: Refactor [AppNavigationRailItem] map over enum ?
 
 const _kItemPadding = EdgeInsets.symmetric(vertical: Sizes.p20);
 
 class AppNavigationRail extends StatefulWidget {
   const AppNavigationRail({
     super.key,
-    required this.onSelect,
-    required this.selectedItem,
+    required this.onRailSelect,
+    required this.selectedRail,
+    required this.onDestinationSelect,
+    required this.railDestination,
   });
-  final NavigationRailType selectedItem;
-  final ValueChanged<NavigationRailType> onSelect;
+  final NavigationRailType selectedRail;
+  final ValueChanged<NavigationRailType> onRailSelect;
+  final RailDestination railDestination;
+  final ValueChanged<RailDestination> onDestinationSelect;
 
   @override
   State<AppNavigationRail> createState() => _AppNavigationRailState();
@@ -60,15 +67,18 @@ class _AppNavigationRailState extends State<AppNavigationRail>
                           ),
                           AppNavigationRailItem(
                             icon: Icons.dashboard,
-                            selectedItem: widget.selectedItem,
+                            selectedItem: widget.selectedRail,
                             type: NavigationRailType.dashboard,
-                            onSelect: widget.onSelect,
+                            onSelect: widget.onRailSelect,
                             onEnter: (event, context, offset) {
                               if (isShowingOverlay) {
                                 removeOverlay();
                               }
                               toggleOverlay(
                                 child: AppNavigationRailItemMenu(
+                                  onDestinationSelect:
+                                      widget.onDestinationSelect,
+                                  railDestination: widget.railDestination,
                                   removeOverlay: removeOverlay,
                                   railType: NavigationRailType.dashboard,
                                 ),
@@ -79,14 +89,17 @@ class _AppNavigationRailState extends State<AppNavigationRail>
                           AppNavigationRailItem(
                             icon: Icons.warehouse,
                             type: NavigationRailType.store,
-                            selectedItem: widget.selectedItem,
-                            onSelect: widget.onSelect,
+                            selectedItem: widget.selectedRail,
+                            onSelect: widget.onRailSelect,
                             onEnter: (event, context, offset) {
                               if (isShowingOverlay) {
                                 removeOverlay();
                               }
                               toggleOverlay(
                                 child: AppNavigationRailItemMenu(
+                                  onDestinationSelect:
+                                      widget.onDestinationSelect,
+                                  railDestination: widget.railDestination,
                                   removeOverlay: removeOverlay,
                                   railType: NavigationRailType.store,
                                 ),
@@ -97,14 +110,17 @@ class _AppNavigationRailState extends State<AppNavigationRail>
                           AppNavigationRailItem(
                             icon: Icons.people_alt_sharp,
                             type: NavigationRailType.clients,
-                            selectedItem: widget.selectedItem,
-                            onSelect: widget.onSelect,
+                            selectedItem: widget.selectedRail,
+                            onSelect: widget.onRailSelect,
                             onEnter: (event, context, offset) {
                               if (isShowingOverlay) {
                                 removeOverlay();
                               }
                               toggleOverlay(
                                 child: AppNavigationRailItemMenu(
+                                  onDestinationSelect:
+                                      widget.onDestinationSelect,
+                                  railDestination: widget.railDestination,
                                   removeOverlay: removeOverlay,
                                   railType: NavigationRailType.clients,
                                 ),
@@ -115,14 +131,17 @@ class _AppNavigationRailState extends State<AppNavigationRail>
                           AppNavigationRailItem(
                             icon: Icons.analytics,
                             type: NavigationRailType.reports,
-                            selectedItem: widget.selectedItem,
-                            onSelect: widget.onSelect,
+                            selectedItem: widget.selectedRail,
+                            onSelect: widget.onRailSelect,
                             onEnter: (event, context, offset) {
                               if (isShowingOverlay) {
                                 removeOverlay();
                               }
                               toggleOverlay(
                                 child: AppNavigationRailItemMenu(
+                                  onDestinationSelect:
+                                      widget.onDestinationSelect,
+                                  railDestination: widget.railDestination,
                                   removeOverlay: removeOverlay,
                                   railType: NavigationRailType.reports,
                                 ),
@@ -133,14 +152,17 @@ class _AppNavigationRailState extends State<AppNavigationRail>
                           AppNavigationRailItem(
                             icon: Icons.groups_sharp,
                             type: NavigationRailType.users,
-                            selectedItem: widget.selectedItem,
-                            onSelect: widget.onSelect,
+                            selectedItem: widget.selectedRail,
+                            onSelect: widget.onRailSelect,
                             onEnter: (event, context, offset) {
                               if (isShowingOverlay) {
                                 removeOverlay();
                               }
                               toggleOverlay(
                                 child: AppNavigationRailItemMenu(
+                                  onDestinationSelect:
+                                      widget.onDestinationSelect,
+                                  railDestination: widget.railDestination,
                                   removeOverlay: removeOverlay,
                                   railType: NavigationRailType.users,
                                 ),
@@ -151,14 +173,17 @@ class _AppNavigationRailState extends State<AppNavigationRail>
                           AppNavigationRailItem(
                             icon: Icons.shopping_cart,
                             type: NavigationRailType.cashier,
-                            selectedItem: widget.selectedItem,
-                            onSelect: widget.onSelect,
+                            selectedItem: widget.selectedRail,
+                            onSelect: widget.onRailSelect,
                             onEnter: (event, context, offset) {
                               if (isShowingOverlay) {
                                 removeOverlay();
                               }
                               toggleOverlay(
                                 child: AppNavigationRailItemMenu(
+                                  onDestinationSelect:
+                                      widget.onDestinationSelect,
+                                  railDestination: widget.railDestination,
                                   removeOverlay: removeOverlay,
                                   railType: NavigationRailType.cashier,
                                 ),
@@ -169,14 +194,17 @@ class _AppNavigationRailState extends State<AppNavigationRail>
                           AppNavigationRailItem(
                             icon: Icons.settings,
                             type: NavigationRailType.settings,
-                            selectedItem: widget.selectedItem,
-                            onSelect: widget.onSelect,
+                            selectedItem: widget.selectedRail,
+                            onSelect: widget.onRailSelect,
                             onEnter: (event, context, offset) {
                               if (isShowingOverlay) {
                                 removeOverlay();
                               }
                               toggleOverlay(
                                 child: AppNavigationRailItemMenu(
+                                  onDestinationSelect:
+                                      widget.onDestinationSelect,
+                                  railDestination: widget.railDestination,
                                   removeOverlay: removeOverlay,
                                   railType: NavigationRailType.settings,
                                 ),

@@ -23,17 +23,4 @@ enum NavigationRailType {
       _ => throw UnimplementedError()
     };
   }
-
-  static NavigationRailType fromInt(int val) {
-    return switch (val) {
-      0 => NavigationRailType.dashboard,
-      1 => NavigationRailType.store,
-      2 => NavigationRailType.users,
-      3 => NavigationRailType.reports,
-      4 => NavigationRailType.clients,
-      5 => NavigationRailType.cashier,
-      6 => NavigationRailType.settings,
-      _ => throw UnimplementedError()
-    };
-  }
 }
