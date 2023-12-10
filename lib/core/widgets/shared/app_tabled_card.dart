@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:my_market/core/constants/dummy_data.dart';
 import 'package:my_market/core/constants/sizes.dart';
 import 'package:my_market/core/extensions/build_context_extension.dart';
 import 'package:my_market/core/widgets/shared/app_2d_scrollable_table.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
-import 'package:my_market/features/product/domain/product_model.dart';
-import 'package:my_market/features/product/presentation/widgets/product_actions_row.dart';
 
-class AppTabledCard extends StatelessWidget {
+class AppTabledCard<T> extends StatelessWidget {
   const AppTabledCard({
     super.key,
-    required this.searchCtrl,
     required this.showActions,
-    required this.productList,
     required this.selectedItems,
+    required this.cellValues,
+    required this.items,
+    required this.headers,
+    required this.rowSelectionId,
+    required this.itemIdField,
+    required this.actions,
   });
 
-  final TextEditingController searchCtrl;
   final ValueNotifier<bool> showActions;
-
-  final List<Product> productList;
+  final String Function(int) rowSelectionId;
+  final List<String> Function(int) cellValues;
+  final List<T> items;
+  final List<String> headers;
+  final String Function(T) itemIdField;
   final ValueNotifier<List<String>> selectedItems;
+  final Widget actions;
 
   @override
   Widget build(BuildContext context) {
@@ -33,36 +37,15 @@ class AppTabledCard extends StatelessWidget {
           padding: const EdgeInsets.all(Sizes.p8),
           child: Column(
             children: [
-              ProductsActionRow(
-                searchCtrl: searchCtrl,
-                showActions: showActions,
-                onChanged: (val) => showActions.value = !val,
-              ),
+              actions,
               const VerticalSpacingWidget(Sizes.p16),
               Expanded(
                 child: AppTwoDimensionScrollableTable(
-                    items: DummyData.productsList,
+                    items: items,
                     headerBackground: colors.grey,
-                    headers: const [
-                      '',
-                      'ID',
-                      'Nome de Produit',
-                      'Prix',
-                      'Prix d\'achat',
-                      'Stock',
-                      'Stock d\'alert'
-                    ],
-                    cellValues: (index) => [
-                          productList[index].id,
-                          productList[index].name,
-                          productList[index].sellPrice.toString(),
-                          productList[index].buyPrice.toString(),
-                          productList[index].stockCount.toString(),
-                          productList[index].alertCount.toString(),
-                        ],
-                    rowSelectionId: (index) {
-                      return productList[index].id;
-                    },
+                    headers: headers,
+                    cellValues: cellValues,
+                    rowSelectionId: rowSelectionId,
                     selectedRows: selectedItems.value,
                     onSelect: (val) {
                       if (selectedItems.value.isNotEmpty) {
@@ -76,7 +59,7 @@ class AppTabledCard extends StatelessWidget {
                         selectedItems.value = [];
                         return;
                       }
-                      final ids = productList.map((e) => e.id).toList();
+                      final ids = items.map(itemIdField).toList();
                       selectedItems.value = [...ids, 'all'];
                     }),
               )

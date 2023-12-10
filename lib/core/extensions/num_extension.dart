@@ -32,4 +32,8 @@ extension IntX on int {
       _ => throw CustomException(message: 'Invalid int to bool conversion')
     };
   }
+
+  bool isLastIndex(int length) {
+    return this != length - 1;
+  }
 }

@@ -15,19 +15,20 @@ class ProductsActionRow extends HookConsumerWidget {
   const ProductsActionRow({
     super.key,
     required this.showActions,
-    required this.onChanged,
     required this.searchCtrl,
+    required this.onSearch,
   });
   final TextEditingController searchCtrl;
   final ValueNotifier<bool> showActions;
-  final ValueChanged<bool> onChanged;
+  final VoidCallback onSearch;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.appColors;
     final searchCtrl = useTextEditingController();
     return AppActionsRow(
       searchCtrl: searchCtrl,
-      onSearch: () {},
+      onSearch: onSearch,
       actions: [
         AppActionButton(
           color: colors.success,
@@ -84,7 +85,7 @@ class ProductsActionRow extends HookConsumerWidget {
           text: 'Exporter',
         ),
       ],
-      showActions: showActions.value,
+      showActions: showActions,
       onChanged: (value) => showActions.value = value,
     );
   }

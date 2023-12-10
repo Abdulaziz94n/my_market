@@ -15,7 +15,7 @@ class AppActionsRow extends StatelessWidget {
     required this.onSearch,
     required this.actions,
   });
-  final bool showActions;
+  final ValueNotifier<bool> showActions;
   final ValueChanged<bool> onChanged;
   final TextEditingController searchCtrl;
   final VoidCallback onSearch;
@@ -52,15 +52,15 @@ class AppActionsRow extends StatelessWidget {
             children: [
               const Spacer(),
               InkWell(
-                onTap: () => onChanged(!showActions),
+                onTap: () => onChanged(!showActions.value),
                 child: Icon(
                   Icons.settings,
-                  color: showActions ? colors.primary : colors.onPrimary,
+                  color: showActions.value ? colors.primary : colors.onPrimary,
                 ),
               ),
               const HorizontalSpacingWidget(Sizes.p8),
-              if (!showActions) const ProductFilterPopupButton(),
-              if (showActions)
+              if (!showActions.value) const ProductFilterPopupButton(),
+              if (showActions.value)
                 Expanded(
                   child: Align(
                     alignment: Alignment.centerRight,
