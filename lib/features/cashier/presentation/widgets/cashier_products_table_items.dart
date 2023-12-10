@@ -16,9 +16,9 @@ class CashierProductsTableItems extends ConsumerWidget {
     required this.onSelect,
     required this.selectedProduct,
   });
-  final List<Product> products;
-  final Product? selectedProduct;
-  final ValueChanged<Product> onSelect;
+  final List<ProductModel> products;
+  final ProductModel? selectedProduct;
+  final ValueChanged<ProductModel> onSelect;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ListView.separated(
@@ -43,9 +43,9 @@ class _ProductRow extends ConsumerWidget {
     required this.onSelect,
     required this.selectedProduct,
   });
-  final Product product;
-  final ValueChanged<Product> onSelect;
-  final Product? selectedProduct;
+  final ProductModel product;
+  final ValueChanged<ProductModel> onSelect;
+  final ProductModel? selectedProduct;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.appColors;

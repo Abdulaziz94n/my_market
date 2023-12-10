@@ -8,24 +8,24 @@ class CategoriesRepository {
   CategoriesRepository(this.firestore);
   final FirebaseFirestore firestore;
 
-  CollectionReference<Category> get _collectionRef {
-    return firestore.collection('categories').withConverter<Category>(
+  CollectionReference<CategoryModel> get _collectionRef {
+    return firestore.collection('categories').withConverter<CategoryModel>(
           fromFirestore: (data, options) {
-            return Category.fromMap(data.data()!);
+            return CategoryModel.fromMap(data.data()!);
           },
           toFirestore: (data, options) => data.toMap(),
         );
   }
 
-  Stream<List<Category>> watchCategoryList() {
+  Stream<List<CategoryModel>> watchCategoryList() {
     return _collectionRef.snapshots().toDataModel();
   }
 
-  Stream<Category> watchCategory(String id) {
+  Stream<CategoryModel> watchCategory(String id) {
     return _collectionRef.doc(id).snapshots().toDataModel();
   }
 
-  Future<void> addCategory(Category data) async {
+  Future<void> addCategory(CategoryModel data) async {
     try {
       await _collectionRef.doc(data.id).set(data);
     } catch (e) {
@@ -33,7 +33,7 @@ class CategoriesRepository {
     }
   }
 
-  Future<void> editCategory(String id, Category newData) async {
+  Future<void> editCategory(String id, CategoryModel newData) async {
     try {
       await _collectionRef.doc(id).update(newData.toMap());
     } catch (e) {
@@ -54,7 +54,7 @@ final categoriesRepo = Provider<CategoriesRepository>((ref) {
   return CategoriesRepository(FirebaseFirestore.instance);
 });
 
-final watchCategoryList = StreamProvider<List<Category>>((ref) {
+final watchCategoryList = StreamProvider<List<CategoryModel>>((ref) {
   final repo = ref.read(categoriesRepo);
   return repo.watchCategoryList();
 });

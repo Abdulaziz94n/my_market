@@ -39,7 +39,7 @@ class OrderProductModel {
     );
   }
 
-  factory OrderProductModel.fromProduct(Product product) {
+  factory OrderProductModel.fromProduct(ProductModel product) {
     return OrderProductModel(
       id: product.id,
       name: product.name,

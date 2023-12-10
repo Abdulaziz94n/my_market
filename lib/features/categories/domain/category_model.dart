@@ -3,8 +3,8 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Category {
-  Category({
+class CategoryModel {
+  CategoryModel({
     required this.id,
     required this.name,
     this.productsCount = 0,
@@ -18,11 +18,11 @@ class Category {
   final DateTime? createdAt;
   final String? createdBy;
 
-  Category copyWith({
+  CategoryModel copyWith({
     String? id,
     String? name,
   }) {
-    return Category(
+    return CategoryModel(
       id: id ?? this.id,
       name: name ?? this.name,
     );
@@ -37,8 +37,8 @@ class Category {
     };
   }
 
-  factory Category.fromMap(Map<String, dynamic> map) {
-    return Category(
+  factory CategoryModel.fromMap(Map<String, dynamic> map) {
+    return CategoryModel(
       id: map['id'] as String,
       name: map['name'] as String,
       productsCount: map['productsCount'] as int,
@@ -53,7 +53,7 @@ class Category {
       'Category(id: $id, name: $name, productsCount: $productsCount)';
 
   @override
-  bool operator ==(covariant Category other) {
+  bool operator ==(covariant CategoryModel other) {
     if (identical(this, other)) return true;
 
     return other.id == id && other.name == name;
@@ -64,6 +64,6 @@ class Category {
 
   String toJson() => json.encode(toMap());
 
-  factory Category.fromJson(String source) =>
-      Category.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory CategoryModel.fromJson(String source) =>
+      CategoryModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

@@ -23,7 +23,7 @@ class EditProductDialogActions extends ConsumerWidget {
   final AppColorsExtension colors;
   final bool isValidUpdate;
   final GlobalKey<FormState> formKey;
-  final Product product;
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -20,10 +20,10 @@ class CashierProductsTable extends HookConsumerWidget {
     required this.selectedCategory,
     required this.onCategorySelect,
   });
-  final Category? selectedCategory;
-  final ValueChanged<Product> onProductSelect;
-  final ValueChanged<Category> onCategorySelect;
-  final Product? selectedProduct;
+  final CategoryModel? selectedCategory;
+  final ValueChanged<ProductModel> onProductSelect;
+  final ValueChanged<CategoryModel> onCategorySelect;
+  final ProductModel? selectedProduct;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(

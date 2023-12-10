@@ -19,7 +19,7 @@ class AddProductDialogActions extends ConsumerWidget {
   final HorizontalSpacingWidget horizontalSpace;
   final AppColorsExtension colors;
   final GlobalKey<FormState> formKey;
-  final Product product;
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

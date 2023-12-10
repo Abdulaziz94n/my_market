@@ -30,7 +30,6 @@ class HomeScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedRail = ref.watch(navigationRailProvider);
     final railDestination = useState(RailDestination.dashboard);
-    print('HOME BODY REBUILT ${railDestination.value}');
     return AppScaffold(
       floatingActionButton: FloatingActionButton(onPressed: () async {
         // ref.read(categoriesRepo).addCategory(DummyData.category);

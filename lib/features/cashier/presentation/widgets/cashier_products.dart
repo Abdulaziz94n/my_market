@@ -25,10 +25,10 @@ class CashierProducts extends StatefulHookConsumerWidget {
     required this.selectedCategory,
     required this.onCategorySelect,
   });
-  final ValueChanged<Product> onProductSelect;
-  final ValueChanged<Category> onCategorySelect;
-  final Product? selectedProduct;
-  final Category? selectedCategory;
+  final ValueChanged<ProductModel> onProductSelect;
+  final ValueChanged<CategoryModel> onCategorySelect;
+  final ProductModel? selectedProduct;
+  final CategoryModel? selectedCategory;
   @override
   ConsumerState<CashierProducts> createState() => _CashierProductsState();
 }

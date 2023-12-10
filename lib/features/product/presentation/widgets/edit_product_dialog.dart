@@ -23,7 +23,7 @@ class EditProductDialog extends StatefulHookConsumerWidget {
     super.key,
     required this.product,
   });
-  final Product product;
+  final ProductModel product;
   @override
   ConsumerState<EditProductDialog> createState() => _EditProductDialogState();
 }
@@ -34,8 +34,8 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
   @override
   Widget build(BuildContext context) {
     final colors = context.appColors;
-    final newProduct = useState<Product>(widget.product);
-    final selectedCategory = useState<Category?>(null);
+    final newProduct = useState<ProductModel>(widget.product);
+    final selectedCategory = useState<CategoryModel?>(null);
     final selectedProductProvider = useState<String?>(null);
     const horizontalSpace = HorizontalSpacingWidget(Sizes.p16);
 
@@ -155,7 +155,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
               Row(
                 children: [
                   Expanded(
-                    child: AppDialogFromField<Category>(
+                    child: AppDialogFromField<CategoryModel>(
                       title: 'Famille',
                       hint: 'Ajouter n Code a barre',
                       asDropDown: (

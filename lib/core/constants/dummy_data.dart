@@ -1,5 +1,7 @@
 import 'package:my_market/features/auth/domain/app_user_model.dart';
 import 'package:my_market/features/categories/domain/category_model.dart';
+import 'package:my_market/features/client/domain/company_client_model.dart';
+import 'package:my_market/features/client/domain/credit_client_model.dart';
 import 'package:my_market/features/order/domain/order_item_model.dart';
 import 'package:my_market/features/order/domain/order_model.dart';
 import 'package:my_market/features/order/domain/order_product_model.dart';
@@ -8,14 +10,14 @@ import 'package:my_market/features/product/domain/product_price_info_model.dart'
 import 'package:uuid/uuid.dart';
 
 class DummyData {
-  static List<Category> categoriesList = [
-    Category(name: 'Touts', id: '1'),
-    Category(name: 'Dinda Fume', id: '2'),
-    Category(name: 'Touts', id: '3'),
-    Category(name: 'Framage', id: '4'),
-    Category(name: 'Boulangerie', id: '5'),
-    Category(name: 'Boisson', id: '6'),
-    Category(name: 'Autres', id: '7'),
+  static List<CategoryModel> categoriesList = [
+    CategoryModel(name: 'Touts', id: '1'),
+    CategoryModel(name: 'Dinda Fume', id: '2'),
+    CategoryModel(name: 'Touts', id: '3'),
+    CategoryModel(name: 'Framage', id: '4'),
+    CategoryModel(name: 'Boulangerie', id: '5'),
+    CategoryModel(name: 'Boisson', id: '6'),
+    CategoryModel(name: 'Autres', id: '7'),
   ];
 
   static List<AppUser> usersList = [
@@ -24,7 +26,7 @@ class DummyData {
         id: '2', name: 'cashier user', role: 'cashier', email: 'you@you.com')
   ];
 
-  static Product product = Product(
+  static ProductModel product = ProductModel(
     id: const Uuid().v4(),
     name: 'coffee',
     desc: '200 mg latte',
@@ -40,8 +42,8 @@ class DummyData {
     createdAt: DateTime(2023, 01, 01),
   );
 
-  static List<Product> productsList = [
-    Product(
+  static List<ProductModel> productsList = [
+    ProductModel(
       id: '1',
       name: 'coffee',
       desc: '200 mg latte',
@@ -56,7 +58,7 @@ class DummyData {
       createdBy: usersList.first.id,
       createdAt: DateTime.now(),
     ),
-    Product(
+    ProductModel(
       id: '2',
       name: 'chocalate',
       desc: '200 mg Ulker chocolate',
@@ -71,7 +73,7 @@ class DummyData {
       createdBy: usersList.first.id,
       createdAt: DateTime.now(),
     ),
-    Product(
+    ProductModel(
       id: '3',
       name: 'milk',
       desc: '1.5 L ici milk',
@@ -86,7 +88,7 @@ class DummyData {
       createdBy: usersList.last.id,
       createdAt: DateTime.now(),
     ),
-    Product(
+    ProductModel(
       id: '5',
       name: 'bread',
       desc: '10 piece bread bag',
@@ -101,7 +103,7 @@ class DummyData {
       createdBy: usersList.last.id,
       createdAt: DateTime.now(),
     ),
-    Product(
+    ProductModel(
       id: '6',
       name: 'meat',
       desc: '100g meat bag',
@@ -116,7 +118,7 @@ class DummyData {
       createdBy: usersList.first.id,
       createdAt: DateTime.now(),
     ),
-    Product(
+    ProductModel(
       id: '7',
       name: 'chicken',
       desc: '500 g chicken bag',
@@ -131,7 +133,7 @@ class DummyData {
       createdBy: usersList.first.id,
       createdAt: DateTime.now(),
     ),
-    Product(
+    ProductModel(
       id: '8',
       name: 'biskuit',
       desc: '1 piece biskuit bag',
@@ -146,7 +148,7 @@ class DummyData {
       createdBy: usersList.first.id,
       createdAt: DateTime.now(),
     ),
-    Product(
+    ProductModel(
       id: '9',
       name: '3 biskuit',
       desc: '3 piece biskuit bag',
@@ -161,7 +163,7 @@ class DummyData {
       createdBy: usersList.first.id,
       createdAt: DateTime.now(),
     ),
-    Product(
+    ProductModel(
       id: '10',
       name: 'kinder',
       desc: '1 piece kinder bag',
@@ -176,7 +178,7 @@ class DummyData {
       createdBy: usersList.first.id,
       createdAt: DateTime.now(),
     ),
-    Product(
+    ProductModel(
       id: '11',
       name: 'mars',
       desc: '1 piece mars bag',
@@ -193,7 +195,7 @@ class DummyData {
     ),
   ];
 
-  static List<Product> categoryProducts(String categoryId) {
+  static List<ProductModel> categoryProducts(String categoryId) {
     return productsList
         .where((element) => element.categoryId == categoryId)
         .toList();
@@ -220,8 +222,50 @@ class DummyData {
     createdBy: usersList[0].id,
   );
 
-  static Category category = Category(
+  static CategoryModel category = CategoryModel(
     id: const Uuid().v4(),
     name: 'test category',
   );
+
+  static List<CreditClientModel> creditClients = [
+    CreditClientModel(
+      fullName: 'fullName',
+      id: '1',
+      code: '11',
+      phoneNumber: 'phoneNumber',
+      createdBy: 'currentUser',
+    ),
+    CreditClientModel(
+      fullName: 'fullName 2',
+      id: '2',
+      code: '22',
+      phoneNumber: 'phoneNumber',
+      createdBy: 'currentUser',
+    ),
+  ];
+
+  static List<CompanyClient> companyClients = [
+    CompanyClient(
+      id: '1',
+      code: '11',
+      fullName: 'fullName 1',
+      phoneNumber: 'phoneNumber',
+      companyName: 'companyName 1',
+      ice: 'ice 1',
+      iF: 'iF 1',
+      email: 'email',
+      createdBy: 'currentUser',
+    ),
+    CompanyClient(
+      id: '2',
+      code: '22',
+      fullName: 'fullName 2',
+      phoneNumber: 'phoneNumber 2',
+      companyName: 'companyName 2',
+      ice: 'ice 2',
+      iF: 'iF 2',
+      email: 'email 2',
+      createdBy: 'currentUser',
+    ),
+  ];
 }

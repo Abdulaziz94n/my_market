@@ -32,8 +32,8 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
   @override
   Widget build(BuildContext context) {
     final colors = context.appColors;
-    final product = useState<Product>(Product.initial());
-    final selectedCategory = useState<Category?>(null);
+    final product = useState<ProductModel>(ProductModel.initial());
+    final selectedCategory = useState<CategoryModel?>(null);
     final selectedProductProvider = useState<String?>(null);
     const horizontalSpace = HorizontalSpacingWidget(Sizes.p16);
 
@@ -45,7 +45,7 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
         successMessage: 'Product Added Successfully',
         onSuccessAction: () {
           formKey.currentState!.reset();
-          product.value = Product.initial();
+          product.value = ProductModel.initial();
           selectedCategory.value = null;
           selectedProductProvider.value = null;
         },
@@ -147,7 +147,7 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
               Row(
                 children: [
                   Expanded(
-                    child: AppDialogFromField<Category>(
+                    child: AppDialogFromField<CategoryModel>(
                       title: 'Famille',
                       hint: 'Ajouter n Code a barre',
                       asDropDown: (

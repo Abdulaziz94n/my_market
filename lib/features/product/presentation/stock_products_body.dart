@@ -23,7 +23,7 @@ class ProductsTabBody extends HookConsumerWidget {
       showActions.value = selectedItems.value.length == 1;
       return null;
     }, [selectedItems.value]);
-    return AppMainTabledBody<Product>(
+    return AppMainTabledBody<ProductModel>(
         title: 'Stocke & Produits',
         primaryCards: const [
           AppPrimaryCard(
@@ -47,7 +47,7 @@ class ProductsTabBody extends HookConsumerWidget {
             subTitle: 'Total de Produits',
           ),
         ],
-        table: AppTabledCard<Product>(
+        table: AppTabledCard<ProductModel>(
           actions: ProductsActionRow(
             searchCtrl: searchCtrl,
             showActions: showActions,

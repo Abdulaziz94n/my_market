@@ -17,8 +17,8 @@ class CategorySelectionList extends ConsumerWidget {
     required this.onCategorySelect,
     required this.selectedCategory,
   });
-  final ValueChanged<Category> onCategorySelect;
-  final Category? selectedCategory;
+  final ValueChanged<CategoryModel> onCategorySelect;
+  final CategoryModel? selectedCategory;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AsyncValueWidget(
@@ -56,9 +56,9 @@ class CategoryCard extends StatelessWidget {
     required this.isSelected,
     required this.onSelect,
   });
-  final Category category;
+  final CategoryModel category;
   final bool isSelected;
-  final ValueChanged<Category> onSelect;
+  final ValueChanged<CategoryModel> onSelect;
   @override
   Widget build(BuildContext context) {
     final colors = context.appColors;

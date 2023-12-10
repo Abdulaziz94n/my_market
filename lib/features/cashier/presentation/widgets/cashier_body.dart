@@ -31,8 +31,8 @@ class CashierBody extends HookConsumerWidget {
       );
     });
     final newOrderNotifier = ref.read(newOrderController.notifier);
-    final selectedProduct = useState<Product?>(null);
-    final selectedCategory = useState<Category?>(null);
+    final selectedProduct = useState<ProductModel?>(null);
+    final selectedCategory = useState<CategoryModel?>(null);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

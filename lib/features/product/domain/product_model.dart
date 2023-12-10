@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_market/features/product/domain/product_price_info_model.dart';
 import 'package:uuid/uuid.dart';
 
-class Product {
+class ProductModel {
   final String id;
   final String name;
   final String desc;
@@ -17,7 +17,7 @@ class Product {
   final String createdBy;
   final DateTime? createdAt;
   final DateTime? expirationDate;
-  const Product({
+  const ProductModel({
     required this.id,
     required this.name,
     required this.desc,
@@ -35,9 +35,9 @@ class Product {
 
   double get buyPrice => providersDetails.buyPrice;
 
-  static Product initial() {
+  static ProductModel initial() {
     final uuid = const Uuid().v4();
-    return Product(
+    return ProductModel(
       id: uuid,
       name: '',
       desc: 'desc',
@@ -54,7 +54,7 @@ class Product {
     );
   }
 
-  Product copyWith({
+  ProductModel copyWith({
     String? id,
     String? name,
     String? desc,
@@ -69,7 +69,7 @@ class Product {
     DateTime? createdAt,
     DateTime? expirationDate,
   }) {
-    return Product(
+    return ProductModel(
       id: id ?? this.id,
       name: name ?? this.name,
       desc: desc ?? this.desc,
@@ -105,8 +105,8 @@ class Product {
     };
   }
 
-  factory Product.fromMap(Map<String, dynamic> map) {
-    return Product(
+  factory ProductModel.fromMap(Map<String, dynamic> map) {
+    return ProductModel(
       id: map['id'] as String,
       name: map['name'] as String,
       desc: map['desc'] as String,
@@ -135,7 +135,7 @@ class Product {
   }
 
   @override
-  bool operator ==(covariant Product other) {
+  bool operator ==(covariant ProductModel other) {
     if (identical(this, other)) return true;
 
     return other.id == id &&

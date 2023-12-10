@@ -8,31 +8,31 @@ class ProductsRepository {
   ProductsRepository(this.firestore);
   final FirebaseFirestore firestore;
 
-  CollectionReference<Product> get _collectionRef {
-    return firestore.collection('products').withConverter<Product>(
+  CollectionReference<ProductModel> get _collectionRef {
+    return firestore.collection('products').withConverter<ProductModel>(
           fromFirestore: (data, options) {
-            return Product.fromMap(data.data()!);
+            return ProductModel.fromMap(data.data()!);
           },
           toFirestore: (data, options) => data.toMap(),
         );
   }
 
-  Stream<List<Product>> watchProductList() {
+  Stream<List<ProductModel>> watchProductList() {
     return _collectionRef.snapshots().toDataModel();
   }
 
-  Stream<List<Product>> watchCategoryProducts(String categoryId) {
+  Stream<List<ProductModel>> watchCategoryProducts(String categoryId) {
     return _collectionRef
         .where('categoryId', isEqualTo: categoryId)
         .snapshots()
         .toDataModel();
   }
 
-  Stream<Product> watchProduct(String id) {
+  Stream<ProductModel> watchProduct(String id) {
     return _collectionRef.doc(id).snapshots().toDataModel();
   }
 
-  Future<void> addProduct(Product data) async {
+  Future<void> addProduct(ProductModel data) async {
     try {
       data = data.copyWith(categoryId: data.categoryId);
       await _collectionRef.doc(data.id).set(data);
@@ -45,7 +45,7 @@ class ProductsRepository {
     }
   }
 
-  Future<void> editProduct(String id, Product newData) async {
+  Future<void> editProduct(String id, ProductModel newData) async {
     try {
       await _collectionRef.doc(id).update(newData.toMap());
     } catch (e) {
@@ -69,19 +69,19 @@ final productsRepo = Provider<ProductsRepository>((ref) {
   return ProductsRepository(FirebaseFirestore.instance);
 });
 
-final watchProductListProvider = StreamProvider<List<Product>>((ref) {
+final watchProductListProvider = StreamProvider<List<ProductModel>>((ref) {
   final productsList = ref.read(productsRepo).watchProductList();
   return productsList;
 });
 
 final watchProductProvider =
-    StreamProvider.autoDispose.family<Product, String>((ref, id) {
+    StreamProvider.autoDispose.family<ProductModel, String>((ref, id) {
   final product = ref.read(productsRepo).watchProduct(id);
   return product;
 });
 
-final watchCategoryProducts =
-    StreamProvider.family.autoDispose<List<Product>, String>((ref, categoryId) {
+final watchCategoryProducts = StreamProvider.family
+    .autoDispose<List<ProductModel>, String>((ref, categoryId) {
   final categoryProducts = ref.read(productsRepo).watchCategoryProducts(
         categoryId,
       );
