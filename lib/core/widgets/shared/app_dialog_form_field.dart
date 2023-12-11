@@ -20,6 +20,7 @@ class AppDialogFromField<T> extends StatelessWidget {
     this.inputType,
     this.inputFormatter,
     this.initialValue,
+    this.readOnly,
     this.textAlign = TextAlign.start,
   }) : assert(asDropDown?.onChanged == null || onSave == null);
 
@@ -30,6 +31,7 @@ class AppDialogFromField<T> extends StatelessWidget {
   final String? Function(String?)? textFieldValidator;
   final TextInputType? inputType;
   final List<TextInputFormatter>? inputFormatter;
+  final bool? readOnly;
   final ({
     bool isDropDown,
     List<T> items,
@@ -51,6 +53,7 @@ class AppDialogFromField<T> extends StatelessWidget {
         const VerticalSpacingWidget(Sizes.p4),
         if (asDropDown == null)
           AppBorderedTextField(
+            readOnly: readOnly ?? false,
             initialValue: initialValue,
             hintText: hint,
             textAlign: textAlign,

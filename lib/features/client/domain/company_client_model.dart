@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_market/features/client/domain/client_type_enum.dart';
 import 'package:uuid/uuid.dart';
 
-class CompanyClient {
+class CompanyClientModel {
   final String id;
   final String code;
   final String fullName;
@@ -17,7 +17,7 @@ class CompanyClient {
   final String createdBy;
   final DateTime? createdAt;
   final ClientType type;
-  CompanyClient({
+  CompanyClientModel({
     required this.id,
     required this.code,
     required this.fullName,
@@ -30,9 +30,9 @@ class CompanyClient {
     this.createdAt,
   }) : type = ClientType.companyClient;
 
-  factory CompanyClient.initial() {
+  factory CompanyClientModel.initial() {
     final uuid = const Uuid().v4();
-    return CompanyClient(
+    return CompanyClientModel(
       id: uuid,
       code: uuid.substring(0, 6),
       fullName: '',
@@ -46,7 +46,7 @@ class CompanyClient {
     );
   }
 
-  CompanyClient copyWith({
+  CompanyClientModel copyWith({
     String? id,
     String? code,
     String? fullName,
@@ -59,7 +59,7 @@ class CompanyClient {
     DateTime? createdAt,
     ClientType? type,
   }) {
-    return CompanyClient(
+    return CompanyClientModel(
       id: id ?? this.id,
       code: code ?? this.code,
       fullName: fullName ?? this.fullName,
@@ -89,8 +89,8 @@ class CompanyClient {
     };
   }
 
-  factory CompanyClient.fromMap(Map<String, dynamic> map) {
-    return CompanyClient(
+  factory CompanyClientModel.fromMap(Map<String, dynamic> map) {
+    return CompanyClientModel(
       id: map['id'] as String,
       code: map['code'] as String,
       fullName: map['fullName'] as String,
@@ -108,8 +108,8 @@ class CompanyClient {
 
   String toJson() => json.encode(toMap());
 
-  factory CompanyClient.fromJson(String source) =>
-      CompanyClient.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory CompanyClientModel.fromJson(String source) =>
+      CompanyClientModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -117,7 +117,7 @@ class CompanyClient {
   }
 
   @override
-  bool operator ==(covariant CompanyClient other) {
+  bool operator ==(covariant CompanyClientModel other) {
     if (identical(this, other)) return true;
 
     return other.id == id &&

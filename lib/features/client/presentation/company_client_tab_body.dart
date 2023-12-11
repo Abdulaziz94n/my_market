@@ -3,11 +3,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_market/core/constants/dummy_data.dart';
 import 'package:my_market/core/extensions/build_context_extension.dart';
+import 'package:my_market/core/utils/app_dialogs.dart';
 import 'package:my_market/core/widgets/shared/app_action_button.dart';
 import 'package:my_market/core/widgets/shared/app_actions_row.dart';
 import 'package:my_market/core/widgets/shared/app_main_tabled_body.dart';
 import 'package:my_market/core/widgets/shared/app_primary_card.dart';
 import 'package:my_market/core/widgets/shared/app_tabled_card.dart';
+import 'package:my_market/features/client/presentation/widgets/add_company_client_dialog.dart';
+import 'package:my_market/features/client/presentation/widgets/edit_company_client_dialog.dart';
 
 class CompanyClientTabBody extends HookConsumerWidget {
   const CompanyClientTabBody({
@@ -73,7 +76,10 @@ class CompanyClientTabBody extends HookConsumerWidget {
           actions: [
             AppActionButton(
               color: colors.success,
-              onPressed: () {},
+              onPressed: () => AppDialogs.customDialog(
+                context: context,
+                dialog: const AddCompanyClienttDialog(),
+              ),
               iconData: Icons.add,
               text: 'Ajouter Nouveau Client',
             ),
@@ -85,7 +91,12 @@ class CompanyClientTabBody extends HookConsumerWidget {
             ),
             AppActionButton(
               color: colors.warning,
-              onPressed: () {},
+              onPressed: () => AppDialogs.customDialog(
+                context: context,
+                dialog: EditCompanyClienttDialog(
+                  client: DummyData.companyClients[0],
+                ),
+              ),
               iconData: Icons.edit,
               text: 'Modifier',
             ),

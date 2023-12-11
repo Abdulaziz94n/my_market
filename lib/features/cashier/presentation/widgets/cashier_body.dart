@@ -14,8 +14,9 @@ import 'package:my_market/features/product/domain/product_model_extension.dart';
 class CashierBody extends HookConsumerWidget {
   const CashierBody({
     super.key,
+    this.onPop,
   });
-
+  final VoidCallback? onPop;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(submitOrderController, (previous, next) {
@@ -50,6 +51,7 @@ class CashierBody extends HookConsumerWidget {
               selectedProduct: selectedProduct.value,
               selectedCategory: selectedCategory.value,
               onCategorySelect: (category) => selectedCategory.value = category,
+              onPop: onPop,
             )),
       ],
     );

@@ -12,8 +12,6 @@ import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/cashier/presentation/widgets/cashier_products_table.dart';
 import 'package:my_market/features/cashier/presentation/widgets/count_selector.dart';
 import 'package:my_market/features/categories/domain/category_model.dart';
-import 'package:my_market/features/home/domain/navigation_rail_enum.dart';
-import 'package:my_market/features/home/presentation/navigation_rail_controller.dart';
 import 'package:my_market/features/order/presentation/order_item_controller.dart';
 import 'package:my_market/features/product/domain/product_model.dart';
 
@@ -24,11 +22,13 @@ class CashierProducts extends StatefulHookConsumerWidget {
     required this.selectedProduct,
     required this.selectedCategory,
     required this.onCategorySelect,
+    this.onPop,
   });
   final ValueChanged<ProductModel> onProductSelect;
   final ValueChanged<CategoryModel> onCategorySelect;
   final ProductModel? selectedProduct;
   final CategoryModel? selectedCategory;
+  final VoidCallback? onPop;
   @override
   ConsumerState<CashierProducts> createState() => _CashierProductsState();
 }
@@ -55,9 +55,7 @@ class _CashierProductsState extends ConsumerState<CashierProducts> {
                       right: 0,
                       child: AppText.clickable(
                         text: 'Retour au menu',
-                        onClick: () => ref
-                            .read(navigationRailProvider.notifier)
-                            .setTab(NavigationRailType.dashboard),
+                        onClick: widget.onPop,
                       ))
                 ],
               ),

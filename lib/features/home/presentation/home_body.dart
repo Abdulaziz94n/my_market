@@ -14,9 +14,11 @@ class HomeBody extends ConsumerWidget {
     super.key,
     required this.selectedRail,
     required this.railDestination,
+    this.onPop,
   });
   final NavigationRailType selectedRail;
   final RailDestination railDestination;
+  final VoidCallback? onPop;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return switch (railDestination) {
@@ -29,7 +31,7 @@ class HomeBody extends ConsumerWidget {
       RailDestination.settings => Center(child: Text(' $railDestination')),
       RailDestination.reports => Center(child: Text(' $railDestination')),
       RailDestination.users => Center(child: Text(' $railDestination')),
-      RailDestination.cashier => const CashierBody(),
+      RailDestination.cashier => CashierBody(onPop: onPop),
     };
   }
 }

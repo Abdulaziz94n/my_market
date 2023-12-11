@@ -48,10 +48,6 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
         onSuccessAction: () => context.pop(),
       );
     });
-    print('////////////////////');
-    print(widget.product.categoryId == newProduct.value.categoryId);
-    print('products equal ${widget.product == newProduct.value}');
-    print('////////////////////');
     return Form(
       key: formKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,

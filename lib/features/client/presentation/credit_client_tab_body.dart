@@ -3,11 +3,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_market/core/constants/dummy_data.dart';
 import 'package:my_market/core/extensions/build_context_extension.dart';
+import 'package:my_market/core/utils/app_dialogs.dart';
 import 'package:my_market/core/widgets/shared/app_action_button.dart';
 import 'package:my_market/core/widgets/shared/app_actions_row.dart';
 import 'package:my_market/core/widgets/shared/app_main_tabled_body.dart';
 import 'package:my_market/core/widgets/shared/app_primary_card.dart';
 import 'package:my_market/core/widgets/shared/app_tabled_card.dart';
+import 'package:my_market/features/client/presentation/widgets/add_credit_client_dialog.dart';
+import 'package:my_market/features/client/presentation/widgets/edit_credit_client_dialog.dart';
 
 class CreditClientTabBody extends HookConsumerWidget {
   const CreditClientTabBody({
@@ -73,7 +76,10 @@ class CreditClientTabBody extends HookConsumerWidget {
           onSearch: () {},
           actions: [
             AppActionButton(
-              onPressed: () {},
+              onPressed: () => AppDialogs.customDialog(
+                context: context,
+                dialog: const AddCreditClienttDialog(),
+              ),
               iconData: Icons.add,
               text: 'Ajouter Nouveau Client',
               color: colors.success,
@@ -85,7 +91,11 @@ class CreditClientTabBody extends HookConsumerWidget {
               color: colors.blue,
             ),
             AppActionButton(
-              onPressed: () {},
+              onPressed: () => AppDialogs.customDialog(
+                  context: context,
+                  dialog: EditCreditClienttDialog(
+                    client: DummyData.creditClients.first,
+                  )),
               iconData: Icons.edit,
               text: 'Modifier',
               color: colors.warning,

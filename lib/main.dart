@@ -22,7 +22,7 @@ import 'package:window_size/window_size.dart';
 //TODO:
 /// Migrate collectionRef.add() => collectionRef.doc(modelId).set(data);
 /// Move Navigation Rail Widgets from core to home feature.
-///
+/// Remove NavigationRailType provider
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

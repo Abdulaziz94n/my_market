@@ -244,8 +244,8 @@ class DummyData {
     ),
   ];
 
-  static List<CompanyClient> companyClients = [
-    CompanyClient(
+  static List<CompanyClientModel> companyClients = [
+    CompanyClientModel(
       id: '1',
       code: '11',
       fullName: 'fullName 1',
@@ -256,7 +256,7 @@ class DummyData {
       email: 'email',
       createdBy: 'currentUser',
     ),
-    CompanyClient(
+    CompanyClientModel(
       id: '2',
       code: '22',
       fullName: 'fullName 2',

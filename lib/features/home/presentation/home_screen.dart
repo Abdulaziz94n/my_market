@@ -53,7 +53,7 @@ class HomeScreen extends HookConsumerWidget {
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (selectedRail != NavigationRailType.cashier)
+          if (railDestination.value != RailDestination.cashier)
             AppNavigationRail(
               selectedRail: selectedRail,
               onRailSelect: (value) =>
@@ -66,8 +66,9 @@ class HomeScreen extends HookConsumerWidget {
             child: HomeBody(
               selectedRail: selectedRail,
               railDestination: railDestination.value,
+              onPop: () => railDestination.value = RailDestination.dashboard,
             ),
-          )
+          ),
         ],
       ),
     );
