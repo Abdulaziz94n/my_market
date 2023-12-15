@@ -10,6 +10,7 @@
 #include <connectivity_plus/connectivity_plus_windows_plugin.h>
 #include <firebase_auth/firebase_auth_plugin_c_api.h>
 #include <firebase_core/firebase_core_plugin_c_api.h>
+#include <objectbox_flutter_libs/objectbox_flutter_libs_plugin.h>
 #include <window_size/window_size_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
@@ -21,6 +22,8 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("FirebaseAuthPluginCApi"));
   FirebaseCorePluginCApiRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("FirebaseCorePluginCApi"));
+  ObjectboxFlutterLibsPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("ObjectboxFlutterLibsPlugin"));
   WindowSizePluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("WindowSizePlugin"));
 }

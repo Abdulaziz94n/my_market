@@ -51,7 +51,7 @@ class AsyncValueUtils {
           contentText: message,
           pop: onErrorAction == null
               ? context.pop
-              : () => context.actionAndPop(() {
+              : () => context.popAndAction(() {
                     onErrorAction();
                   }),
         ),
@@ -67,7 +67,7 @@ class AsyncValueUtils {
           contentText: successMessage ?? 'Success Message here',
           pop: onSuccessAction == null
               ? context.pop
-              : () => context.actionAndPop(() {
+              : () => context.popAndAction(() {
                     onSuccessAction();
                   }),
         ),

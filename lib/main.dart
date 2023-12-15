@@ -8,11 +8,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:my_market/core/extensions/build_context_extension.dart';
 import 'package:my_market/core/router/app_router.dart';
 import 'package:my_market/core/theme/themes.dart';
 import 'package:my_market/core/utils/network.dart';
 import 'package:my_market/features/categories/data/categories_repository.dart';
 import 'package:my_market/firebase_options.dart';
+import 'package:my_market/object_box_model.dart';
 import 'package:window_size/window_size.dart';
 
 /// ref.read(notifier).fn() of B Controller called in A Controller ? or go Like like [OrderItemsList] onIncrease...
@@ -24,9 +27,11 @@ import 'package:window_size/window_size.dart';
 /// Migrate collectionRef.add() => collectionRef.doc(modelId).set(data);
 /// Move Navigation Rail Widgets from core to home feature.
 /// Remove NavigationRailType provider
+late ObjectBox objectbox;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  objectbox = await ObjectBox.create();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   if (!kIsWeb) {
     if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {

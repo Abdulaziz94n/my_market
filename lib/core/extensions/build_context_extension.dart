@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -59,7 +61,7 @@ extension BuildContextExtension on BuildContext {
 
   bool get isDarkMode => theme.brightness == Brightness.dark;
 
-  void actionAndPop(VoidCallback action) {
+  void popAndAction(VoidCallback action) {
     pop();
     action();
   }
@@ -83,7 +85,7 @@ extension BuildContextExtension on BuildContext {
     );
   }
 
-  showAppDialog({required Widget dialog}) {
+  Future showAppDialog({required Widget dialog}) {
     return showDialog(context: this, builder: (context) => dialog);
   }
 
@@ -104,5 +106,30 @@ extension BuildContextExtension on BuildContext {
       backgroundColor: backgroundColor,
       builder: (context) => child,
     );
+  }
+
+  showBanner({
+    required Widget content,
+    required VoidCallback onClose,
+    Duration? duration,
+  }) {
+    final ScaffoldMessengerState controller = ScaffoldMessenger.of(this);
+    controller
+      ..hideCurrentMaterialBanner()
+      ..showMaterialBanner(MaterialBanner(content: content, actions: [
+        IconButton(
+          onPressed: () {
+            onClose();
+            ScaffoldMessenger.of(this).hideCurrentMaterialBanner();
+          },
+          icon: const Icon(Icons.close),
+        ),
+      ]));
+    if (duration != null) {
+      Future.delayed(duration, () {
+        controller.hideCurrentMaterialBanner();
+      });
+    }
+    return controller;
   }
 }
