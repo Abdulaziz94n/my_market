@@ -10,6 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_market/core/router/app_router.dart';
 import 'package:my_market/core/theme/themes.dart';
+import 'package:my_market/core/utils/network.dart';
 import 'package:my_market/features/categories/data/categories_repository.dart';
 import 'package:my_market/firebase_options.dart';
 import 'package:window_size/window_size.dart';
@@ -35,6 +36,8 @@ Future<void> main() async {
   }
   final container = ProviderContainer();
   container.read(watchCategoryList);
+  container.read(connectivityProvider);
+  container.read(internetConnectionProvider);
   runApp(
     UncontrolledProviderScope(container: container, child: const MyApp()),
   );

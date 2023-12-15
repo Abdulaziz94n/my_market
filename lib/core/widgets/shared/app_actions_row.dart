@@ -10,13 +10,11 @@ class AppActionsRow extends StatelessWidget {
   const AppActionsRow({
     super.key,
     required this.showActions,
-    required this.onChanged,
     required this.searchCtrl,
     required this.onSearch,
     required this.actions,
   });
   final ValueNotifier<bool> showActions;
-  final ValueChanged<bool> onChanged;
   final TextEditingController searchCtrl;
   final VoidCallback onSearch;
   final List<AppActionButton> actions;
@@ -51,12 +49,9 @@ class AppActionsRow extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               const Spacer(),
-              InkWell(
-                onTap: () => onChanged(!showActions.value),
-                child: Icon(
-                  Icons.settings,
-                  color: showActions.value ? colors.primary : colors.onPrimary,
-                ),
+              Icon(
+                Icons.settings,
+                color: showActions.value ? colors.primary : colors.onPrimary,
               ),
               const HorizontalSpacingWidget(Sizes.p8),
               if (!showActions.value) const ProductFilterPopupButton(),

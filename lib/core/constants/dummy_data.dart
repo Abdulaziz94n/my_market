@@ -32,7 +32,7 @@ class DummyData {
     desc: '200 mg latte',
     barcode: '123456789',
     shortCode: 'asd123',
-    categoryId: '2',
+    categoryId: '262f843f-0f3a-44d4-b397-6941470a91db',
     sellPrice: 27,
     alertCount: 25,
     stockCount: 10,

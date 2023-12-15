@@ -1,52 +1,81 @@
-// import 'dart:async';
-// import 'dart:ui';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-// import 'package:connectivity_plus/connectivity_plus.dart';
+class InternetConnectionController extends Notifier<CurrentConnection> {
+  @override
+  CurrentConnection build() {
+    final connectionStatus = ref.watch(internetConnectionProvider).valueOrNull;
+    final result = ref.watch(connectivityProvider).valueOrNull;
+    return CurrentConnection(
+      connectionStatus: connectionStatus,
+      result: result,
+    );
+  }
 
-// class NetworkInfo {
-//   NetworkInfo() {
-//     init();
-//   }
+  // void listenAndAct(AppLifecycleState state) {
+  //   switch (state) {
+  //     case AppLifecycleState.inactive:
+  //       return;
+  //     case AppLifecycleState.detached:
+  //       return;
+  //     case AppLifecycleState.resumed:
+  //       return;
+  //     case AppLifecycleState.paused:
+  //       return;
+  //     default:
+  //       assert(false, "Invalid AppLifecycleState value: $state");
+  //   }
+  // }
+}
 
-//   late StreamSubscription _connectionListener;
+final currentConnectionProvider =
+    NotifierProvider<InternetConnectionController, CurrentConnection>(
+        InternetConnectionController.new);
 
-//   void init() {
-//     _connectionListener =
-//         Connectivity().onConnectivityChanged.listen(listenToConnection);
-//   }
+final connectivityProvider = StreamProvider<ConnectivityResult>((ref) {
+  return Connectivity().onConnectivityChanged;
+});
 
-//   listenToConnection(ConnectivityResult result) {
-//     // final hasConnection = result != ConnectivityResult.none;
-//     // Impelement required behavior
-//   }
+final internetConnectionProvider =
+    StreamProvider<InternetConnectionStatus>((ref) {
+  return InternetConnectionChecker().onStatusChange;
+});
 
-//   void _startListenToConnection() {
-//     _connectionListener =
-//         Connectivity().onConnectivityChanged.listen(listenToConnection);
-//   }
+// TODO: Move to another file
+class CurrentConnection {
+  final InternetConnectionStatus? connectionStatus;
+  final ConnectivityResult? result;
+  CurrentConnection({
+    this.connectionStatus,
+    this.result,
+  });
 
-//   void _stopListenToConnection() {
-//     _connectionListener.cancel();
-//   }
+  bool get hasConnection =>
+      connectionStatus == InternetConnectionStatus.connected;
 
-//   void listenAndAct(AppLifecycleState state) {
-//     switch (state) {
-//       case AppLifecycleState.inactive:
-//         return;
-//       case AppLifecycleState.detached:
-//         return;
-//       case AppLifecycleState.resumed:
-//         _startListenToConnection();
-//         return;
-//       case AppLifecycleState.paused:
-//         _stopListenToConnection();
-//         return;
-//       default:
-//         assert(false, "Invalid AppLifecycleState value: $state");
-//     }
-//   }
+  CurrentConnection copyWith({
+    InternetConnectionStatus? connectionStatus,
+    ConnectivityResult? result,
+  }) {
+    return CurrentConnection(
+      connectionStatus: connectionStatus ?? this.connectionStatus,
+      result: result ?? this.result,
+    );
+  }
 
-//   void dispose() {
-//     _stopListenToConnection();
-//   }
-// }
+  @override
+  String toString() =>
+      'CurrnetConnection(connectionStatus: $connectionStatus, result: $result)';
+
+  @override
+  bool operator ==(covariant CurrentConnection other) {
+    if (identical(this, other)) return true;
+
+    return other.connectionStatus == connectionStatus && other.result == result;
+  }
+
+  @override
+  int get hashCode => connectionStatus.hashCode ^ result.hashCode;
+}

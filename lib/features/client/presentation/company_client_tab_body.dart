@@ -70,7 +70,6 @@ class CompanyClientTabBody extends HookConsumerWidget {
         itemIdField: (item) => item.id,
         actions: AppActionsRow(
           showActions: showActions,
-          onChanged: (val) => showActions.value = !val,
           searchCtrl: searchCtrl,
           onSearch: () {},
           actions: [

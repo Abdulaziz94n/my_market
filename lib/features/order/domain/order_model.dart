@@ -7,6 +7,7 @@ import 'package:uuid/uuid.dart';
 class OrderModel {
   final String orderId;
   final int ticketNo;
+  final String clientId;
   final List<OrderItemModel> orderItems;
   final String createdBy;
   final DateTime? createdAt;
@@ -15,6 +16,7 @@ class OrderModel {
     required this.orderItems,
     required this.createdBy,
     this.createdAt,
+    this.clientId = '0',
   }) : orderId = const Uuid().v4();
 
   OrderModel copyWith({
@@ -23,10 +25,12 @@ class OrderModel {
     List<OrderItemModel>? orderItems,
     String? createdBy,
     DateTime? createdAt,
+    final String? clientId,
   }) {
     return OrderModel(
       ticketNo: ticketNo ?? this.ticketNo,
       orderItems: orderItems ?? this.orderItems,
+      clientId: clientId ?? this.clientId,
       createdBy: createdBy ?? this.createdBy,
       createdAt: createdAt ?? this.createdAt,
     );
@@ -36,6 +40,7 @@ class OrderModel {
     return <String, dynamic>{
       'orderId': orderId,
       'ticketNo': ticketNo,
+      'clientId': clientId,
       'orderItems': orderItems.map((x) => x.toMap()).toList(),
       'createdBy': createdBy,
       if (createdAt != null) 'createdAt': Timestamp.fromDate(createdAt!),
@@ -45,6 +50,7 @@ class OrderModel {
   factory OrderModel.fromMap(Map<String, dynamic> map) {
     return OrderModel(
       ticketNo: map['ticketNo'] as int,
+      clientId: map['clientId'] as String,
       orderItems: List<OrderItemModel>.from(
         (map['orderItems'] as List<int>).map<OrderItemModel>(
           (x) => OrderItemModel.fromMap(x as Map<String, dynamic>),
@@ -59,18 +65,23 @@ class OrderModel {
 
   @override
   String toString() {
-    return 'OrderModel(orderId: $orderId, ticketNo: $ticketNo, orderItems: $orderItems, createdBy: $createdBy, createdAt: $createdAt)';
+    return 'OrderModel(orderId: $orderId, ticketNo: $ticketNo, clientId: $clientId, orderItems: $orderItems, createdBy: $createdBy, createdAt: $createdAt)';
   }
 
   @override
   bool operator ==(covariant OrderModel other) {
     if (identical(this, other)) return true;
 
-    return other.orderId == orderId && listEquals(other.orderItems, orderItems);
+    return other.orderId == orderId &&
+        other.clientId == clientId &&
+        listEquals(other.orderItems, orderItems);
   }
 
   @override
   int get hashCode {
-    return orderId.hashCode ^ ticketNo.hashCode ^ orderItems.hashCode;
+    return orderId.hashCode ^
+        clientId.hashCode ^
+        ticketNo.hashCode ^
+        orderItems.hashCode;
   }
 }

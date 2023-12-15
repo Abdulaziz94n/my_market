@@ -71,7 +71,6 @@ class CreditClientTabBody extends HookConsumerWidget {
         rowSelectionId: (index) => clientsList[index].id,
         actions: AppActionsRow(
           showActions: showActions,
-          onChanged: (val) => showActions.value = val,
           searchCtrl: searchCtrl,
           onSearch: () {},
           actions: [

@@ -86,7 +86,6 @@ class ProductsActionRow extends HookConsumerWidget {
         ),
       ],
       showActions: showActions,
-      onChanged: (value) => showActions.value = value,
     );
   }
 }
