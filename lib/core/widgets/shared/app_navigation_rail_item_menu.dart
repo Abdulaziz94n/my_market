@@ -15,13 +15,15 @@ class AppNavigationRailItemMenu extends StatelessWidget {
     super.key,
     required this.removeOverlay,
     required this.railType,
-    required this.railDestination,
+    required this.selectedDestination,
     required this.onDestinationSelect,
+    required this.onRailSelect,
   });
   final NavigationRailType railType;
   final void Function() removeOverlay;
-  final RailDestination railDestination;
+  final RailDestination selectedDestination;
   final ValueChanged<RailDestination> onDestinationSelect;
+  final ValueChanged<NavigationRailType> onRailSelect;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,9 @@ class AppNavigationRailItemMenu extends StatelessWidget {
           removeOverlay: removeOverlay,
           children: [
             RailMenuItem(
+              railType: NavigationRailType.dashboard,
+              onRailSelect: onRailSelect,
+              selectedDestination: selectedDestination,
               railDestination: RailDestination.dashboard,
               onDestinationSelect: onDestinationSelect,
               text: 'text 1',
@@ -42,12 +47,18 @@ class AppNavigationRailItemMenu extends StatelessWidget {
           removeOverlay: removeOverlay,
           children: [
             RailMenuItem(
+              railType: NavigationRailType.store,
+              onRailSelect: onRailSelect,
+              selectedDestination: selectedDestination,
               railDestination: RailDestination.stockProduct,
               onDestinationSelect: onDestinationSelect,
               text: 'Stocke et Produits',
               removeOverlay: removeOverlay,
             ),
             RailMenuItem(
+              railType: NavigationRailType.store,
+              onRailSelect: onRailSelect,
+              selectedDestination: selectedDestination,
               railDestination: RailDestination.stockPerte,
               onDestinationSelect: onDestinationSelect,
               text: 'Stocke de la Perte',
@@ -60,6 +71,9 @@ class AppNavigationRailItemMenu extends StatelessWidget {
           removeOverlay: removeOverlay,
           children: [
             RailMenuItem(
+              railType: NavigationRailType.clients,
+              onRailSelect: onRailSelect,
+              selectedDestination: selectedDestination,
               railDestination: RailDestination.clientsOnCredit,
               onDestinationSelect: onDestinationSelect,
               text: 'Gestion de Credits',
@@ -67,6 +81,9 @@ class AppNavigationRailItemMenu extends StatelessWidget {
               isLast: true,
             ),
             RailMenuItem(
+              railType: NavigationRailType.clients,
+              onRailSelect: onRailSelect,
+              selectedDestination: selectedDestination,
               railDestination: RailDestination.clientsCompany,
               onDestinationSelect: onDestinationSelect,
               text: 'Facturation',
@@ -74,6 +91,9 @@ class AppNavigationRailItemMenu extends StatelessWidget {
               isLast: true,
             ),
             RailMenuItem(
+              railType: NavigationRailType.clients,
+              onRailSelect: onRailSelect,
+              selectedDestination: selectedDestination,
               railDestination: RailDestination.clientsHistory,
               onDestinationSelect: onDestinationSelect,
               text: 'Historique de Reg',
@@ -86,6 +106,9 @@ class AppNavigationRailItemMenu extends StatelessWidget {
           removeOverlay: removeOverlay,
           children: [
             RailMenuItem(
+              railType: NavigationRailType.reports,
+              onRailSelect: onRailSelect,
+              selectedDestination: selectedDestination,
               railDestination: RailDestination.reports,
               onDestinationSelect: onDestinationSelect,
               text: 'reports',
@@ -98,6 +121,9 @@ class AppNavigationRailItemMenu extends StatelessWidget {
           removeOverlay: removeOverlay,
           children: [
             RailMenuItem(
+              railType: NavigationRailType.users,
+              onRailSelect: onRailSelect,
+              selectedDestination: selectedDestination,
               railDestination: RailDestination.users,
               onDestinationSelect: onDestinationSelect,
               text: 'users',
@@ -110,6 +136,9 @@ class AppNavigationRailItemMenu extends StatelessWidget {
           removeOverlay: removeOverlay,
           children: [
             RailMenuItem(
+              railType: NavigationRailType.cashier,
+              onRailSelect: onRailSelect,
+              selectedDestination: selectedDestination,
               railDestination: RailDestination.cashier,
               onDestinationSelect: onDestinationSelect,
               text: 'cashier',
@@ -122,6 +151,9 @@ class AppNavigationRailItemMenu extends StatelessWidget {
           removeOverlay: removeOverlay,
           children: [
             RailMenuItem(
+              railType: NavigationRailType.settings,
+              onRailSelect: onRailSelect,
+              selectedDestination: selectedDestination,
               railDestination: RailDestination.settings,
               onDestinationSelect: onDestinationSelect,
               text: 'text',
@@ -169,6 +201,9 @@ class RailMenuItem extends StatelessWidget {
     required this.removeOverlay,
     required this.railDestination,
     required this.onDestinationSelect,
+    required this.selectedDestination,
+    required this.onRailSelect,
+    required this.railType,
     this.isLast = false,
   });
 
@@ -176,12 +211,17 @@ class RailMenuItem extends StatelessWidget {
   final String text;
   final bool isLast;
   final RailDestination railDestination;
+  final RailDestination selectedDestination;
   final ValueChanged<RailDestination> onDestinationSelect;
+  final NavigationRailType railType;
+  final ValueChanged<NavigationRailType> onRailSelect;
 
   @override
   Widget build(BuildContext context) {
+    final isSelected = railDestination == selectedDestination;
     final colors = context.appColors;
-    final textStyle = const TextStyle().colorize(colors.onPrimary);
+    final textStyle = const TextStyle()
+        .colorize(isSelected ? colors.error : colors.onPrimary);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -195,6 +235,7 @@ class RailMenuItem extends StatelessWidget {
           ),
           onPressed: () {
             onDestinationSelect(railDestination);
+            onRailSelect(railType);
             removeOverlay();
           },
           child: AppText(

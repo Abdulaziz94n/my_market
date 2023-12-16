@@ -14,8 +14,10 @@ import 'package:my_market/core/router/app_router.dart';
 import 'package:my_market/core/theme/themes.dart';
 import 'package:my_market/core/utils/network.dart';
 import 'package:my_market/features/categories/data/categories_repository.dart';
+import 'package:my_market/features/users/presentation/user_controller.dart';
 import 'package:my_market/firebase_options.dart';
 import 'package:my_market/object_box_model.dart';
+import 'package:my_market/wrapper.dart';
 import 'package:window_size/window_size.dart';
 
 /// ref.read(notifier).fn() of B Controller called in A Controller ? or go Like like [OrderItemsList] onIncrease...
@@ -27,11 +29,12 @@ import 'package:window_size/window_size.dart';
 /// Migrate collectionRef.add() => collectionRef.doc(modelId).set(data);
 /// Move Navigation Rail Widgets from core to home feature.
 /// Remove NavigationRailType provider
-late ObjectBox objectbox;
+/// Add AppUser model to be used in the app other than UserModel to hide password data
+late ObjectBox objectBox;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  objectbox = await ObjectBox.create();
+  objectBox = await ObjectBox.create();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   if (!kIsWeb) {
     if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
@@ -55,6 +58,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       routerConfig: ref.watch(goRouterProvider),
+      builder: (context, child) => AppWrapper(child: child!),
       supportedLocales: AppLocalizations.supportedLocales,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       debugShowCheckedModeBanner: false,

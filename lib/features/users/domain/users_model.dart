@@ -1,32 +1,36 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:my_market/features/users/domain/user_role_enum.dart';
 import 'package:objectbox/objectbox.dart';
 
 @Entity()
-@Sync()
-class UsersModel {
+class UserModel {
   int id;
-  final String userName;
+  final String name;
   final String password;
   final int roleId;
 
-  UsersModel({
-    required this.id,
-    required this.userName,
+  UserModel({
+    this.id = 0,
+    required this.name,
     required this.password,
     required this.roleId,
   });
 
-  UsersModel copyWith({
+  UserRole get role {
+    return UserRole.values.firstWhere((element) => element.id == roleId);
+  }
+
+  UserModel copyWith({
     int? id,
-    String? userName,
+    String? name,
     String? password,
     int? roleId,
   }) {
-    return UsersModel(
+    return UserModel(
       id: id ?? this.id,
-      userName: userName ?? this.userName,
+      name: name ?? this.name,
       password: password ?? this.password,
       roleId: roleId ?? this.roleId,
     );
@@ -34,40 +38,37 @@ class UsersModel {
 
   @override
   String toString() {
-    return 'UsersModel(id: $id, userName: $userName, password: $password, roleId: $roleId)';
+    return 'UserModel(id: $id, userName: $name, password: $password, roleId: $roleId)';
   }
 
   @override
-  bool operator ==(covariant UsersModel other) {
+  bool operator ==(covariant UserModel other) {
     if (identical(this, other)) return true;
 
     return other.id == id &&
-        other.userName == userName &&
+        other.name == name &&
         other.password == password &&
         other.roleId == roleId;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^
-        userName.hashCode ^
-        password.hashCode ^
-        roleId.hashCode;
+    return id.hashCode ^ name.hashCode ^ password.hashCode ^ roleId.hashCode;
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'userName': userName,
+      'userName': name,
       'password': password,
       'roleId': roleId,
     };
   }
 
-  factory UsersModel.fromMap(Map<String, dynamic> map) {
-    return UsersModel(
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
       id: map['id'] as int,
-      userName: map['userName'] as String,
+      name: map['userName'] as String,
       password: map['password'] as String,
       roleId: map['roleId'] as int,
     );
@@ -75,6 +76,6 @@ class UsersModel {
 
   String toJson() => json.encode(toMap());
 
-  factory UsersModel.fromJson(String source) =>
-      UsersModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory UserModel.fromJson(String source) =>
+      UserModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

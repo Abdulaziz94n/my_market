@@ -10,14 +10,14 @@ class AppNavigationRailItem extends StatefulWidget {
   const AppNavigationRailItem({
     super.key,
     required this.icon,
-    required this.selectedItem,
+    required this.selectedRail,
     required this.onSelect,
     required this.type,
     required this.onEnter,
   });
   final IconData icon;
   final ValueChanged<NavigationRailType> onSelect;
-  final NavigationRailType selectedItem;
+  final NavigationRailType selectedRail;
   final NavigationRailType type;
   final void Function(
       PointerEnterEvent event, BuildContext context, Offset offset) onEnter;
@@ -50,7 +50,7 @@ class _AppNavigationRailItemState extends State<AppNavigationRailItem> {
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            boxShadow: widget.selectedItem == widget.type
+            boxShadow: widget.selectedRail == widget.type
                 ? [
                     BoxShadow(
                       color: context.appColors.grey.withOpacity(0.3),
@@ -68,7 +68,7 @@ class _AppNavigationRailItemState extends State<AppNavigationRailItem> {
               hoverColor: Colors.transparent,
               splashColor: Colors.transparent,
               focusColor: Colors.transparent,
-              onTap: () => widget.onSelect(widget.type),
+              onTap: () {},
               child: Icon(
                 widget.icon,
                 color: context.appColors.onPrimary,

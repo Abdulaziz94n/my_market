@@ -1,4 +1,4 @@
-import 'package:my_market/features/auth/domain/app_user_model.dart';
+import 'package:my_market/core/extensions/string_extension.dart';
 import 'package:my_market/features/categories/domain/category_model.dart';
 import 'package:my_market/features/client/domain/company_client_model.dart';
 import 'package:my_market/features/client/domain/credit_client_model.dart';
@@ -7,6 +7,8 @@ import 'package:my_market/features/order/domain/order_model.dart';
 import 'package:my_market/features/order/domain/order_product_model.dart';
 import 'package:my_market/features/product/domain/product_model.dart';
 import 'package:my_market/features/product/domain/product_price_info_model.dart';
+import 'package:my_market/features/users/domain/user_role_enum.dart';
+import 'package:my_market/features/users/domain/users_model.dart';
 import 'package:uuid/uuid.dart';
 
 class DummyData {
@@ -20,10 +22,8 @@ class DummyData {
     CategoryModel(name: 'Autres', id: '7'),
   ];
 
-  static List<AppUser> usersList = [
-    AppUser(id: '1', name: 'admin user', role: 'admin', email: 'me@me.com'),
-    AppUser(
-        id: '2', name: 'cashier user', role: 'cashier', email: 'you@you.com')
+  static List<UserModel> usersList = [
+    UserModel(name: 'wleed', password: 'password', roleId: 1, id: 1)
   ];
 
   static ProductModel product = ProductModel(
@@ -38,7 +38,7 @@ class DummyData {
     stockCount: 10,
     providersDetails:
         ProvidersDetails(buyPrice: 22, providerName: productProviders.last),
-    createdBy: usersList.first.id,
+    createdBy: usersList.first.id.toString().toString(),
     createdAt: DateTime(2023, 01, 01),
   );
 
@@ -55,7 +55,7 @@ class DummyData {
       stockCount: 10,
       providersDetails:
           ProvidersDetails(buyPrice: 21, providerName: productProviders[0]),
-      createdBy: usersList.first.id,
+      createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
     ProductModel(
@@ -70,7 +70,7 @@ class DummyData {
       stockCount: 10,
       providersDetails:
           ProvidersDetails(buyPrice: 22, providerName: productProviders[0]),
-      createdBy: usersList.first.id,
+      createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
     ProductModel(
@@ -85,7 +85,7 @@ class DummyData {
       stockCount: 10,
       providersDetails:
           ProvidersDetails(buyPrice: 18, providerName: productProviders[1]),
-      createdBy: usersList.last.id,
+      createdBy: usersList.last.id.toString(),
       createdAt: DateTime.now(),
     ),
     ProductModel(
@@ -100,7 +100,7 @@ class DummyData {
       stockCount: 10,
       providersDetails:
           ProvidersDetails(buyPrice: 7, providerName: productProviders[2]),
-      createdBy: usersList.last.id,
+      createdBy: usersList.last.id.toString(),
       createdAt: DateTime.now(),
     ),
     ProductModel(
@@ -115,7 +115,7 @@ class DummyData {
       stockCount: 10,
       providersDetails:
           ProvidersDetails(buyPrice: 8, providerName: productProviders[2]),
-      createdBy: usersList.first.id,
+      createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
     ProductModel(
@@ -130,7 +130,7 @@ class DummyData {
       stockCount: 10,
       providersDetails:
           ProvidersDetails(buyPrice: 12, providerName: productProviders[2]),
-      createdBy: usersList.first.id,
+      createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
     ProductModel(
@@ -145,7 +145,7 @@ class DummyData {
       stockCount: 10,
       providersDetails:
           ProvidersDetails(buyPrice: 9, providerName: productProviders[2]),
-      createdBy: usersList.first.id,
+      createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
     ProductModel(
@@ -160,7 +160,7 @@ class DummyData {
       stockCount: 10,
       providersDetails:
           ProvidersDetails(buyPrice: 20, providerName: productProviders[2]),
-      createdBy: usersList.first.id,
+      createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
     ProductModel(
@@ -175,7 +175,7 @@ class DummyData {
       stockCount: 10,
       providersDetails:
           ProvidersDetails(buyPrice: 10, providerName: productProviders[2]),
-      createdBy: usersList.first.id,
+      createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
     ProductModel(
@@ -190,7 +190,7 @@ class DummyData {
       stockCount: 10,
       providersDetails:
           ProvidersDetails(buyPrice: 9, providerName: productProviders[2]),
-      createdBy: usersList.first.id,
+      createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
   ];
@@ -268,4 +268,10 @@ class DummyData {
       createdBy: 'currentUser',
     ),
   ];
+
+  static UserModel localDbUser = UserModel(
+    name: 'Nejim'.trimAndLower,
+    password: 'tester'.trim(),
+    roleId: UserRole.admin.id,
+  );
 }

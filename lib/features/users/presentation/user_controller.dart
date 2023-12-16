@@ -1,13 +1,20 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_market/core/constants/dummy_data.dart';
-import 'package:my_market/features/auth/domain/app_user_model.dart';
+import 'package:my_market/features/users/domain/users_model.dart';
 
-class UserController extends Notifier<AppUser?> {
+class UserController extends Notifier<UserModel?> {
   @override
   build() {
-    return DummyData.usersList.first;
+    return null;
+  }
+
+  setUser(UserModel user) {
+    state = user;
+  }
+
+  nullifyUser() {
+    state = null;
   }
 }
 
 final userProvider =
-    NotifierProvider<UserController, AppUser?>(UserController.new);
+    NotifierProvider<UserController, UserModel?>(UserController.new);

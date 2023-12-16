@@ -9,7 +9,7 @@ class OrderModel {
   final int ticketNo;
   final String clientId;
   final List<OrderItemModel> orderItems;
-  final String createdBy;
+  final int createdBy;
   final DateTime? createdAt;
   OrderModel({
     this.ticketNo = 0,
@@ -23,7 +23,7 @@ class OrderModel {
     String? orderId,
     int? ticketNo,
     List<OrderItemModel>? orderItems,
-    String? createdBy,
+    int? createdBy,
     DateTime? createdAt,
     final String? clientId,
   }) {
@@ -56,7 +56,7 @@ class OrderModel {
           (x) => OrderItemModel.fromMap(x as Map<String, dynamic>),
         ),
       ),
-      createdBy: map['createdBy'] as String,
+      createdBy: map['createdBy'] as int,
       createdAt: map['createdAt'] != null
           ? (map['createdAt'] as Timestamp).toDate()
           : null,

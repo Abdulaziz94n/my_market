@@ -6,6 +6,7 @@ import 'package:my_market/core/widgets/shared/app_navigation_rail.dart';
 import 'package:my_market/features/home/domain/navigation_rail_destination_enum.dart';
 import 'package:my_market/features/home/presentation/home_body.dart';
 import 'package:my_market/features/home/presentation/navigation_rail_controller.dart';
+import 'package:my_market/features/users/presentation/auth_controller.dart';
 
 class HomeScreen extends HookConsumerWidget {
   const HomeScreen({
@@ -15,15 +16,10 @@ class HomeScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedRail = ref.watch(navigationRailProvider);
-    final railDestination = useState(RailDestination.dashboard);
+    final selectedDestination = useState(RailDestination.dashboard);
     return AppScaffold(
       floatingActionButton: FloatingActionButton(onPressed: () async {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => Scaffold(
-                  appBar: AppBar(
-                    title: const Text('NEW PAGE'),
-                  ),
-                )));
+        ref.read(authController.notifier).logout();
         // ref.read(categoriesRepo).addCategory(DummyData.category);
         // ref.read(productsController.notifier).addProduct(Product(
         //     id: const Uuid().v4(),
@@ -45,20 +41,21 @@ class HomeScreen extends HookConsumerWidget {
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (railDestination.value != RailDestination.cashier)
+          if (selectedDestination.value != RailDestination.cashier)
             AppNavigationRail(
               selectedRail: selectedRail,
               onRailSelect: (value) =>
                   ref.read(navigationRailProvider.notifier).setTab(value),
-              railDestination: railDestination.value,
+              selectedDestination: selectedDestination.value,
               onDestinationSelect: (destination) =>
-                  railDestination.value = destination,
+                  selectedDestination.value = destination,
             ),
           Expanded(
             child: HomeBody(
               selectedRail: selectedRail,
-              railDestination: railDestination.value,
-              onPop: () => railDestination.value = RailDestination.dashboard,
+              railDestination: selectedDestination.value,
+              onPop: () =>
+                  selectedDestination.value = RailDestination.dashboard,
             ),
           ),
         ],

@@ -5,20 +5,14 @@
   "entities": [
     {
       "id": "1:944467722730829171",
-      "lastPropertyId": "4:5218456862063584420",
-      "name": "UsersModel",
-      "flags": 2,
+      "lastPropertyId": "5:561272264101305885",
+      "name": "UserModel",
       "properties": [
         {
           "id": "1:4902833846168776877",
           "name": "id",
           "type": 6,
           "flags": 1
-        },
-        {
-          "id": "2:6292014324209513906",
-          "name": "userName",
-          "type": 9
         },
         {
           "id": "3:5259571279762061495",
@@ -29,6 +23,11 @@
           "id": "4:5218456862063584420",
           "name": "roleId",
           "type": 6
+        },
+        {
+          "id": "5:561272264101305885",
+          "name": "name",
+          "type": 9
         }
       ],
       "relations": []
@@ -42,7 +41,9 @@
   "modelVersionParserMinimum": 5,
   "retiredEntityUids": [],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    6292014324209513906
+  ],
   "retiredRelationUids": [],
   "version": 1
 }
