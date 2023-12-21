@@ -1,7 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_market/core/exceptions/app_exceptions.dart';
 import 'package:my_market/features/users/domain/users_model.dart';
-import 'package:my_market/features/users/presentation/user_controller.dart';
 import 'package:my_market/main.dart';
 import 'package:my_market/objectbox.g.dart';
 
@@ -18,16 +17,14 @@ class AuthController extends Notifier<UserModel?> {
             .and(UserModel_.password.equals(password)))
         .build();
     final user = query.findFirst();
-    print(user);
     if (user == null) {
       throw CustomException(message: 'No User Found With Provided Credentials');
     }
-    ref.read(userProvider.notifier).setUser(user);
+    state = user;
   }
 
   void logout() {
     state = null;
-    ref.read(userProvider.notifier).nullifyUser();
   }
 }
 

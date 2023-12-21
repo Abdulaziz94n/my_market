@@ -1,3 +1,8 @@
+import 'dart:developer';
+
+import 'package:my_market/features/client/domain/company_client_model.dart';
+import 'package:my_market/features/client/domain/credit_client_model.dart';
+import 'package:my_market/features/order/domain/order_model.dart';
 import 'package:my_market/features/users/domain/users_model.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -5,12 +10,18 @@ import 'package:path_provider/path_provider.dart';
 import 'objectbox.g.dart'; // created by `flutter pub run build_runner build`
 
 class ObjectBox {
-  /// The Store of this app.
   late final Store store;
   late final Box<UserModel> userBox;
+  late final Box<CreditClientModel> creditClientBox;
+  late final Box<CompanyClientModel> companyClientBox;
+  late final Box<CreditOrderModel> ordersBox;
 
   ObjectBox._create(this.store) {
     userBox = Box<UserModel>(store);
+    creditClientBox = Box<CreditClientModel>(store);
+    companyClientBox = Box<CompanyClientModel>(store);
+    ordersBox = Box<CreditOrderModel>(store);
+    log('ALL REMOVED');
     // Add any additional setup code, e.g. build queries.
   }
 

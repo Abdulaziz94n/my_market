@@ -1,11 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_market/features/client/domain/client_type_enum.dart';
+import 'package:objectbox/objectbox.dart';
 import 'package:uuid/uuid.dart';
 
+@Entity()
 class CompanyClientModel {
+  @Id()
+  int dbId;
+  @Unique()
   final String id;
   final String code;
   final String fullName;
@@ -16,8 +18,11 @@ class CompanyClientModel {
   final String email;
   final String createdBy;
   final DateTime? createdAt;
+  final int clientTypeId;
+  @Transient()
   final ClientType type;
   CompanyClientModel({
+    this.dbId = 0,
     required this.id,
     required this.code,
     required this.fullName,
@@ -27,6 +32,7 @@ class CompanyClientModel {
     required this.iF,
     required this.email,
     required this.createdBy,
+    required this.clientTypeId,
     this.createdAt,
   }) : type = ClientType.companyClient;
 
@@ -34,6 +40,7 @@ class CompanyClientModel {
     final uuid = const Uuid().v4();
     return CompanyClientModel(
       id: uuid,
+      clientTypeId: ClientType.companyClient.typeIndex,
       code: uuid.substring(0, 6),
       fullName: '',
       phoneNumber: '',
@@ -48,6 +55,7 @@ class CompanyClientModel {
 
   CompanyClientModel copyWith({
     String? id,
+    int? clientTypeId,
     String? code,
     String? fullName,
     String? phoneNumber,
@@ -61,6 +69,7 @@ class CompanyClientModel {
   }) {
     return CompanyClientModel(
       id: id ?? this.id,
+      clientTypeId: clientTypeId ?? this.clientTypeId,
       code: code ?? this.code,
       fullName: fullName ?? this.fullName,
       phoneNumber: phoneNumber ?? this.phoneNumber,
@@ -72,44 +81,6 @@ class CompanyClientModel {
       createdAt: createdAt ?? this.createdAt,
     );
   }
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'code': code,
-      'fullName': fullName,
-      'phoneNumber': phoneNumber,
-      'companyName': companyName,
-      'ice': ice,
-      'iF': iF,
-      'email': email,
-      'createdBy': createdBy,
-      if (createdAt != null) 'createdAt': Timestamp.fromDate(createdAt!),
-      'type': type.type,
-    };
-  }
-
-  factory CompanyClientModel.fromMap(Map<String, dynamic> map) {
-    return CompanyClientModel(
-      id: map['id'] as String,
-      code: map['code'] as String,
-      fullName: map['fullName'] as String,
-      phoneNumber: map['phoneNumber'] as String,
-      companyName: map['companyName'] as String,
-      ice: map['ice'] as String,
-      iF: map['iF'] as String,
-      email: map['email'] as String,
-      createdBy: map['createdBy'] as String,
-      createdAt: map['createdAt'] != null
-          ? (map['createdAt'] as Timestamp).toDate()
-          : null,
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory CompanyClientModel.fromJson(String source) =>
-      CompanyClientModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {

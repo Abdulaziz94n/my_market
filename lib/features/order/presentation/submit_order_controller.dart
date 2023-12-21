@@ -8,7 +8,7 @@ class SubmitOrderController extends AsyncNotifier<void> {
   @override
   FutureOr<void> build() {}
 
-  Future<void> submitOrder(OrderModel orderModel, int ticketNo) async {
+  Future<void> submitOrder(CreditOrderModel orderModel, int ticketNo) async {
     if (orderModel.orderItems.isEmpty) return;
     orderModel = orderModel.copyWith(
       ticketNo: ticketNo,

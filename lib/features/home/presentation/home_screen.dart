@@ -1,12 +1,22 @@
+// ignore_for_file: unused_import
+
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_market/core/constants/dummy_data.dart';
 import 'package:my_market/core/widgets/reusables/app_scaffold.dart';
 import 'package:my_market/core/widgets/shared/app_navigation_rail.dart';
+import 'package:my_market/features/client/data/credit_client_repository.dart';
 import 'package:my_market/features/home/domain/navigation_rail_destination_enum.dart';
 import 'package:my_market/features/home/presentation/home_body.dart';
 import 'package:my_market/features/home/presentation/navigation_rail_controller.dart';
+import 'package:my_market/features/order/domain/order_item_model.dart';
+import 'package:my_market/features/order/domain/order_model.dart';
 import 'package:my_market/features/users/presentation/auth_controller.dart';
+import 'package:my_market/main.dart';
+import 'package:my_market/objectbox.g.dart';
 
 class HomeScreen extends HookConsumerWidget {
   const HomeScreen({
@@ -18,26 +28,7 @@ class HomeScreen extends HookConsumerWidget {
     final selectedRail = ref.watch(navigationRailProvider);
     final selectedDestination = useState(RailDestination.dashboard);
     return AppScaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () async {
-        ref.read(authController.notifier).logout();
-        // ref.read(categoriesRepo).addCategory(DummyData.category);
-        // ref.read(productsController.notifier).addProduct(Product(
-        //     id: const Uuid().v4(),
-        //     name: 'test 1',
-        //     desc: 'desc',
-        //     barcode: '123456',
-        //     shortCode: '123',
-        //     categoryId: '262f843f-0f3a-44d4-b397-6941470a91db',
-        //     sellPrice: 15,
-        //     alertCount: 10,
-        //     providersDetails: ProvidersDetails(
-        //       buyPrice: 10,
-        //       providerName: DummyData.productProviders[0],
-        //     ),
-        //     createdBy: DummyData.usersList[0].id,
-        //     createdAt: null,
-        //     stockCount: 10));
-      }),
+      floatingActionButton: FloatingActionButton(onPressed: () async {}),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

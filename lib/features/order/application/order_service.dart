@@ -7,7 +7,7 @@ class OrderService {
   OrderService(this.ref);
   final Ref ref;
 
-  Future<void> submitOrder(OrderModel orderModel) async {
+  Future<void> submitOrder(CreditOrderModel orderModel) async {
     await ref.read(ordersRepo).addOrderModel(orderModel);
     await ref.read(orderTicketRepo).increaseTicketNo();
   }

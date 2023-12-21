@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:my_market/core/exceptions/app_exceptions.dart';
 
 class Utils {
   void benchMark2Fn(void Function() fn1, void Function() fn2) {
@@ -30,5 +34,21 @@ class Utils {
     final length = listA.length < listB.length ? listA.length : listB.length;
     return List<T>.generate(
         length, (index) => combiner(listA[index], listB[index]));
+  }
+
+  FutureOr<T> performWithConnectionCheck<T>(
+    FutureOr<T> Function() whenConnected,
+    FutureOr<T> Function() whenOffline,
+  ) async {
+    final hasConnection = await InternetConnectionChecker().hasConnection;
+    if (hasConnection) {
+      try {
+        return await whenConnected();
+      } catch (e) {
+        throw CustomException(message: e.toString());
+      }
+    } else {
+      return await whenOffline();
+    }
   }
 }

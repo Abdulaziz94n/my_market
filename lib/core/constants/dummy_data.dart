@@ -1,5 +1,6 @@
 import 'package:my_market/core/extensions/string_extension.dart';
 import 'package:my_market/features/categories/domain/category_model.dart';
+import 'package:my_market/features/client/domain/client_type_enum.dart';
 import 'package:my_market/features/client/domain/company_client_model.dart';
 import 'package:my_market/features/client/domain/credit_client_model.dart';
 import 'package:my_market/features/order/domain/order_item_model.dart';
@@ -208,7 +209,23 @@ class DummyData {
     'Provider 4',
   ];
 
-  static OrderModel order = OrderModel(
+  static List<OrderItemModel> orderItems = [
+    OrderItemModel(
+      product: OrderProductModel.fromProduct(productsList[0]),
+      quantity: 1,
+    ),
+    OrderItemModel(
+      product: OrderProductModel.fromProduct(productsList[1]),
+      quantity: 3,
+    ),
+    OrderItemModel(
+      product: OrderProductModel.fromProduct(productsList[2]),
+      quantity: 2,
+    ),
+  ];
+
+  static CreditOrderModel order = CreditOrderModel(
+    isPaid: false,
     orderItems: [
       OrderItemModel(
         product: OrderProductModel.fromProduct(productsList[0]),
@@ -216,7 +233,11 @@ class DummyData {
       ),
       OrderItemModel(
         product: OrderProductModel.fromProduct(productsList[1]),
-        quantity: 1,
+        quantity: 3,
+      ),
+      OrderItemModel(
+        product: OrderProductModel.fromProduct(productsList[2]),
+        quantity: 2,
       ),
     ],
     createdBy: usersList[0].id,
@@ -229,25 +250,26 @@ class DummyData {
 
   static List<CreditClientModel> creditClients = [
     CreditClientModel(
-      fullName: 'fullName',
-      id: '1',
-      code: '11',
-      phoneNumber: 'phoneNumber',
-      createdBy: 'currentUser',
-    ),
+        fullName: 'fullName',
+        id: const Uuid().v4(),
+        code: '11',
+        phoneNumber: 'phoneNumber',
+        createdBy: 'currentUser',
+        createdAt: DateTime.now()),
     CreditClientModel(
-      fullName: 'fullName 2',
-      id: '2',
-      code: '22',
-      phoneNumber: 'phoneNumber',
-      createdBy: 'currentUser',
-    ),
+        fullName: 'fullName 2',
+        id: const Uuid().v4(),
+        code: '22',
+        phoneNumber: 'phoneNumber',
+        createdBy: 'currentUser',
+        createdAt: DateTime.now()),
   ];
 
   static List<CompanyClientModel> companyClients = [
     CompanyClientModel(
       id: '1',
       code: '11',
+      clientTypeId: ClientType.companyClient.typeIndex,
       fullName: 'fullName 1',
       phoneNumber: 'phoneNumber',
       companyName: 'companyName 1',
@@ -258,6 +280,7 @@ class DummyData {
     ),
     CompanyClientModel(
       id: '2',
+      clientTypeId: ClientType.companyClient.typeIndex,
       code: '22',
       fullName: 'fullName 2',
       phoneNumber: 'phoneNumber 2',

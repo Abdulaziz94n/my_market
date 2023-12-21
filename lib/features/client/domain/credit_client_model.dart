@@ -1,19 +1,26 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' hide Index;
 import 'package:my_market/features/client/domain/client_type_enum.dart';
+import 'package:objectbox/objectbox.dart';
 import 'package:uuid/uuid.dart';
 
+@Entity()
 class CreditClientModel {
+  @Id()
+  int dbId;
   final String fullName;
+  @Unique()
   final String id;
   final String code;
   final String phoneNumber;
   final ClientType type;
   final String createdBy;
   final DateTime? createdAt;
+  // final orders = ToMany<CreditOrderModel>();
+
   CreditClientModel({
+    this.dbId = 0,
     required this.fullName,
     required this.id,
     required this.code,
@@ -83,7 +90,7 @@ class CreditClientModel {
 
   @override
   String toString() {
-    return 'PersonClientModel(fullName: $fullName, id: $id, code: $code, phoneNumber: $phoneNumber, type: $type, createdBy: $createdBy, createdAt: $createdAt)';
+    return 'PersonClientModel(fullName: $fullName, id: $id, code: $code, phoneNumber: $phoneNumber, type: $type, createdBy: $createdBy, createdAt: $createdAt, dbId: $dbId)';
   }
 
   @override

@@ -30,6 +30,8 @@ import 'package:window_size/window_size.dart';
 /// Move Navigation Rail Widgets from core to home feature.
 /// Remove NavigationRailType provider
 /// Add AppUser model to be used in the app other than UserModel to hide password data
+/// Migrate getting data methods to a Stream-based using objectBox query
+///
 late ObjectBox objectBox;
 
 Future<void> main() async {
@@ -67,3 +69,18 @@ class MyApp extends ConsumerWidget {
     );
   }
 }
+
+/**
+ * 
+Hi all, I'm working on application that support both Local and Remote databases and i have some questions in this regard.
+before i started my plan was :
+1- create abstract class for both dataSources.
+2- create local and remote database classes that inherits the abstract one.
+3- when performing an action I do the following
+isConnectionActive ? remoteDatasource.myMethod() : localDatasource.myMethod();
+
+Problems I'm seeing:
+1- DataSources Function Signatures do not match: Remote database is async while local database is sync
+2- Handling exception and errors for local datasource: since local database operations are sync how should I catch errors and throw exceptions for invalid operations? 
+3- Architectural confusion related to Service and Repository Pattern for local datasource:  
+ */

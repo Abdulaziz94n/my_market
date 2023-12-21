@@ -1,34 +1,56 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'package:my_market/features/client/domain/credit_client_model.dart';
 import 'package:my_market/features/order/domain/order_item_model.dart';
+import 'package:objectbox/objectbox.dart';
 import 'package:uuid/uuid.dart';
 
-class OrderModel {
+// @Entity()
+class CreditOrderModel {
+  @Id()
+  int dbId = 0;
+  @Unique()
   final String orderId;
   final int ticketNo;
   final String clientId;
-  final List<OrderItemModel> orderItems;
+  List<OrderItemModel> orderItems;
+  final bool isPaid;
   final int createdBy;
   final DateTime? createdAt;
-  OrderModel({
+  final client = ToOne<CreditClientModel>();
+  CreditOrderModel({
     this.ticketNo = 0,
     required this.orderItems,
     required this.createdBy,
+    required this.isPaid,
     this.createdAt,
     this.clientId = '0',
   }) : orderId = const Uuid().v4();
 
-  OrderModel copyWith({
+  String get ordersJson {
+    return jsonEncode(orderItems.map((e) => e.toJson()).toList());
+  }
+
+  set ordersJson(String value) {
+    orderItems = List<OrderItemModel>.from(
+        jsonDecode(value).map((e) => OrderItemModel.fromJson(e)));
+  }
+
+  CreditOrderModel copyWith({
     String? orderId,
     int? ticketNo,
     List<OrderItemModel>? orderItems,
     int? createdBy,
     DateTime? createdAt,
+    bool? isPaid,
     final String? clientId,
   }) {
-    return OrderModel(
+    return CreditOrderModel(
       ticketNo: ticketNo ?? this.ticketNo,
+      isPaid: isPaid ?? this.isPaid,
       orderItems: orderItems ?? this.orderItems,
       clientId: clientId ?? this.clientId,
       createdBy: createdBy ?? this.createdBy,
@@ -39,6 +61,7 @@ class OrderModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'orderId': orderId,
+      'isPaid': isPaid,
       'ticketNo': ticketNo,
       'clientId': clientId,
       'orderItems': orderItems.map((x) => x.toMap()).toList(),
@@ -47,8 +70,9 @@ class OrderModel {
     };
   }
 
-  factory OrderModel.fromMap(Map<String, dynamic> map) {
-    return OrderModel(
+  factory CreditOrderModel.fromMap(Map<String, dynamic> map) {
+    return CreditOrderModel(
+      isPaid: map['isPaid'],
       ticketNo: map['ticketNo'] as int,
       clientId: map['clientId'] as String,
       orderItems: List<OrderItemModel>.from(
@@ -65,15 +89,16 @@ class OrderModel {
 
   @override
   String toString() {
-    return 'OrderModel(orderId: $orderId, ticketNo: $ticketNo, clientId: $clientId, orderItems: $orderItems, createdBy: $createdBy, createdAt: $createdAt)';
+    return 'OrderModel(orderId: $orderId, ticketNo: $ticketNo, clientId: $clientId, orderItems: $orderItems, createdBy: $createdBy, createdAt: $createdAt, dbId: $dbId)';
   }
 
   @override
-  bool operator ==(covariant OrderModel other) {
+  bool operator ==(covariant CreditOrderModel other) {
     if (identical(this, other)) return true;
 
     return other.orderId == orderId &&
         other.clientId == clientId &&
+        other.isPaid == isPaid &&
         listEquals(other.orderItems, orderItems);
   }
 
@@ -82,6 +107,7 @@ class OrderModel {
     return orderId.hashCode ^
         clientId.hashCode ^
         ticketNo.hashCode ^
+        isPaid.hashCode ^
         orderItems.hashCode;
   }
 }

@@ -8,25 +8,25 @@ class OrdersRepository {
   OrdersRepository(this.firestore);
   final FirebaseFirestore firestore;
 
-  CollectionReference<OrderModel> get _collectionRef {
-    return firestore.collection('orders').withConverter<OrderModel>(
+  CollectionReference<CreditOrderModel> get _collectionRef {
+    return firestore.collection('orders').withConverter<CreditOrderModel>(
           fromFirestore: (data, options) {
-            return OrderModel.fromMap(data.data()!);
+            return CreditOrderModel.fromMap(data.data()!);
           },
           toFirestore: (data, options) => data.toMap(),
         );
   }
 
-  Stream<List<OrderModel>> watchOrderModelList() {
+  Stream<List<CreditOrderModel>> watchOrderModelList() {
     return _collectionRef.snapshots().toDataModel();
   }
 
-  Stream<OrderModel> watchOrderModel(String id) {
+  Stream<CreditOrderModel> watchOrderModel(String id) {
     return _collectionRef.doc(id).snapshots().toDataModel();
   }
 
   // Call this method only from Service class
-  Future<void> addOrderModel(OrderModel data) async {
+  Future<void> addOrderModel(CreditOrderModel data) async {
     try {
       await _collectionRef.doc(data.orderId).set(data);
     } catch (e) {
@@ -34,7 +34,7 @@ class OrdersRepository {
     }
   }
 
-  Future<void> editOrderModel(String id, OrderModel newData) async {
+  Future<void> editOrderModel(String id, CreditOrderModel newData) async {
     try {
       await _collectionRef.doc(id).update(newData.toMap());
     } catch (e) {

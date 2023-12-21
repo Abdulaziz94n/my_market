@@ -4,10 +4,11 @@ import 'package:my_market/features/order/domain/order_model.dart';
 import 'package:my_market/features/order/presentation/order_item_controller.dart';
 import 'package:my_market/features/users/presentation/user_controller.dart';
 
-class NewOrderController extends Notifier<OrderModel> {
+class NewOrderController extends Notifier<CreditOrderModel> {
   @override
   build() {
-    return OrderModel(
+    return CreditOrderModel(
+      isPaid: false,
       orderItems: [],
       createdBy: ref.read(userProvider)!.id,
     );
@@ -62,4 +63,5 @@ class NewOrderController extends Notifier<OrderModel> {
 }
 
 final newOrderController =
-    NotifierProvider<NewOrderController, OrderModel>(NewOrderController.new);
+    NotifierProvider<NewOrderController, CreditOrderModel>(
+        NewOrderController.new);
