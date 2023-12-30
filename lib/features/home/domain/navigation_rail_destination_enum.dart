@@ -7,6 +7,7 @@ enum RailDestination {
   clientsHistory('clientsHistory'),
   reports('reports'),
   users('users'),
+  oldUsers('oldUsers'),
   cashier('cashier'),
   settings('settings');
 

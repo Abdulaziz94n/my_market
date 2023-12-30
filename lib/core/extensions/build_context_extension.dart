@@ -55,7 +55,11 @@ extension BuildContextExtension on BuildContext {
 
   bool get isSmallTablet => screenWidth < 650.0 && screenWidth > 500.0;
 
-  bool get isDesktop => screenWidth >= Breakpoint.desktop;
+  bool get isLargeDesktop => screenWidth >= Breakpoint.largeDesktop;
+
+  bool get isDesktop =>
+      screenWidth >= Breakpoint.desktop &&
+      screenWidth <= Breakpoint.largeDesktop;
 
   bool get isSmall => screenWidth < 850.0 && screenWidth >= 560.0;
 

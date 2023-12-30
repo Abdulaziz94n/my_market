@@ -44,29 +44,54 @@ class AppActionsRow extends StatelessWidget {
             ),
           ],
         ),
+        const HorizontalSpacingWidget(Sizes.p32),
         Expanded(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               const Spacer(),
-              Icon(
-                Icons.settings,
-                color: showActions.value ? colors.primary : colors.onPrimary,
-              ),
-              const HorizontalSpacingWidget(Sizes.p8),
-              if (!showActions.value) const ProductFilterPopupButton(),
-              if (showActions.value)
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: actions,
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: context.isLargeDesktop
+                      ? 800
+                      : context.isDesktop
+                          ? 600
+                          : 400,
+                ),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.settings,
+                        color: showActions.value
+                            ? colors.primary
+                            : colors.onPrimary,
                       ),
-                    ),
+                      const HorizontalSpacingWidget(Sizes.p8),
+                      !showActions.value
+                          ? const ProductFilterPopupButton()
+                          : Align(
+                              alignment: Alignment.centerRight,
+                              child: Row(
+                                children: actions,
+                              ),
+                            )
+                      // if (!showActions.value) const ProductFilterPopupButton(),
+                      // if (showActions.value)
+                      //   Align(
+                      //     alignment: Alignment.centerRight,
+                      //     child: SingleChildScrollView(
+                      //       scrollDirection: Axis.horizontal,
+                      //       child: Row(
+                      //         children: actions,
+                      //       ),
+                      //     ),
+                      //   )
+                    ],
                   ),
-                )
+                ),
+              ),
             ],
           ),
         ),

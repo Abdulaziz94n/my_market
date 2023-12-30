@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class VerticalSpacingWidget extends StatelessWidget {
-  const VerticalSpacingWidget(this.space, {Key? key}) : super(key: key);
+  const VerticalSpacingWidget(this.space, {super.key});
   final double space;
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class VerticalSpacingWidget extends StatelessWidget {
 }
 
 class HorizontalSpacingWidget extends StatelessWidget {
-  const HorizontalSpacingWidget(this.space, {Key? key}) : super(key: key);
+  const HorizontalSpacingWidget(this.space, {super.key});
   final double space;
   @override
   Widget build(BuildContext context) {

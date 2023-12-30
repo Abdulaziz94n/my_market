@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:my_market/core/constants/sizes.dart';
 import 'package:my_market/core/extensions/build_context_extension.dart';
 import 'package:my_market/core/mixins/overlay_mixin.dart';
-import 'package:my_market/core/widgets/shared/app_navigation_rail_item.dart';
-import 'package:my_market/core/widgets/shared/app_navigation_rail_item_menu.dart';
 import 'package:my_market/features/home/domain/navigation_rail_destination_enum.dart';
 import 'package:my_market/features/home/domain/navigation_rail_enum.dart';
+import 'package:my_market/features/home/presentation/widgets/app_navigation_rail_item.dart';
+import 'package:my_market/features/home/presentation/widgets/app_navigation_rail_item_menu.dart';
 
 // TODO: Refactor [AppNavigationRailItem] map over enum ?
 

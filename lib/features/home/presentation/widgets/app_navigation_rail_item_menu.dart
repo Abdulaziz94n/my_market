@@ -129,7 +129,17 @@ class AppNavigationRailItemMenu extends StatelessWidget {
               text: 'users',
               removeOverlay: removeOverlay,
               isLast: true,
-            )
+            ),
+            RailMenuItem(
+              railType: NavigationRailType.users,
+              onRailSelect: onRailSelect,
+              selectedDestination: selectedDestination,
+              railDestination: RailDestination.oldUsers,
+              onDestinationSelect: onDestinationSelect,
+              text: 'old users',
+              removeOverlay: removeOverlay,
+              isLast: true,
+            ),
           ],
         ),
       NavigationRailType.cashier => NavigationRailSubMenu(

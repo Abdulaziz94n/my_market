@@ -10,7 +10,7 @@ class NewOrderController extends Notifier<CreditOrderModel> {
     return CreditOrderModel(
       isPaid: false,
       orderItems: [],
-      createdBy: ref.read(userProvider)!.id,
+      createdBy: ref.read(userProvider)?.id ?? 1,
     );
   }
 

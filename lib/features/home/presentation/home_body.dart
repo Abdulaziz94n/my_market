@@ -8,6 +8,8 @@ import 'package:my_market/features/dashboard/presentation/dashboard_body.dart';
 import 'package:my_market/features/home/domain/navigation_rail_destination_enum.dart';
 import 'package:my_market/features/home/domain/navigation_rail_enum.dart';
 import 'package:my_market/features/product/presentation/stock_products_body.dart';
+import 'package:my_market/features/users/presentation/old_users_tab_body.dart';
+import 'package:my_market/features/users/presentation/users_tab_body.dart';
 
 class HomeBody extends ConsumerWidget {
   const HomeBody({
@@ -30,7 +32,8 @@ class HomeBody extends ConsumerWidget {
       RailDestination.clientsHistory => const ClientHistoryTabBody(),
       RailDestination.settings => Center(child: Text(' $railDestination')),
       RailDestination.reports => Center(child: Text(' $railDestination')),
-      RailDestination.users => Center(child: Text(' $railDestination')),
+      RailDestination.users => const UsersTabBody(),
+      RailDestination.oldUsers => const OldUsersTabBody(),
       RailDestination.cashier => CashierBody(onPop: onPop),
     };
   }
