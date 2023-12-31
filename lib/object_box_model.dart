@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:my_market/features/client/domain/company_client_model.dart';
 import 'package:my_market/features/client/domain/credit_client_model.dart';
 import 'package:my_market/features/order/domain/order_model.dart';
-import 'package:my_market/features/users/domain/users_model.dart';
+import 'package:my_market/features/users/domain/user_model.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 

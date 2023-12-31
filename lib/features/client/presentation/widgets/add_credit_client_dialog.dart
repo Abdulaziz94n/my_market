@@ -64,7 +64,7 @@ class _AddCreditClienttDialogState extends ConsumerState<AddCreditClienttDialog>
                 style: context.appTextTheme.titleMedium,
               )),
               const VerticalSpacingWidget(Sizes.p32),
-              AppDialogFromField(
+              AppDialogFormField(
                 title: 'Nom & Prenom',
                 hint: 'Ajouter un nom',
                 textFieldValidator: validateIsEmpty,
@@ -76,7 +76,7 @@ class _AddCreditClienttDialogState extends ConsumerState<AddCreditClienttDialog>
               Row(
                 children: [
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       readOnly: true,
                       title: 'ID',
                       textFieldValidator: validateIsEmpty,
@@ -85,7 +85,7 @@ class _AddCreditClienttDialogState extends ConsumerState<AddCreditClienttDialog>
                   ),
                   horizontalSpace,
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       title: 'Code',
                       hint: 'Le code est',
                       textFieldValidator: validateIsEmpty,
@@ -96,7 +96,7 @@ class _AddCreditClienttDialogState extends ConsumerState<AddCreditClienttDialog>
                 ],
               ),
               const VerticalSpacingWidget(Sizes.p16),
-              AppDialogFromField<CategoryModel>(
+              AppDialogFormField<CategoryModel>(
                 title: 'Numero de Telephone',
                 hint: 'Ajoutern un numero de telephone',
                 textFieldValidator: validateNumbersOnly,

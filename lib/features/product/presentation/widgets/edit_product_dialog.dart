@@ -68,7 +68,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
               Row(
                 children: [
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       initialValue: widget.product.barcode,
                       title: 'Code Bare',
                       hint: '1558475654',
@@ -79,7 +79,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
                   ),
                   horizontalSpace,
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       initialValue: widget.product.name,
                       title: 'Nom de Produit',
                       hint: 'Danetter Chocolat 55ml',
@@ -94,7 +94,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
               Row(
                 children: [
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       initialValue: widget.product.buyPrice.toString(),
                       title: 'Prix d\'achat',
                       textFieldValidator: validateIsEmpty,
@@ -109,7 +109,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
                   ),
                   horizontalSpace,
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       initialValue: widget.product.sellPrice.toString(),
                       title: 'Prix de vente',
                       hint: 'Le Prix est',
@@ -121,7 +121,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
                   ),
                   horizontalSpace,
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       initialValue: widget.product.stockCount.toString(),
                       title: 'Stock',
                       hint: 'Stock est',
@@ -135,7 +135,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
                   ),
                   horizontalSpace,
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       initialValue: widget.product.alertCount.toString(),
                       title: 'Stock d\'alert',
                       hint: 'Stock est',
@@ -151,7 +151,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
               Row(
                 children: [
                   Expanded(
-                    child: AppDialogFromField<CategoryModel>(
+                    child: AppDialogFormField<CategoryModel>(
                       title: 'Famille',
                       hint: 'Ajouter n Code a barre',
                       asDropDown: (
@@ -171,7 +171,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
                   ),
                   horizontalSpace,
                   Expanded(
-                    child: AppDialogFromField<String>(
+                    child: AppDialogFormField<String>(
                       title: 'Fournisseur',
                       hint: 'Ajouter n Code a barre',
                       asDropDown: (

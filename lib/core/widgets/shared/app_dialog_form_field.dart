@@ -8,8 +8,8 @@ import '/core/widgets/shared/app_dropdown.dart';
 import '/core/widgets/shared/app_text.dart';
 import '/core/widgets/shared/spacing_widgets.dart';
 
-class AppDialogFromField<T> extends StatelessWidget {
-  AppDialogFromField({
+class AppDialogFormField<T> extends StatelessWidget {
+  AppDialogFormField({
     super.key,
     required this.title,
     required this.hint,

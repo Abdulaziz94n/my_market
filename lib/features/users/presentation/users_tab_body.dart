@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_market/core/constants/dummy_data.dart';
 import 'package:my_market/core/extensions/build_context_extension.dart';
+import 'package:my_market/core/utils/app_dialogs.dart';
 import 'package:my_market/core/widgets/shared/app_action_button.dart';
 import 'package:my_market/core/widgets/shared/app_actions_row.dart';
 import 'package:my_market/core/widgets/shared/app_main_tabled_body.dart';
 import 'package:my_market/core/widgets/shared/app_tabled_card.dart';
+import 'package:my_market/features/users/presentation/widgets/add_user_dialog.dart';
+import 'package:my_market/features/users/presentation/widgets/edit_user_dialog.dart';
 
 class UsersTabBody extends HookConsumerWidget {
   const UsersTabBody({
@@ -50,13 +54,18 @@ class UsersTabBody extends HookConsumerWidget {
             actions: [
               AppActionButton(
                 color: colors.success,
-                onPressed: () {},
+                onPressed: () => AppDialogs.customDialog(
+                    context: context, dialog: const AddUsereDialog()),
                 iconData: Icons.add,
                 text: 'Ajoutre',
               ),
               AppActionButton(
                 color: colors.warning,
-                onPressed: () {},
+                onPressed: () => AppDialogs.customDialog(
+                    context: context,
+                    dialog: EditUsereDialog(
+                      user: DummyData.localDbUser,
+                    )),
                 iconData: Icons.edit,
                 text: 'Modify',
               ),

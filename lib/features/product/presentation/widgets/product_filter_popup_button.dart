@@ -44,17 +44,17 @@ class ProductFilterPopupButton extends ConsumerWidget {
                     style: context.appTextTheme.titleSmall,
                   ),
                   verticalSpace,
-                  AppDialogFromField(
+                  AppDialogFormField(
                     title: 'Famille',
                     hint: 'Choisir la Famille',
                   ),
                   verticalSpace,
-                  AppDialogFromField(
+                  AppDialogFormField(
                     title: 'Fournisseur',
                     hint: 'Choisir la Fournisseur',
                   ),
                   verticalSpace,
-                  AppDialogFromField(
+                  AppDialogFormField(
                     title: 'Stock d\'alert',
                     hint: 'Choisir le nombre de stock',
                   ),
@@ -62,14 +62,14 @@ class ProductFilterPopupButton extends ConsumerWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: AppDialogFromField(
+                        child: AppDialogFormField(
                           title: 'Prix (Min)',
                           hint: 'Minimum',
                         ),
                       ),
                       const HorizontalSpacingWidget(Sizes.p12),
                       Expanded(
-                        child: AppDialogFromField(
+                        child: AppDialogFormField(
                           title: 'Prix (Max)',
                           hint: 'Maximum',
                         ),

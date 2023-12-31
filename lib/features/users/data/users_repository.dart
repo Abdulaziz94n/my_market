@@ -1,4 +1,4 @@
-import 'package:my_market/features/users/domain/users_model.dart';
+import 'package:my_market/features/users/domain/user_model.dart';
 import 'package:my_market/main.dart';
 import 'package:objectbox/objectbox.dart';
 

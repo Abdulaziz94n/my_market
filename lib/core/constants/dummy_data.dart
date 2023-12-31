@@ -8,8 +8,9 @@ import 'package:my_market/features/order/domain/order_model.dart';
 import 'package:my_market/features/order/domain/order_product_model.dart';
 import 'package:my_market/features/product/domain/product_model.dart';
 import 'package:my_market/features/product/domain/product_price_info_model.dart';
+import 'package:my_market/features/users/domain/gender_enum.dart';
+import 'package:my_market/features/users/domain/user_model.dart';
 import 'package:my_market/features/users/domain/user_role_enum.dart';
-import 'package:my_market/features/users/domain/users_model.dart';
 import 'package:uuid/uuid.dart';
 
 class DummyData {
@@ -24,7 +25,14 @@ class DummyData {
   ];
 
   static List<UserModel> usersList = [
-    UserModel(name: 'wleed', password: 'password', roleId: 1, id: 1)
+    UserModel(
+      nationalId: 'national id',
+      name: 'wleed',
+      password: 'password',
+      roleId: 1,
+      id: 1,
+      genderId: 1,
+    )
   ];
 
   static ProductModel product = ProductModel(
@@ -293,6 +301,8 @@ class DummyData {
   ];
 
   static UserModel localDbUser = UserModel(
+    nationalId: 'national id',
+    genderId: Gender.male.id,
     name: 'Nejim'.trimAndLower,
     password: 'tester'.trim(),
     roleId: UserRole.admin.id,

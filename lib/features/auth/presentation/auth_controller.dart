@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_market/core/exceptions/app_exceptions.dart';
-import 'package:my_market/features/users/domain/users_model.dart';
+import 'package:my_market/features/users/domain/user_model.dart';
 import 'package:my_market/main.dart';
 import 'package:my_market/objectbox.g.dart';
 

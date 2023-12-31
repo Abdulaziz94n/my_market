@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_market/features/users/domain/users_model.dart';
+import 'package:my_market/features/users/domain/user_model.dart';
 
 class UserController extends Notifier<UserModel?> {
   @override

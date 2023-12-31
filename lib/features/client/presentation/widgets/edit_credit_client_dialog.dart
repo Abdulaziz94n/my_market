@@ -66,7 +66,7 @@ class _EditCreditClienttDialogState
                 style: context.appTextTheme.titleMedium,
               )),
               const VerticalSpacingWidget(Sizes.p32),
-              AppDialogFromField(
+              AppDialogFormField(
                 initialValue: widget.client.fullName,
                 title: 'Nom & Prenom',
                 hint: 'Ajouter un nom',
@@ -79,7 +79,7 @@ class _EditCreditClienttDialogState
               Row(
                 children: [
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       initialValue: widget.client.id,
                       readOnly: true,
                       title: 'ID',
@@ -89,7 +89,7 @@ class _EditCreditClienttDialogState
                   ),
                   horizontalSpace,
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       initialValue: widget.client.code,
                       title: 'Code',
                       hint: 'Le code est',
@@ -101,7 +101,7 @@ class _EditCreditClienttDialogState
                 ],
               ),
               const VerticalSpacingWidget(Sizes.p16),
-              AppDialogFromField<CategoryModel>(
+              AppDialogFormField<CategoryModel>(
                 initialValue: widget.client.phoneNumber,
                 title: 'Numero de Telephone',
                 hint: 'Ajoutern un numero de telephone',

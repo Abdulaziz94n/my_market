@@ -69,7 +69,7 @@ class _EditCompanyClienttDialogState
               Row(
                 children: [
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       initialValue: widget.client.fullName,
                       title: 'Nom & Prenom',
                       hint: 'Ajouter un nom',
@@ -80,7 +80,7 @@ class _EditCompanyClienttDialogState
                   ),
                   horizontalSpace,
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       initialValue: widget.client.companyName,
                       title: 'Nom de la societe',
                       hint: 'Ajouter un name de Ste',
@@ -95,7 +95,7 @@ class _EditCompanyClienttDialogState
               Row(
                 children: [
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       initialValue: widget.client.id,
                       readOnly: true,
                       title: 'ID',
@@ -105,7 +105,7 @@ class _EditCompanyClienttDialogState
                   ),
                   horizontalSpace,
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       initialValue: widget.client.code,
                       title: 'Code',
                       hint: 'Le code est',
@@ -116,7 +116,7 @@ class _EditCompanyClienttDialogState
                   ),
                   horizontalSpace,
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       initialValue: widget.client.ice,
                       title: 'ICE',
                       hint: 'L\'ice est',
@@ -129,7 +129,7 @@ class _EditCompanyClienttDialogState
                   ),
                   horizontalSpace,
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       initialValue: widget.client.iF,
                       title: 'IF',
                       hint: 'L\'if est',
@@ -145,7 +145,7 @@ class _EditCompanyClienttDialogState
               Row(
                 children: [
                   Expanded(
-                    child: AppDialogFromField<CategoryModel>(
+                    child: AppDialogFormField<CategoryModel>(
                       initialValue: widget.client.phoneNumber,
                       title: 'Numero de Telephone',
                       hint: 'Ajoutern un numero de telephone',
@@ -157,7 +157,7 @@ class _EditCompanyClienttDialogState
                   ),
                   horizontalSpace,
                   Expanded(
-                    child: AppDialogFromField<String>(
+                    child: AppDialogFormField<String>(
                       initialValue: widget.client.email,
                       title: 'E-mail',
                       hint: 'Ajouter un adresse e-mail',

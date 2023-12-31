@@ -9,7 +9,10 @@ enum RailDestination {
   users('users'),
   oldUsers('oldUsers'),
   cashier('cashier'),
-  settings('settings');
+  barCodeGen('barCodeGen'),
+  authorizations('authorizations'),
+  tickets('tickets'),
+  categories('categories');
 
   const RailDestination(this.type);
   final String type;

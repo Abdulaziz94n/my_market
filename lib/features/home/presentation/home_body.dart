@@ -30,7 +30,11 @@ class HomeBody extends ConsumerWidget {
       RailDestination.clientsOnCredit => const CreditClientTabBody(),
       RailDestination.clientsCompany => const CompanyClientTabBody(),
       RailDestination.clientsHistory => const ClientHistoryTabBody(),
-      RailDestination.settings => Center(child: Text(' $railDestination')),
+      RailDestination.barCodeGen => Center(child: Text(' $railDestination')),
+      RailDestination.authorizations =>
+        Center(child: Text(' $railDestination')),
+      RailDestination.tickets => Center(child: Text(' $railDestination')),
+      RailDestination.categories => Center(child: Text(' $railDestination')),
       RailDestination.reports => Center(child: Text(' $railDestination')),
       RailDestination.users => const UsersTabBody(),
       RailDestination.oldUsers => const OldUsersTabBody(),

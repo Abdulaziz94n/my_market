@@ -5,33 +5,38 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_market/core/constants/sizes.dart';
 import 'package:my_market/core/extensions/build_context_extension.dart';
+import 'package:my_market/core/extensions/string_extension.dart';
+import 'package:my_market/core/extensions/textstyle_extension.dart';
 import 'package:my_market/core/mixins/text_formatters_mixin.dart';
 import 'package:my_market/core/mixins/validators_mixin.dart';
 import 'package:my_market/core/widgets/shared/app_dialog_form_field.dart';
 import 'package:my_market/core/widgets/shared/app_primary_button.dart';
 import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
-import 'package:my_market/features/categories/domain/category_model.dart';
-import 'package:my_market/features/client/domain/company_client_model.dart';
+import 'package:my_market/features/users/domain/gender_enum.dart';
+import 'package:my_market/features/users/domain/user_model.dart';
+import 'package:my_market/features/users/domain/user_role_enum.dart';
 
-class AddCompanyClienttDialog extends StatefulHookConsumerWidget {
-  const AddCompanyClienttDialog({
+class EditUsereDialog extends StatefulHookConsumerWidget {
+  const EditUsereDialog({
     super.key,
+    required this.user,
   });
-
+  final UserModel user;
   @override
-  ConsumerState<AddCompanyClienttDialog> createState() =>
-      _AddCompanyClienttDialogState();
+  ConsumerState<EditUsereDialog> createState() => _EditUsereDialogState();
 }
 
-class _AddCompanyClienttDialogState
-    extends ConsumerState<AddCompanyClienttDialog>
+class _EditUsereDialogState extends ConsumerState<EditUsereDialog>
     with Validators, AppTextFormatter {
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final colors = context.appColors;
-    final client = useState<CompanyClientModel>(CompanyClientModel.initial());
+    final user = useState(widget.user);
+    final gender = useState<Gender?>(widget.user.gender);
+    final role = useState<UserRole?>(widget.user.role);
+
     const horizontalSpace = HorizontalSpacingWidget(Sizes.p16);
 
     // ref.listen(productsController, (previous, next) {
@@ -39,7 +44,7 @@ class _AddCompanyClienttDialogState
     //     context: context,
     //     previous: previous,
     //     next: next,
-    //     successMessage: 'Client Added Successfully',
+    //     successMessage: 'user Added Successfully',
     //     onSuccessAction: () {
     //       formKey.currentState!.reset();
     //       product.value = ProductModel.initial();
@@ -61,7 +66,7 @@ class _AddCompanyClienttDialogState
             children: [
               Center(
                   child: AppText(
-                text: 'Ajouter un Client',
+                text: 'Ajouter un employe',
                 style: context.appTextTheme.titleMedium,
               )),
               const VerticalSpacingWidget(Sizes.p32),
@@ -69,92 +74,113 @@ class _AddCompanyClienttDialogState
                 children: [
                   Expanded(
                     child: AppDialogFormField(
+                      initialValue: user.value.name,
                       title: 'Nom & Prenom',
                       hint: 'Ajouter un nom',
                       textFieldValidator: validateIsEmpty,
                       onSave: (value) =>
-                          client.value = client.value.copyWith(fullName: value),
+                          user.value = user.value.copyWith(name: value),
                     ),
                   ),
                   horizontalSpace,
                   Expanded(
                     child: AppDialogFormField(
-                      title: 'Nom de la societe',
-                      hint: 'Ajouter un name de Ste',
-                      textFieldValidator: validateIsEmpty,
-                      onSave: (value) => client.value =
-                          client.value.copyWith(companyName: value),
-                    ),
-                  ),
-                ],
-              ),
-              const VerticalSpacingWidget(Sizes.p16),
-              Row(
-                children: [
-                  Expanded(
-                    child: AppDialogFormField(
-                      readOnly: true,
-                      title: 'ID',
-                      textFieldValidator: validateIsEmpty,
-                      hint: 'L\'id est',
-                    ),
-                  ),
-                  horizontalSpace,
-                  Expanded(
-                    child: AppDialogFormField(
-                      title: 'Code',
-                      hint: 'Le code est',
-                      textFieldValidator: validateIsEmpty,
-                      onSave: (value) =>
-                          client.value = client.value.copyWith(code: value!),
-                    ),
-                  ),
-                  horizontalSpace,
-                  Expanded(
-                    child: AppDialogFormField(
-                      title: 'ICE',
-                      hint: 'L\'ice est',
-                      textFieldValidator: validateIsEmpty,
-                      inputFormatter: [FilteringTextInputFormatter.digitsOnly],
-                      onSave: (value) {
-                        client.value = client.value.copyWith(ice: value!);
-                      },
-                    ),
-                  ),
-                  horizontalSpace,
-                  Expanded(
-                    child: AppDialogFormField(
-                      title: 'IF',
-                      hint: 'L\'if est',
-                      textFieldValidator: validateIsEmpty,
-                      inputFormatter: [FilteringTextInputFormatter.digitsOnly],
-                      onSave: (value) =>
-                          client.value = client.value.copyWith(iF: value),
-                    ),
-                  ),
-                ],
-              ),
-              const VerticalSpacingWidget(Sizes.p16),
-              Row(
-                children: [
-                  Expanded(
-                    child: AppDialogFormField<CategoryModel>(
+                      initialValue: user.value.phoneNumber.toString(),
                       title: 'Numero de Telephone',
                       hint: 'Ajoutern un numero de telephone',
                       textFieldValidator: validateNumbersOnly,
                       inputFormatter: [FilteringTextInputFormatter.digitsOnly],
-                      onSave: (val) => client.value =
-                          client.value.copyWith(phoneNumber: val),
+                      onSave: (val) => user.value =
+                          user.value.copyWith(phoneNumber: val!.tryParseInt),
+                    ),
+                  ),
+                ],
+              ),
+              const VerticalSpacingWidget(Sizes.p16),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: AppDialogFormField(
+                      initialValue: user.value.nationalId,
+                      readOnly: true,
+                      title: 'N CIN',
+                      textFieldValidator: validateIsEmpty,
+                      hint: 'Numero de la carte nationale est...',
+                      onSave: (val) =>
+                          user.value = user.value.copyWith(nationalId: val),
+                    ),
+                  ),
+                  horizontalSpace,
+                  Expanded(
+                    child: AppDialogFormField(
+                      title: 'Genre',
+                      hint: 'Chosir le genre',
+                      textFieldValidator: validateIsEmpty,
+                      onSave: (value) => user.value =
+                          user.value.copyWith(genderId: gender.value!.id),
+                    ),
+                  ),
+                  horizontalSpace,
+                  Expanded(
+                    child: AppDialogFormField(
+                      title: 'Role',
+                      hint: 'Chosir le role',
+                      textFieldValidator: validateIsEmpty,
+                      inputFormatter: [FilteringTextInputFormatter.digitsOnly],
+                      onSave: (value) {
+                        user.value =
+                            user.value.copyWith(roleId: role.value!.id);
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              const VerticalSpacingWidget(Sizes.p16),
+              Row(
+                children: [
+                  Expanded(
+                    child: AppDialogFormField(
+                      title: 'Date d\'inscription',
+                      hint: 'Ajouter une date d\'inscription',
+                      inputFormatter: [FilteringTextInputFormatter.digitsOnly],
+                      onSave: (val) => user.value =
+                          user.value.copyWith(registrationDate: val),
                     ),
                   ),
                   horizontalSpace,
                   Expanded(
                     child: AppDialogFormField<String>(
-                      title: 'E-mail',
-                      hint: 'Ajouter un adresse e-mail',
-                      textFieldValidator: validateEmail,
+                      title: 'Date d\'sortie',
+                      hint: 'Ajouter une date d\'sortie',
                       onSave: (val) =>
-                          client.value = client.value.copyWith(email: val),
+                          user.value = user.value.copyWith(deactivateDate: val),
+                    ),
+                  ),
+                ],
+              ),
+              const VerticalSpacingWidget(Sizes.p16),
+              AppText(
+                text: 'Telechargez la carte d\'identite:',
+                style: const TextStyle().bold,
+              ),
+              const VerticalSpacingWidget(Sizes.p4),
+              Row(
+                children: [
+                  FilledButton(
+                    onPressed: () {},
+                    style: FilledButton.styleFrom(
+                      backgroundColor: colors.primary,
+                    ),
+                    child: const AppText(text: 'Telecharger La carte'),
+                  ),
+                  horizontalSpace,
+                  OutlinedButton(
+                    onPressed: () {},
+                    style: OutlinedButton.styleFrom(),
+                    child: AppText(
+                      text: 'Voir La carte',
+                      style: const TextStyle().colorize(Colors.black),
                     ),
                   ),
                 ],
@@ -169,18 +195,17 @@ class _AddCompanyClienttDialogState
                   SizedBox(
                     width: 200,
                     child: AppPrimaryButton.icon(
-                      icon: Icons.add,
-                      color: colors.success,
+                      icon: Icons.edit,
+                      color: colors.warning,
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
                           formKey.currentState!.save();
-                          print(client);
                           // ref
-                          //     .read(clientContorller.notifier)
-                          //     .addCompanyClient(client);
+                          //     .read(userContorller.notifier)
+                          //     .addCompanyuser(user);
                         }
                       },
-                      text: 'Ajouter',
+                      text: 'Modifier',
                     ),
                   ),
                   horizontalSpace,

@@ -71,7 +71,7 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
               Row(
                 children: [
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       title: 'Code Bare',
                       hint: '1558475654',
                       textFieldValidator: validateIsEmpty,
@@ -81,7 +81,7 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
                   ),
                   horizontalSpace,
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       title: 'Nom de Produit',
                       hint: 'Danetter Chocolat 55ml',
                       textFieldValidator: validateIsEmpty,
@@ -95,7 +95,7 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
               Row(
                 children: [
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       title: 'Prix d\'achat',
                       textFieldValidator: validateIsEmpty,
                       inputFormatter: [amountInputFormatter()],
@@ -108,7 +108,7 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
                   ),
                   horizontalSpace,
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       title: 'Prix de vente',
                       hint: 'Le Prix est',
                       textFieldValidator: validateIsEmpty,
@@ -119,7 +119,7 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
                   ),
                   horizontalSpace,
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       title: 'Stock',
                       hint: 'Stock est',
                       textFieldValidator: validateIsEmpty,
@@ -132,7 +132,7 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
                   ),
                   horizontalSpace,
                   Expanded(
-                    child: AppDialogFromField(
+                    child: AppDialogFormField(
                       title: 'Stock d\'alert',
                       hint: 'Stock est',
                       textFieldValidator: validateIsEmpty,
@@ -147,7 +147,7 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
               Row(
                 children: [
                   Expanded(
-                    child: AppDialogFromField<CategoryModel>(
+                    child: AppDialogFormField<CategoryModel>(
                       title: 'Famille',
                       hint: 'Ajouter n Code a barre',
                       asDropDown: (
@@ -166,7 +166,7 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
                   ),
                   horizontalSpace,
                   Expanded(
-                    child: AppDialogFromField<String>(
+                    child: AppDialogFormField<String>(
                       title: 'Fournisseur',
                       hint: 'Ajouter n Code a barre',
                       asDropDown: (
