@@ -26,11 +26,11 @@ class CategoriesRepository {
   }
 
   Future<void> addCategory(CategoryModel data) async {
-    try {
-      await _collectionRef.doc(data.id).set(data);
-    } catch (e) {
-      throw CustomException(message: 'Error Adding Category');
-    }
+    // try {
+    //   await _collectionRef.doc(data.id).set(data);
+    // } catch (e) {
+    //   throw CustomException(message: 'Error Adding Category');
+    // }
   }
 
   Future<void> editCategory(String id, CategoryModel newData) async {

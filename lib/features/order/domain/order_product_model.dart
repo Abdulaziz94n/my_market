@@ -2,17 +2,17 @@
 import 'package:my_market/features/product/domain/product_model.dart';
 
 class OrderProductModel {
-  final String id;
+  int id;
   final String name;
   final double price;
   OrderProductModel({
-    required this.id,
+    this.id = 0,
     required this.name,
     required this.price,
   });
 
   OrderProductModel copyWith({
-    String? id,
+    int? id,
     String? name,
     double? price,
   }) {
@@ -33,7 +33,7 @@ class OrderProductModel {
 
   factory OrderProductModel.fromMap(Map<String, dynamic> map) {
     return OrderProductModel(
-      id: map['id'] as String,
+      id: map['id'] as int,
       name: map['name'] as String,
       price: map['price'] as double,
     );

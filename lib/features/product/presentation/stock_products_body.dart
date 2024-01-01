@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_market/core/constants/dummy_data.dart';
+import 'package:my_market/core/extensions/list_extenstion.dart';
 import 'package:my_market/core/widgets/shared/app_main_tabled_body.dart';
 import 'package:my_market/core/widgets/shared/app_primary_card.dart';
 import 'package:my_market/core/widgets/shared/app_tabled_card.dart';
@@ -19,10 +20,10 @@ class ProductsTabBody extends HookConsumerWidget {
     final selectedItems = useState<List<String>>([]);
     final showActions = useState(false);
     final searchCtrl = useTextEditingController();
-    useEffect(() {
-      showActions.value = selectedItems.value.length == 1;
-      return null;
-    }, [selectedItems.value]);
+    // useEffect(() {
+    //   showActions.value = selectedItems.value.length == 1;
+    //   return null;
+    // }, [selectedItems.value]);
     return AppMainTabledBody<ProductModel>(
         title: 'Stocke & Produits',
         primaryCards: const [
@@ -51,6 +52,8 @@ class ProductsTabBody extends HookConsumerWidget {
           actions: ProductsActionRow(
             searchCtrl: searchCtrl,
             showActions: showActions,
+            onShow: (val) => showActions.value = val,
+            isItemSelected: selectedItems.value.isSingleElement,
             onSearch: () {},
           ),
           showActions: showActions,
@@ -58,15 +61,15 @@ class ProductsTabBody extends HookConsumerWidget {
           selectedItems: selectedItems,
           headers: _headers,
           cellValues: (index) => [
-            productList[index].id,
+            productList[index].id.toString(),
             productList[index].name,
             productList[index].sellPrice.toString(),
             productList[index].buyPrice.toString(),
             productList[index].stockCount.toString(),
             productList[index].alertCount.toString(),
           ],
-          itemIdField: (item) => item.id,
-          rowSelectionId: (index) => productList[index].id,
+          itemIdField: (item) => item.id.toString(),
+          rowSelectionId: (index) => productList[index].id.toString(),
         ));
   }
 }

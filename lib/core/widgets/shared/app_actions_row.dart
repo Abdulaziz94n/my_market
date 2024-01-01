@@ -13,11 +13,13 @@ class AppActionsRow extends StatelessWidget {
     required this.searchCtrl,
     required this.onSearch,
     required this.actions,
+    required this.onShow,
   });
   final ValueNotifier<bool> showActions;
   final TextEditingController searchCtrl;
   final VoidCallback onSearch;
   final List<AppActionButton> actions;
+  final ValueChanged<bool> onShow;
   @override
   Widget build(BuildContext context) {
     final colors = context.appColors;
@@ -62,11 +64,14 @@ class AppActionsRow extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: [
-                      Icon(
-                        Icons.settings,
-                        color: showActions.value
-                            ? colors.primary
-                            : colors.onPrimary,
+                      InkWell(
+                        onTap: () => onShow(!showActions.value),
+                        child: Icon(
+                          Icons.settings,
+                          color: showActions.value
+                              ? colors.primary
+                              : colors.onPrimary,
+                        ),
                       ),
                       const HorizontalSpacingWidget(Sizes.p8),
                       !showActions.value

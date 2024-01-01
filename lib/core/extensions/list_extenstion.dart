@@ -52,4 +52,6 @@ extension ListExtension<T> on List<T> {
     return List<R>.generate(
         length, (index) => combiner(this[index], otherList[index]));
   }
+
+  bool get isSingleElement => isNotEmpty && length == 1;
 }

@@ -9,11 +9,13 @@ class AppActionButton extends StatelessWidget {
     required this.onPressed,
     required this.iconData,
     required this.text,
+    this.isItemSelected = true,
   });
   final Color? color;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final IconData iconData;
   final String text;
+  final bool isItemSelected;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,7 +24,7 @@ class AppActionButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: color,
         ),
-        onPressed: onPressed,
+        onPressed: !isItemSelected ? null : onPressed,
         icon: Icon(iconData),
         label: AppText(text: text),
       ),

@@ -21,7 +21,7 @@ class ProductsRepository {
     return _collectionRef.snapshots().toDataModel();
   }
 
-  Stream<List<ProductModel>> watchCategoryProducts(String categoryId) {
+  Stream<List<ProductModel>> watchCategoryProducts(int categoryId) {
     return _collectionRef
         .where('categoryId', isEqualTo: categoryId)
         .snapshots()
@@ -33,16 +33,16 @@ class ProductsRepository {
   }
 
   Future<void> addProduct(ProductModel data) async {
-    try {
-      data = data.copyWith(categoryId: data.categoryId);
-      await _collectionRef.doc(data.id).set(data);
-      await firestore.collection('categories').doc(data.categoryId).update(
-        {'productsCount': FieldValue.increment(1)},
-      );
-    } catch (e) {
-      deleteProduct(data.id, data.categoryId);
-      throw CustomException(message: 'Error Adding Product');
-    }
+    // try {
+    //   data = data.copyWith(categoryId: data.categoryId);
+    //   await _collectionRef.doc(data.id).set(data);
+    //   await firestore.collection('categories').doc(data.categoryId).update(
+    //     {'productsCount': FieldValue.increment(1)},
+    //   );
+    // } catch (e) {
+    //   deleteProduct(data.id, data.categoryId);
+    //   throw CustomException(message: 'Error Adding Product');
+    // }
   }
 
   Future<void> editProduct(String id, ProductModel newData) async {
@@ -81,7 +81,7 @@ final watchProductProvider =
 });
 
 final watchCategoryProducts = StreamProvider.family
-    .autoDispose<List<ProductModel>, String>((ref, categoryId) {
+    .autoDispose<List<ProductModel>, int>((ref, categoryId) {
   final categoryProducts = ref.read(productsRepo).watchCategoryProducts(
         categoryId,
       );

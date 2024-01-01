@@ -14,6 +14,7 @@ import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/categories/domain/category_model.dart';
 import 'package:my_market/features/product/domain/product_model.dart';
+import 'package:my_market/features/product/domain/product_price_info_model.dart';
 import 'package:my_market/features/product/presentation/products_controller.dart';
 import 'package:my_market/features/product/presentation/widgets/add_product_dialog_actions.dart';
 
@@ -34,7 +35,7 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
     final colors = context.appColors;
     final product = useState<ProductModel>(ProductModel.initial());
     final selectedCategory = useState<CategoryModel?>(null);
-    final selectedProductProvider = useState<String?>(null);
+    final selectedProductProvider = useState<ProductProviderModel?>(null);
     const horizontalSpace = HorizontalSpacingWidget(Sizes.p16);
 
     ref.listen(productsController, (previous, next) {
@@ -166,20 +167,20 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
                   ),
                   horizontalSpace,
                   Expanded(
-                    child: AppDialogFormField<String>(
+                    child: AppDialogFormField<ProductProviderModel>(
                       title: 'Fournisseur',
                       hint: 'Ajouter n Code a barre',
                       asDropDown: (
                         items: DummyData.productProviders,
-                        childBuilder: (value) => AppText(text: value),
-                        dropDownvalidator: validateIsEmpty,
+                        childBuilder: (value) => AppText(text: value.name),
+                        dropDownvalidator: validateGenericIsEmpty,
                         isDropDown: true,
                         onChanged: (val) {
                           selectedProductProvider.value = val!;
                           product.value = product.value.copyWith(
                             providersDetails:
                                 product.value.providersDetails.copyWith(
-                              providerName: selectedProductProvider.value,
+                              provider: selectedProductProvider.value,
                             ),
                           );
                         },

@@ -71,6 +71,7 @@ class CompanyClientTabBody extends HookConsumerWidget {
         actions: AppActionsRow(
           showActions: showActions,
           searchCtrl: searchCtrl,
+          onShow: (val) {},
           onSearch: () {},
           actions: [
             AppActionButton(

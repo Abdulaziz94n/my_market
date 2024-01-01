@@ -17,11 +17,14 @@ class ProductsActionRow extends HookConsumerWidget {
     required this.showActions,
     required this.searchCtrl,
     required this.onSearch,
+    required this.isItemSelected,
+    required this.onShow,
   });
   final TextEditingController searchCtrl;
   final ValueNotifier<bool> showActions;
   final VoidCallback onSearch;
-
+  final bool isItemSelected;
+  final ValueChanged<bool> onShow;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.appColors;
@@ -29,6 +32,7 @@ class ProductsActionRow extends HookConsumerWidget {
     return AppActionsRow(
       searchCtrl: searchCtrl,
       onSearch: onSearch,
+      onShow: onShow,
       actions: [
         AppActionButton(
           color: colors.success,
@@ -41,6 +45,7 @@ class ProductsActionRow extends HookConsumerWidget {
         ),
         AppActionButton(
           color: colors.blue,
+          isItemSelected: isItemSelected,
           onPressed: () => AppDialogs.customDialog(
             context: context,
             dialog: const ProductDetailsDialog(),
@@ -50,6 +55,7 @@ class ProductsActionRow extends HookConsumerWidget {
         ),
         AppActionButton(
           color: colors.warning,
+          isItemSelected: isItemSelected,
           onPressed: () => AppDialogs.customDialog(
             context: context,
             dialog: EditProductDialog(
@@ -61,6 +67,7 @@ class ProductsActionRow extends HookConsumerWidget {
         ),
         AppActionButton(
           color: colors.error,
+          isItemSelected: isItemSelected,
           onPressed: () => AppDialogs.warningDialog(
               context: context,
               icon: Icons.delete,

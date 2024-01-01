@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CategoryModel {
   CategoryModel({
-    required this.id,
+    this.id = 0,
     required this.name,
     this.productsCount = 0,
     this.createdAt,
@@ -13,13 +13,13 @@ class CategoryModel {
   });
 
   final String name;
-  final String id;
+  int id;
   final int? productsCount;
   final DateTime? createdAt;
   final String? createdBy;
 
   CategoryModel copyWith({
-    String? id,
+    int? id,
     String? name,
   }) {
     return CategoryModel(
@@ -39,7 +39,7 @@ class CategoryModel {
 
   factory CategoryModel.fromMap(Map<String, dynamic> map) {
     return CategoryModel(
-      id: map['id'] as String,
+      id: map['id'] as int,
       name: map['name'] as String,
       productsCount: map['productsCount'] as int,
       createdAt: map['createdAt'] != null

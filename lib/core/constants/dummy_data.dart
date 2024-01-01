@@ -15,13 +15,13 @@ import 'package:uuid/uuid.dart';
 
 class DummyData {
   static List<CategoryModel> categoriesList = [
-    CategoryModel(name: 'Touts', id: '1'),
-    CategoryModel(name: 'Dinda Fume', id: '2'),
-    CategoryModel(name: 'Touts', id: '3'),
-    CategoryModel(name: 'Framage', id: '4'),
-    CategoryModel(name: 'Boulangerie', id: '5'),
-    CategoryModel(name: 'Boisson', id: '6'),
-    CategoryModel(name: 'Autres', id: '7'),
+    CategoryModel(name: 'Touts', id: 1),
+    CategoryModel(name: 'Dinda Fume', id: 2),
+    CategoryModel(name: 'Touts', id: 3),
+    CategoryModel(name: 'Framage', id: 4),
+    CategoryModel(name: 'Boulangerie', id: 5),
+    CategoryModel(name: 'Boisson', id: 6),
+    CategoryModel(name: 'Autres', id: 7),
   ];
 
   static List<UserModel> usersList = [
@@ -36,169 +36,169 @@ class DummyData {
   ];
 
   static ProductModel product = ProductModel(
-    id: const Uuid().v4(),
+    id: 1,
     name: 'coffee',
     desc: '200 mg latte',
     barcode: '123456789',
     shortCode: 'asd123',
-    categoryId: '262f843f-0f3a-44d4-b397-6941470a91db',
+    categoryId: 1,
     sellPrice: 27,
     alertCount: 25,
     stockCount: 10,
     providersDetails:
-        ProvidersDetails(buyPrice: 22, providerName: productProviders.last),
+        ProvidersDetails(buyPrice: 22, provider: productProviders.last),
     createdBy: usersList.first.id.toString().toString(),
     createdAt: DateTime(2023, 01, 01),
   );
 
   static List<ProductModel> productsList = [
     ProductModel(
-      id: '1',
+      id: 1,
       name: 'coffee',
       desc: '200 mg latte',
       barcode: '123456789',
       shortCode: 'asc123',
-      categoryId: '2',
+      categoryId: 2,
       sellPrice: 25,
       alertCount: 20,
       stockCount: 10,
       providersDetails:
-          ProvidersDetails(buyPrice: 21, providerName: productProviders[0]),
+          ProvidersDetails(buyPrice: 21, provider: productProviders[0]),
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
     ProductModel(
-      id: '2',
+      id: 2,
       name: 'chocalate',
       desc: '200 mg Ulker chocolate',
       barcode: '123456789',
       shortCode: 'asd123',
-      categoryId: '1',
+      categoryId: 1,
       sellPrice: 27,
       alertCount: 25,
       stockCount: 10,
       providersDetails:
-          ProvidersDetails(buyPrice: 22, providerName: productProviders[0]),
+          ProvidersDetails(buyPrice: 22, provider: productProviders[0]),
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
     ProductModel(
-      id: '3',
+      id: 3,
       name: 'milk',
       desc: '1.5 L ici milk',
       barcode: '123458945',
       shortCode: 'asd323',
-      categoryId: '3',
+      categoryId: 3,
       sellPrice: 22,
       alertCount: 10,
       stockCount: 10,
       providersDetails:
-          ProvidersDetails(buyPrice: 18, providerName: productProviders[1]),
+          ProvidersDetails(buyPrice: 18, provider: productProviders[1]),
       createdBy: usersList.last.id.toString(),
       createdAt: DateTime.now(),
     ),
     ProductModel(
-      id: '5',
+      id: 5,
       name: 'bread',
       desc: '10 piece bread bag',
       barcode: '313456789',
       shortCode: 'aqz157',
-      categoryId: '4',
+      categoryId: 4,
       sellPrice: 10,
       alertCount: 25,
       stockCount: 10,
       providersDetails:
-          ProvidersDetails(buyPrice: 7, providerName: productProviders[2]),
+          ProvidersDetails(buyPrice: 7, provider: productProviders[2]),
       createdBy: usersList.last.id.toString(),
       createdAt: DateTime.now(),
     ),
     ProductModel(
-      id: '6',
+      id: 6,
       name: 'meat',
       desc: '100g meat bag',
       barcode: '413456789',
       shortCode: 'aqp157',
-      categoryId: '5',
+      categoryId: 5,
       sellPrice: 10,
       alertCount: 25,
       stockCount: 10,
       providersDetails:
-          ProvidersDetails(buyPrice: 8, providerName: productProviders[2]),
+          ProvidersDetails(buyPrice: 8, provider: productProviders[2]),
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
     ProductModel(
-      id: '7',
+      id: 7,
       name: 'chicken',
       desc: '500 g chicken bag',
       barcode: '353456719',
       shortCode: 'aqy157',
-      categoryId: '6',
+      categoryId: 6,
       sellPrice: 15,
       alertCount: 25,
       stockCount: 10,
       providersDetails:
-          ProvidersDetails(buyPrice: 12, providerName: productProviders[2]),
+          ProvidersDetails(buyPrice: 12, provider: productProviders[2]),
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
     ProductModel(
-      id: '8',
+      id: 8,
       name: 'biskuit',
       desc: '1 piece biskuit bag',
       barcode: '313456779',
       shortCode: 'aqz167',
-      categoryId: '7',
+      categoryId: 7,
       sellPrice: 11,
       alertCount: 25,
       stockCount: 10,
       providersDetails:
-          ProvidersDetails(buyPrice: 9, providerName: productProviders[2]),
+          ProvidersDetails(buyPrice: 9, provider: productProviders[2]),
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
     ProductModel(
-      id: '9',
+      id: 9,
       name: '3 biskuit',
       desc: '3 piece biskuit bag',
       barcode: '313456721',
       shortCode: 'aqq167',
-      categoryId: '7',
+      categoryId: 7,
       sellPrice: 30,
       alertCount: 25,
       stockCount: 10,
       providersDetails:
-          ProvidersDetails(buyPrice: 20, providerName: productProviders[2]),
+          ProvidersDetails(buyPrice: 20, provider: productProviders[2]),
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
     ProductModel(
-      id: '10',
+      id: 10,
       name: 'kinder',
       desc: '1 piece kinder bag',
       barcode: '313456731',
       shortCode: 'aqw167',
-      categoryId: '7',
+      categoryId: 7,
       sellPrice: 15,
       alertCount: 25,
       stockCount: 10,
       providersDetails:
-          ProvidersDetails(buyPrice: 10, providerName: productProviders[2]),
+          ProvidersDetails(buyPrice: 10, provider: productProviders[2]),
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
     ProductModel(
-      id: '11',
+      id: 11,
       name: 'mars',
       desc: '1 piece mars bag',
       barcode: '313456777',
       shortCode: 'aqx167',
-      categoryId: '1',
+      categoryId: 1,
       sellPrice: 15,
       alertCount: 25,
       stockCount: 10,
       providersDetails:
-          ProvidersDetails(buyPrice: 9, providerName: productProviders[2]),
+          ProvidersDetails(buyPrice: 9, provider: productProviders[2]),
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
@@ -210,11 +210,10 @@ class DummyData {
         .toList();
   }
 
-  static List<String> productProviders = [
-    'Provider 1',
-    'Provider 2',
-    'Provider 3',
-    'Provider 4',
+  static List<ProductProviderModel> productProviders = [
+    ProductProviderModel(name: 'provider 1'),
+    ProductProviderModel(name: 'provider 2', id: 2),
+    ProductProviderModel(name: 'provider 3', id: 3),
   ];
 
   static List<OrderItemModel> orderItems = [
@@ -252,7 +251,7 @@ class DummyData {
   );
 
   static CategoryModel category = CategoryModel(
-    id: const Uuid().v4(),
+    id: 1,
     name: 'test category',
   );
 

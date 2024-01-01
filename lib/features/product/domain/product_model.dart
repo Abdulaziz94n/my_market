@@ -4,12 +4,12 @@ import 'package:my_market/features/product/domain/product_price_info_model.dart'
 import 'package:uuid/uuid.dart';
 
 class ProductModel {
-  final String id;
+  int id;
+  int categoryId;
   final String name;
   final String desc;
   final String barcode;
   final String shortCode;
-  final String categoryId;
   final double sellPrice;
   final int stockCount;
   final int alertCount;
@@ -17,13 +17,15 @@ class ProductModel {
   final String createdBy;
   final DateTime? createdAt;
   final DateTime? expirationDate;
-  const ProductModel({
-    required this.id,
+  final int? utilityId;
+
+  ProductModel({
+    this.id = 0,
+    this.categoryId = 0,
     required this.name,
     required this.desc,
     required this.barcode,
     required this.shortCode,
-    required this.categoryId,
     required this.sellPrice,
     required this.alertCount,
     required this.providersDetails,
@@ -31,6 +33,7 @@ class ProductModel {
     required this.createdAt,
     required this.stockCount,
     this.expirationDate,
+    this.utilityId,
   });
 
   double get buyPrice => providersDetails.buyPrice;
@@ -38,29 +41,32 @@ class ProductModel {
   static ProductModel initial() {
     final uuid = const Uuid().v4();
     return ProductModel(
-      id: uuid,
-      name: '',
-      desc: 'desc',
-      barcode: '',
-      shortCode: uuid.substring(0, 5),
-      categoryId: '',
-      sellPrice: 0,
-      alertCount: 0,
-      providersDetails: const ProvidersDetails(buyPrice: 0, providerName: ''),
-      createdBy: 'created by',
-      createdAt: null,
-      stockCount: 0,
-      expirationDate: null,
-    );
+        id: 0,
+        name: '',
+        desc: 'desc',
+        barcode: '',
+        shortCode: uuid.substring(0, 5),
+        categoryId: 0,
+        sellPrice: 0,
+        alertCount: 0,
+        providersDetails: ProvidersDetails(
+          buyPrice: 0,
+          provider: ProductProviderModel(name: 'name', id: 1),
+        ),
+        createdBy: 'created by',
+        createdAt: null,
+        stockCount: 0,
+        expirationDate: null,
+        utilityId: null);
   }
 
   ProductModel copyWith({
-    String? id,
+    int? id,
     String? name,
     String? desc,
     String? barcode,
     String? shortCode,
-    String? categoryId,
+    int? categoryId,
     double? sellPrice,
     int? alertCount,
     int? stockCount,
@@ -68,6 +74,7 @@ class ProductModel {
     String? createdBy,
     DateTime? createdAt,
     DateTime? expirationDate,
+    int? utilityId,
   }) {
     return ProductModel(
       id: id ?? this.id,
@@ -83,6 +90,7 @@ class ProductModel {
       createdBy: createdBy ?? this.createdBy,
       createdAt: createdAt ?? this.createdAt,
       expirationDate: expirationDate ?? this.expirationDate,
+      utilityId: utilityId ?? this.utilityId,
     );
   }
 
@@ -97,6 +105,7 @@ class ProductModel {
       'sellPrice': sellPrice,
       'alertCount': alertCount,
       'stockCount': stockCount,
+      'utilityId': utilityId,
       'providerDetails': providersDetails.toMap(),
       'createdBy': createdBy,
       if (createdAt != null) 'createdAt': Timestamp.fromDate(createdAt!),
@@ -107,15 +116,16 @@ class ProductModel {
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
-      id: map['id'] as String,
+      id: map['id'] as int,
       name: map['name'] as String,
       desc: map['desc'] as String,
       barcode: map['barcode'] as String,
       shortCode: map['shortCode'] as String,
-      categoryId: map['categoryId'] as String,
+      categoryId: map['categoryId'] as int,
       sellPrice: map['sellPrice'] as double,
       alertCount: map['alertCount'] as int,
       stockCount: map['stockCount'] as int,
+      utilityId: map['utilityId'] as int?,
       providersDetails: ProvidersDetails.fromMap(
         map['providerDetails'] as Map<String, dynamic>,
       ),
