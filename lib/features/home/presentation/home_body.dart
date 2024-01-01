@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_market/features/cashier/presentation/widgets/cashier_body.dart';
+import 'package:my_market/features/categories/presentation/categories_tab_body.dart';
 import 'package:my_market/features/client/presentation/clients_history_tab_body.dart';
 import 'package:my_market/features/client/presentation/company_client_tab_body.dart';
 import 'package:my_market/features/client/presentation/credit_client_tab_body.dart';
@@ -27,6 +28,7 @@ class HomeBody extends ConsumerWidget {
       RailDestination.dashboard => const DashboardBody(),
       RailDestination.stockProduct => const ProductsTabBody(),
       RailDestination.stockPerte => Center(child: Text(' $railDestination')),
+      RailDestination.scaleProduct => Center(child: Text(' $railDestination')),
       RailDestination.clientsOnCredit => const CreditClientTabBody(),
       RailDestination.clientsCompany => const CompanyClientTabBody(),
       RailDestination.clientsHistory => const ClientHistoryTabBody(),
@@ -34,7 +36,7 @@ class HomeBody extends ConsumerWidget {
       RailDestination.authorizations =>
         Center(child: Text(' $railDestination')),
       RailDestination.tickets => Center(child: Text(' $railDestination')),
-      RailDestination.categories => Center(child: Text(' $railDestination')),
+      RailDestination.categories => const CategoriesTabBody(),
       RailDestination.reports => Center(child: Text(' $railDestination')),
       RailDestination.users => const UsersTabBody(),
       RailDestination.oldUsers => const OldUsersTabBody(),

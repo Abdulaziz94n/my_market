@@ -8,21 +8,37 @@ class AppMainBody extends StatelessWidget {
     super.key,
     required this.children,
     required this.title,
+    this.isScrollable = false,
   });
   final List<Widget> children;
   final String title;
+  final bool isScrollable;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: Sizes.defaultBodyPadding,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AppBodyHeader(title: title),
-          const VerticalSpacingWidget(Sizes.p24),
-          ...children,
-        ],
-      ),
-    );
+    return isScrollable
+        ? SingleChildScrollView(
+            child: Padding(
+              padding: Sizes.defaultBodyPadding,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppBodyHeader(title: title),
+                  const VerticalSpacingWidget(Sizes.p24),
+                  ...children,
+                ],
+              ),
+            ),
+          )
+        : Padding(
+            padding: Sizes.defaultBodyPadding,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AppBodyHeader(title: title),
+                const VerticalSpacingWidget(Sizes.p24),
+                ...children,
+              ],
+            ),
+          );
   }
 }

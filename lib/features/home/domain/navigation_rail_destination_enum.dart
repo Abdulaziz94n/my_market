@@ -2,6 +2,7 @@ enum RailDestination {
   dashboard('dashboard'),
   stockProduct('stockProduct'),
   stockPerte('stockPerte'),
+  scaleProduct('scaleProduct'),
   clientsOnCredit('clientsOnCredit'),
   clientsCompany('clientsCompany'),
   clientsHistory('clientsHistory'),
