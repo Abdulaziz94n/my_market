@@ -27,7 +27,7 @@ class CashierProductsTableItems extends ConsumerWidget {
       itemCount: products.length,
       separatorBuilder: (_, __) => const VerticalSpacingWidget(Sizes.p16),
       itemBuilder: (context, index) => _ProductRow(
-        key: ValueKey(products[index].id),
+        key: ValueKey(products[index].localId),
         product: products[index],
         onSelect: onSelect,
         selectedProduct: selectedProduct,

@@ -41,7 +41,7 @@ class OrderProductModel {
 
   factory OrderProductModel.fromProduct(ProductModel product) {
     return OrderProductModel(
-      id: product.id,
+      id: product.localId,
       name: product.name,
       price: product.sellPrice,
     );

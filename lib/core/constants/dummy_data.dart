@@ -36,7 +36,8 @@ class DummyData {
   ];
 
   static ProductModel product = ProductModel(
-    id: 1,
+    localId: 1,
+    globalId: 'asd',
     name: 'coffee',
     desc: '200 mg latte',
     barcode: '123456789',
@@ -53,7 +54,8 @@ class DummyData {
 
   static List<ProductModel> productsList = [
     ProductModel(
-      id: 1,
+      localId: 1,
+      globalId: 'asd2',
       name: 'coffee',
       desc: '200 mg latte',
       barcode: '123456789',
@@ -68,7 +70,8 @@ class DummyData {
       createdAt: DateTime.now(),
     ),
     ProductModel(
-      id: 2,
+      localId: 2,
+      globalId: 'asd3',
       name: 'chocalate',
       desc: '200 mg Ulker chocolate',
       barcode: '123456789',
@@ -83,7 +86,8 @@ class DummyData {
       createdAt: DateTime.now(),
     ),
     ProductModel(
-      id: 3,
+      localId: 3,
+      globalId: 'asd4',
       name: 'milk',
       desc: '1.5 L ici milk',
       barcode: '123458945',
@@ -98,7 +102,8 @@ class DummyData {
       createdAt: DateTime.now(),
     ),
     ProductModel(
-      id: 5,
+      localId: 5,
+      globalId: 'asd5',
       name: 'bread',
       desc: '10 piece bread bag',
       barcode: '313456789',
@@ -113,7 +118,8 @@ class DummyData {
       createdAt: DateTime.now(),
     ),
     ProductModel(
-      id: 6,
+      localId: 6,
+      globalId: 'asd6',
       name: 'meat',
       desc: '100g meat bag',
       barcode: '413456789',
@@ -128,7 +134,8 @@ class DummyData {
       createdAt: DateTime.now(),
     ),
     ProductModel(
-      id: 7,
+      localId: 7,
+      globalId: 'asd7',
       name: 'chicken',
       desc: '500 g chicken bag',
       barcode: '353456719',
@@ -143,7 +150,8 @@ class DummyData {
       createdAt: DateTime.now(),
     ),
     ProductModel(
-      id: 8,
+      localId: 8,
+      globalId: 'asd8',
       name: 'biskuit',
       desc: '1 piece biskuit bag',
       barcode: '313456779',
@@ -158,7 +166,8 @@ class DummyData {
       createdAt: DateTime.now(),
     ),
     ProductModel(
-      id: 9,
+      localId: 9,
+      globalId: 'asd9',
       name: '3 biskuit',
       desc: '3 piece biskuit bag',
       barcode: '313456721',
@@ -173,7 +182,8 @@ class DummyData {
       createdAt: DateTime.now(),
     ),
     ProductModel(
-      id: 10,
+      localId: 10,
+      globalId: 'asd10',
       name: 'kinder',
       desc: '1 piece kinder bag',
       barcode: '313456731',
@@ -188,7 +198,8 @@ class DummyData {
       createdAt: DateTime.now(),
     ),
     ProductModel(
-      id: 11,
+      localId: 11,
+      globalId: 'asd11',
       name: 'mars',
       desc: '1 piece mars bag',
       barcode: '313456777',
@@ -204,7 +215,7 @@ class DummyData {
     ),
   ];
 
-  static List<ProductModel> categoryProducts(String categoryId) {
+  static List<ProductModel> categoryProducts(int categoryId) {
     return productsList
         .where((element) => element.categoryId == categoryId)
         .toList();
@@ -307,3 +318,5 @@ class DummyData {
     roleId: UserRole.admin.id,
   );
 }
+
+void s() {}

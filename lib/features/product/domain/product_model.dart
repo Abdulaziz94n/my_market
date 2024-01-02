@@ -1,16 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:my_market/features/product/domain/product_entity.dart';
 import 'package:my_market/features/product/domain/product_price_info_model.dart';
 import 'package:uuid/uuid.dart';
 
 class ProductModel {
-  int id;
-  int categoryId;
+  final int localId;
+  final String globalId;
   final String name;
   final String desc;
   final String barcode;
   final String shortCode;
   final double sellPrice;
+  final int categoryId;
   final int stockCount;
   final int alertCount;
   final ProvidersDetails providersDetails;
@@ -20,8 +22,9 @@ class ProductModel {
   final int? utilityId;
 
   ProductModel({
-    this.id = 0,
-    this.categoryId = 0,
+    required this.localId,
+    required this.globalId,
+    required this.categoryId,
     required this.name,
     required this.desc,
     required this.barcode,
@@ -36,15 +39,53 @@ class ProductModel {
     this.utilityId,
   });
 
+  factory ProductModel.fromEntity(ProductEntity entity) {
+    return ProductModel(
+      localId: entity.id,
+      globalId: entity.globalId,
+      categoryId: entity.categoryId,
+      name: entity.name,
+      desc: entity.desc,
+      barcode: entity.barcode,
+      shortCode: entity.shortCode,
+      sellPrice: entity.sellPrice,
+      alertCount: entity.alertCount,
+      providersDetails: entity.providersDetails!,
+      createdBy: entity.createdBy,
+      createdAt: entity.createdAt,
+      stockCount: entity.stockCount,
+    );
+  }
+
+  ProductEntity toEntity() {
+    return ProductEntity(
+      name: name,
+      desc: desc,
+      globalId: globalId,
+      barcode: barcode,
+      shortCode: shortCode,
+      sellPrice: sellPrice,
+      categoryId: categoryId,
+      stockCount: stockCount,
+      alertCount: alertCount,
+      createdBy: createdBy,
+      createdAt: createdAt,
+      expirationDate: expirationDate,
+      providersDetails: providersDetails,
+      utilityId: utilityId,
+    );
+  }
+
   double get buyPrice => providersDetails.buyPrice;
 
   static ProductModel initial() {
     final uuid = const Uuid().v4();
     return ProductModel(
-        id: 0,
+        localId: 0,
         name: '',
         desc: 'desc',
         barcode: '',
+        globalId: uuid,
         shortCode: uuid.substring(0, 5),
         categoryId: 0,
         sellPrice: 0,
@@ -61,7 +102,6 @@ class ProductModel {
   }
 
   ProductModel copyWith({
-    int? id,
     String? name,
     String? desc,
     String? barcode,
@@ -77,7 +117,8 @@ class ProductModel {
     int? utilityId,
   }) {
     return ProductModel(
-      id: id ?? this.id,
+      localId: localId,
+      globalId: globalId,
       name: name ?? this.name,
       desc: desc ?? this.desc,
       barcode: barcode ?? this.barcode,
@@ -96,7 +137,7 @@ class ProductModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
+      'id': localId,
       'name': name,
       'desc': desc,
       'barcode': barcode,
@@ -116,7 +157,8 @@ class ProductModel {
 
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
-      id: map['id'] as int,
+      localId: map['id'] as int,
+      globalId: map['globalId'] as String,
       name: map['name'] as String,
       desc: map['desc'] as String,
       barcode: map['barcode'] as String,
@@ -141,14 +183,14 @@ class ProductModel {
 
   @override
   String toString() {
-    return 'Product(id: $id, name: $name, desc: $desc, barcode: $barcode, shortCode: $shortCode, categoryId: $categoryId, sellPrice: $sellPrice, stockCount: $stockCount, alertCount: $alertCount, providersDetails: $providersDetails, createdBy: $createdBy, createdAt: $createdAt, expirationDate: $expirationDate)';
+    return 'Product(id: $localId, name: $name, desc: $desc, barcode: $barcode, shortCode: $shortCode, categoryId: $categoryId, sellPrice: $sellPrice, stockCount: $stockCount, alertCount: $alertCount, providersDetails: $providersDetails, createdBy: $createdBy, createdAt: $createdAt, expirationDate: $expirationDate)';
   }
 
   @override
   bool operator ==(covariant ProductModel other) {
     if (identical(this, other)) return true;
 
-    return other.id == id &&
+    return other.localId == localId &&
         other.name == name &&
         other.desc == desc &&
         other.barcode == barcode &&
@@ -163,7 +205,7 @@ class ProductModel {
 
   @override
   int get hashCode {
-    return id.hashCode ^
+    return localId.hashCode ^
         name.hashCode ^
         desc.hashCode ^
         barcode.hashCode ^

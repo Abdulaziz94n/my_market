@@ -61,15 +61,15 @@ class ProductsTabBody extends HookConsumerWidget {
           selectedItems: selectedItems,
           headers: _headers,
           cellValues: (index) => [
-            productList[index].id.toString(),
+            productList[index].localId.toString(),
             productList[index].name,
             productList[index].sellPrice.toString(),
             productList[index].buyPrice.toString(),
             productList[index].stockCount.toString(),
             productList[index].alertCount.toString(),
           ],
-          itemIdField: (item) => item.id.toString(),
-          rowSelectionId: (index) => productList[index].id.toString(),
+          itemIdField: (item) => item.localId.toString(),
+          rowSelectionId: (index) => productList[index].localId.toString(),
         ));
   }
 }
