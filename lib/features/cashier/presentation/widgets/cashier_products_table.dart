@@ -38,7 +38,7 @@ class CashierProductsTable extends HookConsumerWidget {
         if (selectedCategory != null)
           Flexible(
             child: AsyncValueWidget(
-              value: ref.watch(watchCategoryProducts(selectedCategory!.id)),
+              value: ref.watch(productsStreamProvider),
               data: (productList) => CashierProductsTableItems(
                 products: productList,
                 selectedProduct: selectedProduct,

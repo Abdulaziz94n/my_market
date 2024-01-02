@@ -5,7 +5,7 @@ import 'package:objectbox/objectbox.dart';
 
 @Entity()
 class ProductEntity {
-  int id = 0;
+  int id;
   String globalId;
   String name;
   String desc;
@@ -35,6 +35,7 @@ class ProductEntity {
     this.createdAt,
     this.expirationDate,
     this.utilityId,
+    this.id = 0,
   });
 
   String get dbProvidersDetails => jsonEncode(providersDetails?.toJson());

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_market/core/constants/dummy_data.dart';
 import 'package:my_market/core/extensions/build_context_extension.dart';
 import 'package:my_market/core/utils/app_dialogs.dart';
 import 'package:my_market/core/widgets/shared/app_action_button.dart';
 import 'package:my_market/core/widgets/shared/app_actions_row.dart';
+import 'package:my_market/features/product/data/product_repository.dart';
+import 'package:my_market/features/product/domain/product_model.dart';
 import 'package:my_market/features/product/presentation/widgets/add_product_dialog.dart';
 import 'package:my_market/features/product/presentation/widgets/edit_product_dialog.dart';
 import 'package:my_market/features/product/presentation/widgets/product_details_dialog.dart';
@@ -18,10 +19,12 @@ class ProductsActionRow extends HookConsumerWidget {
     required this.searchCtrl,
     required this.onSearch,
     required this.isItemSelected,
+    required this.selectedItem,
     required this.onShow,
   });
   final TextEditingController searchCtrl;
   final ValueNotifier<bool> showActions;
+  final ProductModel? selectedItem;
   final VoidCallback onSearch;
   final bool isItemSelected;
   final ValueChanged<bool> onShow;
@@ -59,7 +62,7 @@ class ProductsActionRow extends HookConsumerWidget {
           onPressed: () => AppDialogs.customDialog(
             context: context,
             dialog: EditProductDialog(
-              product: DummyData.product,
+              product: selectedItem!,
             ),
           ),
           iconData: Icons.edit,
@@ -70,10 +73,11 @@ class ProductsActionRow extends HookConsumerWidget {
           isItemSelected: isItemSelected,
           onPressed: () => AppDialogs.warningDialog(
               context: context,
+              backgroundColor: context.appColors.background,
               icon: Icons.delete,
               contentText: 'Are you sure you want to delete this product ?',
               onAction: () {
-                print('product deleted');
+                ref.read(productsRepo).deleteProduct(selectedItem!.localId);
                 context.pop();
               }),
           iconData: Icons.close,

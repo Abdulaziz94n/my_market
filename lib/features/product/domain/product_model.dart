@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:my_market/core/utils/optional_model.dart';
 import 'package:my_market/features/product/domain/product_entity.dart';
 import 'package:my_market/features/product/domain/product_price_info_model.dart';
 import 'package:uuid/uuid.dart';
@@ -21,8 +22,8 @@ class ProductModel {
   final DateTime? expirationDate;
   final int? utilityId;
 
-  ProductModel({
-    required this.localId,
+  const ProductModel({
+    this.localId = 0,
     required this.globalId,
     required this.categoryId,
     required this.name,
@@ -59,6 +60,7 @@ class ProductModel {
 
   ProductEntity toEntity() {
     return ProductEntity(
+      id: localId,
       name: name,
       desc: desc,
       globalId: globalId,
@@ -113,7 +115,7 @@ class ProductModel {
     ProvidersDetails? providersDetails,
     String? createdBy,
     DateTime? createdAt,
-    DateTime? expirationDate,
+    Optional<DateTime>? expirationDate,
     int? utilityId,
   }) {
     return ProductModel(
@@ -130,7 +132,8 @@ class ProductModel {
       providersDetails: providersDetails ?? this.providersDetails,
       createdBy: createdBy ?? this.createdBy,
       createdAt: createdAt ?? this.createdAt,
-      expirationDate: expirationDate ?? this.expirationDate,
+      expirationDate:
+          expirationDate != null ? expirationDate.value : this.expirationDate,
       utilityId: utilityId ?? this.utilityId,
     );
   }
@@ -183,7 +186,7 @@ class ProductModel {
 
   @override
   String toString() {
-    return 'Product(id: $localId, name: $name, desc: $desc, barcode: $barcode, shortCode: $shortCode, categoryId: $categoryId, sellPrice: $sellPrice, stockCount: $stockCount, alertCount: $alertCount, providersDetails: $providersDetails, createdBy: $createdBy, createdAt: $createdAt, expirationDate: $expirationDate)';
+    return 'ProductModel(localId: $localId, globalId: $globalId, name: $name, desc: $desc, barcode: $barcode, shortCode: $shortCode, sellPrice: $sellPrice, categoryId: $categoryId, stockCount: $stockCount, alertCount: $alertCount, providersDetails: $providersDetails, createdBy: $createdBy, createdAt: $createdAt, expirationDate: $expirationDate, utilityId: $utilityId)';
   }
 
   @override

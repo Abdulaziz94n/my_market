@@ -8,7 +8,9 @@ import 'package:my_market/core/extensions/build_context_extension.dart';
 import 'package:my_market/core/extensions/string_extension.dart';
 import 'package:my_market/core/mixins/text_formatters_mixin.dart';
 import 'package:my_market/core/mixins/validators_mixin.dart';
-import 'package:my_market/core/utils/async_value_utils.dart';
+import 'package:my_market/core/utils/app_dialogs.dart';
+import 'package:my_market/core/utils/optional_model.dart';
+import 'package:my_market/core/widgets/shared/app_date_textfield.dart';
 import 'package:my_market/core/widgets/shared/app_dialog_form_field.dart';
 import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
@@ -37,21 +39,6 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
     final selectedCategory = useState<CategoryModel?>(null);
     final selectedProductProvider = useState<ProductProviderModel?>(null);
     const horizontalSpace = HorizontalSpacingWidget(Sizes.p16);
-
-    ref.listen(productsController, (previous, next) {
-      AsyncValueUtils.handleAsyncVal(
-        context: context,
-        previous: previous,
-        next: next,
-        successMessage: 'Product Added Successfully',
-        onSuccessAction: () {
-          formKey.currentState!.reset();
-          product.value = ProductModel.initial();
-          selectedCategory.value = null;
-          selectedProductProvider.value = null;
-        },
-      );
-    });
     return Form(
       key: formKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -190,12 +177,37 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
                   ),
                 ],
               ),
+              const VerticalSpacingWidget(Sizes.p16),
+              AppDateTextField(
+                title: 'Expiration Date',
+                hint: 'select Expiration Date',
+                selectedDate: product.value.expirationDate,
+                validator: validateIsEmpty,
+                lastDate: DateTime.now().add(const Duration(days: 360 * 7)),
+                onDateSelect: (val) {
+                  product.value = product.value
+                      .copyWith(expirationDate: Optional.value(val));
+                },
+              ),
               const VerticalSpacingWidget(Sizes.p32),
               AddProductDialogActions(
                 horizontalSpace: horizontalSpace,
                 colors: colors,
-                formKey: formKey,
                 product: product.value,
+                onAdd: () {
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+                    AppDialogs.syncDialog(
+                      fromDialog: true,
+                      dialogBgColor: colors.background,
+                      context: context,
+                      action: () => ref
+                          .read(productsController.notifier)
+                          .addProduct(product.value),
+                      successMessage: 'Product Added Successfully',
+                    );
+                  }
+                },
               ),
             ],
           ),

@@ -53,7 +53,7 @@ class CreditClientTabBody extends HookConsumerWidget {
           subTitle: 'subTitle',
         ),
       ],
-      table: AppTabledCard(
+      table: (context) => AppTabledCard(
         headers: _headers,
         showActions: showActions,
         selectedItems: selectedItems,

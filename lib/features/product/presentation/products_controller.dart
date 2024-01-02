@@ -8,25 +8,16 @@ class ProductsController extends AsyncNotifier<void> {
   @override
   FutureOr<void> build() {}
 
-  Future<void> addProduct(ProductModel product) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(
-      () => ref.read(productsRepo).addProduct(product),
-    );
+  void addProduct(ProductModel product) {
+    ref.read(productsRepo).addProduct(product);
   }
 
-  Future<void> editProduct(String id, ProductModel newProduct) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(
-      () => ref.read(productsRepo).editProduct(id, newProduct),
-    );
+  void editProduct(ProductModel newProduct) {
+    ref.read(productsRepo).editProduct(newProduct);
   }
 
-  Future<void> deleteProdcut(String id, String categoryId) async {
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(
-      () => ref.read(productsRepo).deleteProduct(id, categoryId),
-    );
+  void deleteProdcut(int id) {
+    ref.read(productsRepo).deleteProduct(id);
   }
 }
 

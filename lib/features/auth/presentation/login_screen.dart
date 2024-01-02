@@ -10,8 +10,6 @@ import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:my_market/core/widgets/shared/app_text_field.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/auth/presentation/auth_controller.dart';
-import 'package:my_market/features/users/data/users_repository.dart';
-import 'package:my_market/features/users/domain/user_model.dart';
 
 const double _fieldWidth = 350;
 
@@ -32,15 +30,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> with Validators {
     final passwordCtrl = useTextEditingController();
 
     return AppScaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        UsersRepository().addUser(UserModel(
-          nationalId: 'national id',
-          name: nameCtrl.text.trimAndLower,
-          password: passwordCtrl.text.trim(),
-          roleId: 1,
-          genderId: 1,
-        ));
-      }),
+      // floatingActionButton: FloatingActionButton(onPressed: () {
+      //   UsersRepository().addUser(UserModel(
+      //     nationalId: 'national id',
+      //     name: nameCtrl.text.trimAndLower,
+      //     password: passwordCtrl.text.trim(),
+      //     roleId: 1,
+      //     genderId: 1,
+      //   ));
+      // }),
       body: Form(
         key: formKey,
         child: Center(

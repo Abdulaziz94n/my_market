@@ -7,6 +7,7 @@ import 'package:my_market/core/utils/app_dialogs.dart';
 import 'package:my_market/core/widgets/shared/app_primary_button.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/product/domain/product_model.dart';
+import 'package:my_market/features/product/presentation/products_controller.dart';
 
 class EditProductDialogActions extends ConsumerWidget {
   const EditProductDialogActions({
@@ -34,6 +35,7 @@ class EditProductDialogActions extends ConsumerWidget {
             icon: Icons.add,
             color: colors.warning,
             onPressed: () async {
+              print(product.localId);
               if (formKey.currentState!.validate()) {
                 formKey.currentState!.save();
                 if (!isValidUpdate) {
@@ -44,9 +46,7 @@ class EditProductDialogActions extends ConsumerWidget {
                   );
                   return;
                 } else {
-                  // ref
-                  //     .read(productsController.notifier)
-                  //     .editProduct(product.id, product);
+                  ref.read(productsController.notifier).editProduct(product);
                 }
               }
             },

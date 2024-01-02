@@ -52,7 +52,7 @@ class CompanyClientTabBody extends HookConsumerWidget {
           subTitle: 'subTitle',
         ),
       ],
-      table: AppTabledCard(
+      table: (context) => AppTabledCard(
         showActions: showActions,
         selectedItems: selectedItems,
         cellValues: (index) => [

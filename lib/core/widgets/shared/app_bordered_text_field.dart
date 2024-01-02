@@ -27,6 +27,8 @@ class AppBorderedTextField extends StatelessWidget {
     this.textAlign,
     this.onFieldSubmitted,
     this.onSave,
+    this.onTap,
+    this.mouseCursor,
   }) : assert(initialValue == null || controller == null);
 
   final TextEditingController? controller;
@@ -49,10 +51,14 @@ class AppBorderedTextField extends StatelessWidget {
   final TextAlign? textAlign;
   final ValueChanged<String>? onFieldSubmitted;
   final ValueChanged<String?>? onSave;
+  final VoidCallback? onTap;
+  final MouseCursor? mouseCursor;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      mouseCursor: mouseCursor,
+      onTap: onTap,
       controller: controller,
       initialValue: initialValue,
       onChanged: onChanged,

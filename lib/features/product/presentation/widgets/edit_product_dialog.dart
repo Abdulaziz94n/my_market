@@ -72,9 +72,10 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
                     child: AppDialogFormField(
                       initialValue: widget.product.barcode,
                       title: 'Code Bare',
+                      readOnly: true,
                       hint: '1558475654',
                       textFieldValidator: validateIsEmpty,
-                      onSave: (value) => newProduct.value =
+                      onTextChanged: (value) => newProduct.value =
                           newProduct.value.copyWith(barcode: value),
                     ),
                   ),
@@ -85,7 +86,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
                       title: 'Nom de Produit',
                       hint: 'Danetter Chocolat 55ml',
                       textFieldValidator: validateIsEmpty,
-                      onSave: (value) => newProduct.value =
+                      onTextChanged: (value) => newProduct.value =
                           newProduct.value.copyWith(name: value),
                     ),
                   ),
@@ -101,10 +102,10 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
                       textFieldValidator: validateIsEmpty,
                       inputFormatter: [amountInputFormatter()],
                       hint: 'Le Prix est',
-                      onSave: (value) =>
+                      onTextChanged: (value) =>
                           newProduct.value = newProduct.value.copyWith(
                         providersDetails: newProduct.value.providersDetails
-                            .copyWith(buyPrice: value!.tryParseDouble),
+                            .copyWith(buyPrice: value.tryParseDouble),
                       ),
                     ),
                   ),
@@ -116,8 +117,9 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
                       hint: 'Le Prix est',
                       textFieldValidator: validateIsEmpty,
                       inputFormatter: [amountInputFormatter()],
-                      onSave: (value) => newProduct.value = newProduct.value
-                          .copyWith(sellPrice: value!.tryParseDouble),
+                      onTextChanged: (value) => newProduct.value = newProduct
+                          .value
+                          .copyWith(sellPrice: value.tryParseDouble),
                     ),
                   ),
                   horizontalSpace,
@@ -128,9 +130,9 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
                       hint: 'Stock est',
                       textFieldValidator: validateIsEmpty,
                       inputFormatter: [FilteringTextInputFormatter.digitsOnly],
-                      onSave: (value) {
+                      onTextChanged: (value) {
                         newProduct.value = newProduct.value
-                            .copyWith(stockCount: value!.tryParseInt);
+                            .copyWith(stockCount: value.tryParseInt);
                       },
                     ),
                   ),
@@ -142,8 +144,9 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
                       hint: 'Stock est',
                       textFieldValidator: validateIsEmpty,
                       inputFormatter: [FilteringTextInputFormatter.digitsOnly],
-                      onSave: (value) => newProduct.value = newProduct.value
-                          .copyWith(alertCount: value!.tryParseInt),
+                      onTextChanged: (value) => newProduct.value = newProduct
+                          .value
+                          .copyWith(alertCount: value.tryParseInt),
                     ),
                   ),
                 ],

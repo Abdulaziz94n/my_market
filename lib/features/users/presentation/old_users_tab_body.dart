@@ -20,7 +20,7 @@ class OldUsersTabBody extends HookConsumerWidget {
       body: AppMainTabledBody(
         title: 'Anciens employés',
         primaryCards: const [],
-        table: AppTabledCard(
+        table: (context) => AppTabledCard(
           showActions: showActions,
           selectedItems: selectedItems,
           cellValues: (index) => [

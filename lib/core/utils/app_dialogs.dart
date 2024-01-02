@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../widgets/shared/app_loading_indicator.dart';
 import '../widgets/shared/app_success_alert.dart';
@@ -145,13 +146,40 @@ class AppDialogs {
     } on SocketException {
       print('ON SOCKET EXCEPTION ENTERED');
       // TODO:
-      const errorMessage = 'connectionError.tr';
+      const errorMessage = 'connectionError';
       pop();
       onError(errorMessage);
     } catch (e) {
-      const errorMessage = 'somethingWentWrong.tr';
+      const errorMessage = 'somethingWentWrong';
       pop();
       onError(errorMessage);
+    }
+  }
+
+  static void syncDialog({
+    required BuildContext context,
+    required VoidCallback action,
+    required String successMessage,
+    Color? dialogBgColor,
+    String? errorMessage,
+    bool fromDialog = false,
+  }) {
+    if (fromDialog) {
+      action();
+      context.pop();
+      showAdaptiveDialog(
+        context: context,
+        builder: (context) => AppSuccessAlert(
+          contentText: successMessage,
+          backgroundColor: dialogBgColor,
+        ),
+      );
+    } else {
+      action();
+      showAdaptiveDialog(
+        context: context,
+        builder: (context) => AppSuccessAlert(contentText: successMessage),
+      );
     }
   }
 

@@ -13,6 +13,7 @@ class AppDialogFormField<T> extends StatelessWidget {
     super.key,
     required this.title,
     required this.hint,
+    this.onTextChanged,
     this.onSave,
     this.asDropDown,
     this.icon,
@@ -26,6 +27,7 @@ class AppDialogFormField<T> extends StatelessWidget {
 
   final String title;
   final String hint;
+  final ValueChanged<String>? onTextChanged;
   final String? initialValue;
   final TextAlign? textAlign;
   final String? Function(String?)? textFieldValidator;
@@ -59,6 +61,7 @@ class AppDialogFormField<T> extends StatelessWidget {
             textAlign: textAlign,
             inputType: inputType,
             inputFormatters: inputFormatter,
+            onChanged: onTextChanged,
             onSave: onSave,
             prefixIcon: Icon(icon ?? Icons.abc),
             validator: textFieldValidator,
@@ -72,6 +75,7 @@ class AppDialogFormField<T> extends StatelessWidget {
             onChanged: asDropDown!.onChanged,
             hint: hint,
             validator: asDropDown!.dropDownvalidator,
+            enabled: true,
           )
       ],
     );

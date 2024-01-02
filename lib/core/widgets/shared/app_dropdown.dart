@@ -39,7 +39,7 @@ class AppDropDown<T> extends StatelessWidget {
       child: DropdownButtonFormField(
         value: value,
         items: items,
-        onChanged: enabled ? null : onChanged,
+        onChanged: !enabled ? null : onChanged,
         iconDisabledColor: iconDisabledColor,
         hint: SizedBox(
           width: double.infinity,

@@ -15,19 +15,28 @@ class AppStreamBuilder<T> extends StatelessWidget {
         builder: ((context, snapshot) {
           switch (snapshot.connectionState) {
             case ConnectionState.waiting:
+              debugPrint('WAiting');
               return const AppLoadingIndicator();
             case ConnectionState.active:
               if (snapshot.hasError) {
+                debugPrint('HAS ERROR');
                 return const AppErrorWidget();
               } else if (snapshot.hasData) {
+                debugPrint('HAS DATA');
                 return StreamResultWidget<T>(
                     childBuilder: streamSuccessWidget,
                     resultData: snapshot.data as T);
               } else {
+                debugPrint('ELSE ENTERED');
                 return const AppErrorWidget();
               }
-            default:
+            case ConnectionState.none:
               return const AppErrorWidget();
+            case ConnectionState.done:
+              debugPrint('Done');
+              return StreamResultWidget<T>(
+                  childBuilder: streamSuccessWidget,
+                  resultData: snapshot.data as T);
           }
         }));
   }

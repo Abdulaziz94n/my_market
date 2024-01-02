@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:my_market/core/constants/sizes.dart';
 import 'package:my_market/core/extensions/num_extension.dart';
 import 'package:my_market/core/widgets/shared/app_body_header.dart';
@@ -15,7 +16,7 @@ class AppMainTabledBody<T> extends StatelessWidget {
   });
   final String title;
   final List<AppPrimaryCard> primaryCards;
-  final AppTabledCard<T> table;
+  final AppTabledCard<T> Function(BuildContext) table;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -38,7 +39,7 @@ class AppMainTabledBody<T> extends StatelessWidget {
                 .toList(),
           ),
           const VerticalSpacingWidget(Sizes.p16),
-          Expanded(child: table),
+          Expanded(child: HookBuilder(builder: (ctx) => table(ctx))),
         ],
       ),
     );
