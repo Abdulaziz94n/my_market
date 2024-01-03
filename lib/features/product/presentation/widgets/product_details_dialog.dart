@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_market/core/constants/sizes.dart';
 import 'package:my_market/core/extensions/build_context_extension.dart';
+import 'package:my_market/core/extensions/date_time_extension.dart';
 import 'package:my_market/core/extensions/textstyle_extension.dart';
 import 'package:my_market/core/widgets/reusables/app_bordered_box.dart';
 import 'package:my_market/core/widgets/reusables/app_divider.dart';
 import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
+import 'package:my_market/features/product/domain/product_model.dart';
 
 class ProductDetailsDialog extends ConsumerWidget {
   const ProductDetailsDialog({
     super.key,
+    required this.selectedProduct,
   });
-
+  final ProductModel selectedProduct;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
@@ -29,13 +32,55 @@ class ProductDetailsDialog extends ConsumerWidget {
             const VerticalSpacingWidget(Sizes.p12),
             ClipRRect(
               borderRadius: Sizes.defaultBorderRadius,
-              child: const AppBorderedBox.withChild(
+              child: AppBorderedBox.withChild(
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _DetailRow(label: 'ID', value: 'Value', isFirst: true),
-                  _DetailRow(label: 'ID', value: 'Value'),
-                  _DetailRow(label: 'ID', value: 'Value', isLast: true),
+                  _DetailRow(
+                    label: 'ID',
+                    value: selectedProduct.localId.toString(),
+                    isFirst: true,
+                  ),
+                  _DetailRow(
+                      label: 'Nom de Produit', value: selectedProduct.name),
+                  _DetailRow(
+                      label: 'Code Bare', value: selectedProduct.barcode),
+                  _DetailRow(
+                      label: 'Prix d\'achat',
+                      value: selectedProduct.buyPrice.toString()),
+                  _DetailRow(
+                    label: 'Prix de vente',
+                    value: selectedProduct.sellPrice.toString(),
+                  ),
+                  _DetailRow(
+                    label: 'Stock',
+                    value: selectedProduct.stockCount.toString(),
+                  ),
+                  _DetailRow(
+                    label: 'Stock d\'alert',
+                    value: selectedProduct.alertCount.toString(),
+                  ),
+                  _DetailRow(
+                    label: 'Famille',
+                    value: selectedProduct.categoryId.toString(),
+                  ),
+                  _DetailRow(
+                    label: 'Fournisseur',
+                    value: selectedProduct.providersDetails.provider.name,
+                  ),
+                  _DetailRow(
+                    label: 'Date de creation',
+                    value: selectedProduct.createdAt?.dateAsString ?? '',
+                  ),
+                  _DetailRow(
+                    label: 'Date de validite',
+                    value: selectedProduct.expirationDate?.dateAsString ?? '',
+                  ),
+                  const _DetailRow(
+                    label: 'Stock de perte',
+                    value: '????',
+                    isLast: true,
+                  ),
                 ],
               )),
             ),

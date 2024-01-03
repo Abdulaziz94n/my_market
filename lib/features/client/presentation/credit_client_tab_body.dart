@@ -73,7 +73,7 @@ class CreditClientTabBody extends HookConsumerWidget {
           showActions: showActions,
           searchCtrl: searchCtrl,
           onShow: (val) {},
-          onSearch: () {},
+          onSearch: (query) {},
           actions: [
             AppActionButton(
               onPressed: () => AppDialogs.customDialog(

@@ -15,7 +15,7 @@ import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/categories/domain/category_model.dart';
 import 'package:my_market/features/product/domain/product_model.dart';
-import 'package:my_market/features/product/domain/product_price_info_model.dart';
+import 'package:my_market/features/product/domain/product_provider_model.dart';
 import 'package:my_market/features/product/presentation/products_controller.dart';
 import 'package:my_market/features/product/presentation/widgets/edit_product_dialog_actions.dart';
 
@@ -165,11 +165,11 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
                         isDropDown: true,
                         onChanged: (val) {
                           selectedCategory.value = val;
-                          newProduct.value =
-                              newProduct.value.copyWith(categoryId: val!.id);
+                          newProduct.value = newProduct.value
+                              .copyWith(categoryId: val!.localId);
                         },
                         value: DummyData.categoriesList.firstWhere((element) =>
-                            element.id == widget.product.categoryId),
+                            element.localId == widget.product.categoryId),
                       ),
                     ),
                   ),

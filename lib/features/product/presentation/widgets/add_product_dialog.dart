@@ -16,7 +16,7 @@ import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/categories/domain/category_model.dart';
 import 'package:my_market/features/product/domain/product_model.dart';
-import 'package:my_market/features/product/domain/product_price_info_model.dart';
+import 'package:my_market/features/product/domain/product_provider_model.dart';
 import 'package:my_market/features/product/presentation/products_controller.dart';
 import 'package:my_market/features/product/presentation/widgets/add_product_dialog_actions.dart';
 
@@ -146,7 +146,7 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
                         onChanged: (val) {
                           selectedCategory.value = val;
                           product.value =
-                              product.value.copyWith(categoryId: val!.id);
+                              product.value.copyWith(categoryId: val!.localId);
                         },
                         value: selectedCategory.value,
                       ),
@@ -182,12 +182,9 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
                 title: 'Expiration Date',
                 hint: 'select Expiration Date',
                 selectedDate: product.value.expirationDate,
-                validator: validateIsEmpty,
                 lastDate: DateTime.now().add(const Duration(days: 360 * 7)),
-                onDateSelect: (val) {
-                  product.value = product.value
-                      .copyWith(expirationDate: Optional.value(val));
-                },
+                onDateSelect: (val) => product.value =
+                    product.value.copyWith(expirationDate: Optional.value(val)),
               ),
               const VerticalSpacingWidget(Sizes.p32),
               AddProductDialogActions(

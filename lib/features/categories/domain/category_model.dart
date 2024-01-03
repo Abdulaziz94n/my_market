@@ -2,65 +2,113 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:my_market/features/categories/domain/category_entity.dart';
 
 class CategoryModel {
   CategoryModel({
-    this.id = 0,
     required this.name,
+    this.localId = 0,
+    required this.globalId,
     this.productsCount = 0,
     this.createdAt,
     this.createdBy,
   });
 
   final String name;
-  int id;
+  final int localId;
+  final String globalId;
   final int? productsCount;
   final DateTime? createdAt;
   final String? createdBy;
 
   CategoryModel copyWith({
-    int? id,
     String? name,
+    int? productsCount,
+    DateTime? createdAt,
+    String? createdBy,
   }) {
     return CategoryModel(
-      id: id ?? this.id,
       name: name ?? this.name,
+      localId: localId,
+      globalId: globalId,
+      productsCount: productsCount ?? this.productsCount,
+      createdAt: createdAt ?? this.createdAt,
+      createdBy: createdBy ?? this.createdBy,
+    );
+  }
+
+  CategoryEntity toEntity() {
+    return CategoryEntity(
+      id: localId,
+      name: name,
+      globalId: globalId,
+      createdBy: createdBy!,
+      createdAt: createdAt!,
+    );
+  }
+
+  factory CategoryModel.fromEntity(CategoryEntity entity) {
+    return CategoryModel(
+      name: entity.name,
+      globalId: entity.globalId,
+      productsCount: entity.productsCount,
+      createdAt: entity.createdAt,
+      createdBy: entity.createdBy,
+      localId: entity.id,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
       'name': name,
+      'localId': localId,
+      'globalId': globalId,
       'productsCount': productsCount,
-      'createdAt': Timestamp.fromDate(DateTime.now()),
+      if (createdAt != null) 'createdAt': Timestamp.fromDate(createdAt!),
+      'createdBy': createdBy,
     };
   }
 
   factory CategoryModel.fromMap(Map<String, dynamic> map) {
     return CategoryModel(
-      id: map['id'] as int,
       name: map['name'] as String,
-      productsCount: map['productsCount'] as int,
+      localId: map['localId'] as int,
+      globalId: map['globalId'] as String,
+      productsCount:
+          map['productsCount'] != null ? map['productsCount'] as int : null,
       createdAt: map['createdAt'] != null
           ? (map['createdAt'] as Timestamp).toDate()
           : null,
+      createdBy: map['createdBy'] != null ? map['createdBy'] as String : null,
     );
   }
 
   @override
-  String toString() =>
-      'Category(id: $id, name: $name, productsCount: $productsCount)';
+  String toString() {
+    return 'CategoryModel(name: $name, localId: $localId, globalId: $globalId, productsCount: $productsCount, createdAt: $createdAt, createdBy: $createdBy)';
+  }
 
   @override
   bool operator ==(covariant CategoryModel other) {
     if (identical(this, other)) return true;
 
-    return other.id == id && other.name == name;
+    return other.name == name &&
+        other.localId == localId &&
+        other.globalId == globalId &&
+        other.productsCount == productsCount &&
+        other.createdAt == createdAt &&
+        other.createdBy == createdBy;
   }
 
   @override
-  int get hashCode => id.hashCode ^ name.hashCode;
+  int get hashCode {
+    return name.hashCode ^
+        localId.hashCode ^
+        globalId.hashCode ^
+        productsCount.hashCode ^
+        createdAt.hashCode ^
+        createdBy.hashCode;
+  }
 
   String toJson() => json.encode(toMap());
 

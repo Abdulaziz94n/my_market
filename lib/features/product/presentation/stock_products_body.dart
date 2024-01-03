@@ -46,6 +46,8 @@ class ProductsTabBody extends HookConsumerWidget {
             ],
             table: (_) {
               final selectedItems = useState<List<String>>([]);
+              final filterableProducts =
+                  useState<List<ProductModel>>(productList);
               final showActions = useState(false);
               final searchCtrl = useTextEditingController();
               useEffect(() {
@@ -64,23 +66,27 @@ class ProductsTabBody extends HookConsumerWidget {
                           element.localId.toString() ==
                           selectedItems.value.first)
                       : null,
-                  onSearch: () {},
+                  onSearch: (query) {
+                    filterableProducts.value = productList
+                        .where((element) => element.name.contains(query))
+                        .toList();
+                  },
                 ),
                 showActions: showActions,
-                items: productList,
+                items: filterableProducts.value,
                 selectedItems: selectedItems,
                 headers: _headers,
                 cellValues: (index) => [
-                  productList[index].localId.toString(),
-                  productList[index].name,
-                  productList[index].sellPrice.toString(),
-                  productList[index].buyPrice.toString(),
-                  productList[index].stockCount.toString(),
-                  productList[index].alertCount.toString(),
+                  filterableProducts.value[index].localId.toString(),
+                  filterableProducts.value[index].name,
+                  filterableProducts.value[index].sellPrice.toString(),
+                  filterableProducts.value[index].buyPrice.toString(),
+                  filterableProducts.value[index].stockCount.toString(),
+                  filterableProducts.value[index].alertCount.toString(),
                 ],
                 itemIdField: (item) => item.localId.toString(),
                 rowSelectionId: (index) =>
-                    productList[index].localId.toString(),
+                    filterableProducts.value[index].localId.toString(),
               );
             });
       },

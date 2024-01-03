@@ -7,5 +7,5 @@ abstract class DAO<T> {
 
   void add(T data);
 
-  void delete(dynamic id);
+  void delete(int id);
 }

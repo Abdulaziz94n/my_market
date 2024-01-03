@@ -12,16 +12,19 @@ class AsyncValueWidget<T> extends StatelessWidget {
     this.loadingIndicator,
     this.errorBuilder,
     this.skipLoadingOnRefresh = true,
+    this.skipLoadingOnReload = true,
   });
   final AsyncValue<T> value;
   final Widget Function(T) data;
   final bool skipLoadingOnRefresh;
+  final bool skipLoadingOnReload;
   final Widget? loadingIndicator;
   final Widget Function(Object error, StackTrace st)? errorBuilder;
   @override
   Widget build(BuildContext context) {
     return value.when(
       skipLoadingOnRefresh: skipLoadingOnRefresh,
+      skipLoadingOnReload: skipLoadingOnReload,
       data: data,
       error: errorBuilder ??
           (e, st) => Center(

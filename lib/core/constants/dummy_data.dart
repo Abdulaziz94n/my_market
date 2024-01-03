@@ -8,6 +8,7 @@ import 'package:my_market/features/order/domain/order_model.dart';
 import 'package:my_market/features/order/domain/order_product_model.dart';
 import 'package:my_market/features/product/domain/product_model.dart';
 import 'package:my_market/features/product/domain/product_price_info_model.dart';
+import 'package:my_market/features/product/domain/product_provider_model.dart';
 import 'package:my_market/features/users/domain/gender_enum.dart';
 import 'package:my_market/features/users/domain/user_model.dart';
 import 'package:my_market/features/users/domain/user_role_enum.dart';
@@ -15,13 +16,13 @@ import 'package:uuid/uuid.dart';
 
 class DummyData {
   static List<CategoryModel> categoriesList = [
-    CategoryModel(name: 'Touts', id: 1),
-    CategoryModel(name: 'Dinda Fume', id: 2),
-    CategoryModel(name: 'Touts', id: 3),
-    CategoryModel(name: 'Framage', id: 4),
-    CategoryModel(name: 'Boulangerie', id: 5),
-    CategoryModel(name: 'Boisson', id: 6),
-    CategoryModel(name: 'Autres', id: 7),
+    CategoryModel(name: 'Touts', localId: 1, globalId: 'asd'),
+    CategoryModel(name: 'Dinda Fume', localId: 2, globalId: 'qwe'),
+    CategoryModel(name: 'Touts', localId: 3, globalId: 'qwew'),
+    CategoryModel(name: 'Framage', localId: 4, globalId: 'qwqwe'),
+    CategoryModel(name: 'Boulangerie', localId: 5, globalId: 'qweasd'),
+    CategoryModel(name: 'Boisson', localId: 6, globalId: 'qwexzc'),
+    CategoryModel(name: 'Autres', localId: 7, globalId: 'qweqzaw'),
   ];
 
   static List<UserModel> usersList = [
@@ -222,9 +223,27 @@ class DummyData {
   }
 
   static List<ProductProviderModel> productProviders = [
-    ProductProviderModel(name: 'provider 1'),
-    ProductProviderModel(name: 'provider 2', id: 2),
-    ProductProviderModel(name: 'provider 3', id: 3),
+    ProductProviderModel(
+      name: 'provider 1',
+      localId: 1,
+      createdBy: 'user 1',
+      globalId: 'asd123',
+      createdAt: null,
+    ),
+    ProductProviderModel(
+      name: 'provider 2',
+      localId: 2,
+      createdBy: 'user 2',
+      globalId: 'asd1234',
+      createdAt: null,
+    ),
+    ProductProviderModel(
+      name: 'provider 3',
+      localId: 3,
+      createdBy: 'user 3',
+      globalId: 'asd1235',
+      createdAt: null,
+    ),
   ];
 
   static List<OrderItemModel> orderItems = [
@@ -262,7 +281,8 @@ class DummyData {
   );
 
   static CategoryModel category = CategoryModel(
-    id: 1,
+    localId: 1,
+    globalId: 'qweaszxcq',
     name: 'test category',
   );
 
@@ -318,5 +338,3 @@ class DummyData {
     roleId: UserRole.admin.id,
   );
 }
-
-void s() {}

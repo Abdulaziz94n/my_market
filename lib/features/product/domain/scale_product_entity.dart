@@ -1,0 +1,2 @@
+// @Entity()
+class ScaleProductEntity {}

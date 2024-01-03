@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_market/core/constants/sizes.dart';
 import 'package:my_market/core/extensions/build_context_extension.dart';
+import 'package:my_market/core/extensions/string_extension.dart';
 import 'package:my_market/core/widgets/shared/app_action_button.dart';
 import 'package:my_market/core/widgets/shared/app_bordered_text_field.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
@@ -17,7 +18,7 @@ class AppActionsRow extends StatelessWidget {
   });
   final ValueNotifier<bool> showActions;
   final TextEditingController searchCtrl;
-  final VoidCallback onSearch;
+  final ValueChanged<String> onSearch;
   final List<AppActionButton> actions;
   final ValueChanged<bool> onShow;
   @override
@@ -38,7 +39,7 @@ class AppActionsRow extends StatelessWidget {
             ),
             const HorizontalSpacingWidget(Sizes.p8),
             IconButton(
-              onPressed: onSearch,
+              onPressed: () => onSearch(searchCtrl.text.trimAndLower),
               icon: Icon(
                 Icons.search,
                 color: colors.onPrimary,

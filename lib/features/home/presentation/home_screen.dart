@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import
 
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_market/core/constants/dummy_data.dart';
 import 'package:my_market/core/widgets/reusables/app_scaffold.dart';
+import 'package:my_market/core/widgets/shared/async_value_widget.dart';
 import 'package:my_market/features/auth/presentation/auth_controller.dart';
 import 'package:my_market/features/client/data/credit_client_repository.dart';
 import 'package:my_market/features/home/domain/navigation_rail_destination_enum.dart';
@@ -30,12 +32,9 @@ class HomeScreen extends HookConsumerWidget {
     final selectedRail = ref.watch(navigationRailProvider);
     final selectedDestination = useState(RailDestination.dashboard);
     return AppScaffold(
-      floatingActionButton: FloatingActionButton(onPressed: () async {
-        var prod = ref.read(productsRepo).getOne(4);
-        prod = prod.copyWith(name: 'breed edited');
-        // print(prod);
-        // ref.read(productsRepo).deleteProduct(1);
-      }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {},
+      ),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

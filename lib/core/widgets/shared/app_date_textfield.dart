@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_market/core/extensions/build_context_extension.dart';
 import 'package:my_market/core/extensions/date_time_extension.dart';
 import 'package:my_market/core/widgets/shared/app_bordered_text_field.dart';
 
@@ -33,34 +34,46 @@ class AppDateTextField extends StatelessWidget {
   final ValueChanged<DateTime?> onDateSelect;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        AppText(
-          text: '$title:',
+    final colors = context.appColors;
+    return Theme(
+      data: ThemeData().copyWith(
+        iconButtonTheme: IconButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor: MaterialStatePropertyAll(colors.grey),
+          ),
         ),
-        const VerticalSpacingWidget(Sizes.p4),
-        AppBorderedTextField(
-          mouseCursor: SystemMouseCursors.click,
-          onTap: () async {
-            final date = await showDatePicker(
-              context: context,
-              firstDate: firstDate ?? DateTime.now(),
-              lastDate: lastDate ??
-                  DateTime.now().add(
-                    const Duration(days: 360),
-                  ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AppText(
+            text: '$title:',
+          ),
+          const VerticalSpacingWidget(Sizes.p4),
+          Builder(builder: (ctx) {
+            return AppBorderedTextField(
+              mouseCursor: SystemMouseCursors.click,
+              onTap: () async {
+                final date = await showDatePicker(
+                  context: ctx,
+                  firstDate: firstDate ?? DateTime.now(),
+                  lastDate: lastDate ??
+                      DateTime.now().add(
+                        const Duration(days: 360),
+                      ),
+                );
+                onDateSelect(date);
+              },
+              readOnly: true,
+              initialValue: initialValue,
+              hintText: selectedDate?.dateAsString ?? hint,
+              textAlign: textAlign,
+              prefixIcon: Icon(icon ?? Icons.abc),
+              validator: validator,
             );
-            onDateSelect(date);
-          },
-          readOnly: true,
-          initialValue: initialValue,
-          hintText: selectedDate?.dateAsString ?? hint,
-          textAlign: textAlign,
-          prefixIcon: Icon(icon ?? Icons.abc),
-          validator: validator,
-        ),
-      ],
+          }),
+        ],
+      ),
     );
   }
 }

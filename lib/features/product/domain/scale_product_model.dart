@@ -5,7 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_market/features/product/domain/product_price_info_model.dart';
 
 class ScaleProductModel {
-  int id = 0;
+  final int localId;
+  final String globalId;
   final String name;
   final String desc;
   final String barcode;
@@ -25,7 +26,8 @@ class ScaleProductModel {
   final int kgPrice;
 
   ScaleProductModel({
-    required this.id,
+    this.localId = 0,
+    required this.globalId,
     required this.name,
     required this.desc,
     required this.barcode,
@@ -48,7 +50,6 @@ class ScaleProductModel {
   double get buyPrice => providersDetails.buyPrice;
 
   ScaleProductModel copyWith({
-    int? id,
     String? name,
     String? desc,
     String? barcode,
@@ -68,7 +69,8 @@ class ScaleProductModel {
     int? kgPrice,
   }) {
     return ScaleProductModel(
-      id: id ?? this.id,
+      localId: localId,
+      globalId: globalId,
       name: name ?? this.name,
       desc: desc ?? this.desc,
       barcode: barcode ?? this.barcode,
@@ -91,7 +93,8 @@ class ScaleProductModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
+      'localId': localId,
+      'globalId': globalId,
       'name': name,
       'desc': desc,
       'barcode': barcode,
@@ -115,7 +118,8 @@ class ScaleProductModel {
 
   factory ScaleProductModel.fromMap(Map<String, dynamic> map) {
     return ScaleProductModel(
-      id: map['id'] as int,
+      localId: map['localId'] as int,
+      globalId: map['globalId'] as String,
       name: map['name'] as String,
       desc: map['desc'] as String,
       barcode: map['barcode'] as String,
@@ -148,14 +152,15 @@ class ScaleProductModel {
 
   @override
   String toString() {
-    return 'ScaleProductModel(id: $id, name: $name, desc: $desc, barcode: $barcode, shortCode: $shortCode, categoryId: $categoryId, unitSellPrice: $unitSellPrice, kgSellPrice: $kgSellPrice, stockCount: $stockCount, alertCount: $alertCount, providersDetails: $providersDetails, createdBy: $createdBy, createdAt: $createdAt, expirationDate: $expirationDate, unitCount: $unitCount, unitWeight: $unitWeight, unitPrice: $unitPrice, kgPrice: $kgPrice)';
+    return 'ScaleProductModel(localId: $localId, name: $name, desc: $desc, barcode: $barcode, shortCode: $shortCode, categoryId: $categoryId, unitSellPrice: $unitSellPrice, kgSellPrice: $kgSellPrice, stockCount: $stockCount, alertCount: $alertCount, providersDetails: $providersDetails, createdBy: $createdBy, createdAt: $createdAt, expirationDate: $expirationDate, unitCount: $unitCount, unitWeight: $unitWeight, unitPrice: $unitPrice, kgPrice: $kgPrice)';
   }
 
   @override
   bool operator ==(covariant ScaleProductModel other) {
     if (identical(this, other)) return true;
 
-    return other.id == id &&
+    return other.localId == localId &&
+        other.globalId == globalId &&
         other.name == name &&
         other.desc == desc &&
         other.barcode == barcode &&
@@ -177,7 +182,8 @@ class ScaleProductModel {
 
   @override
   int get hashCode {
-    return id.hashCode ^
+    return localId.hashCode ^
+        globalId.hashCode ^
         name.hashCode ^
         desc.hashCode ^
         barcode.hashCode ^

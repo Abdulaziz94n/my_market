@@ -1,9 +1,10 @@
-import 'dart:developer';
-
+import 'package:my_market/features/categories/domain/category_entity.dart';
+import 'package:my_market/features/categories/domain/plus_category_entity.dart';
 import 'package:my_market/features/client/domain/company_client_model.dart';
 import 'package:my_market/features/client/domain/credit_client_model.dart';
 import 'package:my_market/features/order/domain/order_model.dart';
 import 'package:my_market/features/product/domain/product_entity.dart';
+import 'package:my_market/features/product/domain/product_provider_entity.dart';
 import 'package:my_market/features/users/domain/user_model.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -17,6 +18,9 @@ class ObjectBox {
   late final Box<CompanyClientModel> companyClientBox;
   late final Box<CreditOrderModel> ordersBox;
   late final Box<ProductEntity> productBox;
+  late final Box<CategoryEntity> categoryBox;
+  late final Box<PlusCategoryEntity> plusCategoryBox;
+  late final Box<ProductProviderEntity> productProviderBox;
 
   ObjectBox._create(this.store) {
     userBox = Box<UserModel>(store);
@@ -24,7 +28,9 @@ class ObjectBox {
     companyClientBox = Box<CompanyClientModel>(store);
     productBox = Box<ProductEntity>(store);
     ordersBox = Box<CreditOrderModel>(store);
-    log('ALL REMOVED');
+    categoryBox = Box<CategoryEntity>(store);
+    plusCategoryBox = Box<PlusCategoryEntity>(store);
+    productProviderBox = Box<ProductProviderEntity>(store);
     // Add any additional setup code, e.g. build queries.
   }
 

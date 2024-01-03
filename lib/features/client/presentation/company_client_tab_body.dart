@@ -72,7 +72,7 @@ class CompanyClientTabBody extends HookConsumerWidget {
           showActions: showActions,
           searchCtrl: searchCtrl,
           onShow: (val) {},
-          onSearch: () {},
+          onSearch: (query) {},
           actions: [
             AppActionButton(
               color: colors.success,

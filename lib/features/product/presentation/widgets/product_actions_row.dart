@@ -25,7 +25,7 @@ class ProductsActionRow extends HookConsumerWidget {
   final TextEditingController searchCtrl;
   final ValueNotifier<bool> showActions;
   final ProductModel? selectedItem;
-  final VoidCallback onSearch;
+  final ValueChanged<String> onSearch;
   final bool isItemSelected;
   final ValueChanged<bool> onShow;
   @override
@@ -51,7 +51,7 @@ class ProductsActionRow extends HookConsumerWidget {
           isItemSelected: isItemSelected,
           onPressed: () => AppDialogs.customDialog(
             context: context,
-            dialog: const ProductDetailsDialog(),
+            dialog: ProductDetailsDialog(selectedProduct: selectedItem!),
           ),
           iconData: Icons.remove_red_eye_sharp,
           text: 'Vair la produit',

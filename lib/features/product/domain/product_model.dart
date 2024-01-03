@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_market/core/utils/optional_model.dart';
 import 'package:my_market/features/product/domain/product_entity.dart';
 import 'package:my_market/features/product/domain/product_price_info_model.dart';
+import 'package:my_market/features/product/domain/product_provider_model.dart';
 import 'package:uuid/uuid.dart';
 
 class ProductModel {
@@ -94,7 +95,13 @@ class ProductModel {
         alertCount: 0,
         providersDetails: ProvidersDetails(
           buyPrice: 0,
-          provider: ProductProviderModel(name: 'name', id: 1),
+          provider: ProductProviderModel(
+            name: 'name',
+            localId: 0,
+            createdBy: '',
+            globalId: '',
+            createdAt: null,
+          ),
         ),
         createdBy: 'created by',
         createdAt: null,
