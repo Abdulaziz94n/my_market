@@ -346,4 +346,13 @@ class DummyData {
     password: 'tester'.trim(),
     roleId: UserRole.admin.id,
   );
+
+  static CategoryModel draftCategory = CategoryModel(
+    name: 'Draft',
+    globalId: const Uuid().v4(),
+    createdAt: DateTime.now(),
+    createdBy: 'admin',
+    productsCount: 0,
+    localId: 0,
+  );
 }

@@ -1,60 +1,40 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_market/core/exceptions/app_exceptions.dart';
-import 'package:my_market/core/extensions/firestore_extension.dart';
+import 'package:my_market/features/categories/domain/category_dao.dart';
 import 'package:my_market/features/categories/domain/category_model.dart';
+import 'package:my_market/main.dart';
 
 class CategoriesRepository {
-  CategoriesRepository(this.firestore);
-  final FirebaseFirestore firestore;
+  CategoriesRepository(this.categoryDao);
+  final CategoryDao categoryDao;
 
-  CollectionReference<CategoryModel> get _collectionRef {
-    return firestore.collection('categories').withConverter<CategoryModel>(
-          fromFirestore: (data, options) {
-            return CategoryModel.fromMap(data.data()!);
-          },
-          toFirestore: (data, options) => data.toMap(),
-        );
+  Stream<List<CategoryModel>> getAll() {
+    return categoryDao.getAll().map((entities) =>
+        entities.map((e) => CategoryModel.fromEntity(e)).toList());
   }
 
-  Stream<List<CategoryModel>> watchCategoryList() {
-    return _collectionRef.snapshots().toDataModel();
+  CategoryModel getOne(int id) {
+    final res = CategoryModel.fromEntity(categoryDao.getOne(id));
+    return res;
   }
 
-  Stream<CategoryModel> watchCategory(String id) {
-    return _collectionRef.doc(id).snapshots().toDataModel();
+  void addCategory(CategoryModel data) async {
+    categoryDao.add(data.toEntity());
   }
 
-  Future<void> addCategory(CategoryModel data) async {
-    // try {
-    //   await _collectionRef.doc(data.id).set(data);
-    // } catch (e) {
-    //   throw CustomException(message: 'Error Adding Category');
-    // }
+  void editCategory(CategoryModel newData) {
+    categoryDao.update(newData.toEntity());
   }
 
-  Future<void> editCategory(String id, CategoryModel newData) async {
-    try {
-      await _collectionRef.doc(id).update(newData.toMap());
-    } catch (e) {
-      throw CustomException(message: 'Error Editing Category');
-    }
-  }
-
-  Future<void> deleteCategory(String id) async {
-    try {
-      await _collectionRef.doc(id).delete();
-    } catch (e) {
-      throw CustomException(message: 'Error Deleting Category');
-    }
+  void deleteCategory(int id) async {
+    categoryDao.delete(id);
   }
 }
 
-final categoriesRepo = Provider<CategoriesRepository>((ref) {
-  return CategoriesRepository(FirebaseFirestore.instance);
+final categoryRepo = Provider<CategoriesRepository>((ref) {
+  return CategoriesRepository(CategoryDao(objectBox.categoryBox));
 });
 
 final watchCategoryList = StreamProvider<List<CategoryModel>>((ref) {
-  final repo = ref.read(categoriesRepo);
-  return repo.watchCategoryList();
+  final repo = ref.read(categoryRepo);
+  return repo.getAll();
 });

@@ -11,6 +11,8 @@ import 'package:my_market/core/extensions/list_extenstion.dart';
 import 'package:my_market/core/widgets/reusables/app_scaffold.dart';
 import 'package:my_market/core/widgets/shared/async_value_widget.dart';
 import 'package:my_market/features/auth/presentation/auth_controller.dart';
+import 'package:my_market/features/categories/data/categories_repository.dart';
+import 'package:my_market/features/categories/domain/category_model.dart';
 import 'package:my_market/features/client/data/credit_client_repository.dart';
 import 'package:my_market/features/home/domain/navigation_rail_destination_enum.dart';
 import 'package:my_market/features/home/presentation/home_body.dart';
@@ -25,6 +27,7 @@ import 'package:my_market/features/product/presentation/products_controller.dart
 import 'package:my_market/features/users/domain/user_role_enum.dart';
 import 'package:my_market/main.dart';
 import 'package:my_market/objectbox.g.dart';
+import 'package:uuid/uuid.dart';
 
 class HomeScreen extends HookConsumerWidget {
   const HomeScreen({
@@ -38,8 +41,7 @@ class HomeScreen extends HookConsumerWidget {
     return AppScaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final res = await ref.read(productsRepo).getAll().first;
-          print(res);
+          // print(res);
           // objectBox.productBox.removeAll();
         },
       ),
