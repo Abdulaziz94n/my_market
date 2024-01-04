@@ -52,6 +52,7 @@ class ProductsTabBody extends HookConsumerWidget {
               final searchCtrl = useTextEditingController();
               useEffect(() {
                 selectedItems.value = [];
+                filterableProducts.value = productList;
                 return null;
               }, productList);
               return AppTabledCard<ProductModel>(

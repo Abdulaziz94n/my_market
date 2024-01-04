@@ -46,7 +46,15 @@ class EditProductDialogActions extends ConsumerWidget {
                   );
                   return;
                 } else {
-                  ref.read(productsController.notifier).editProduct(product);
+                  AppDialogs.syncDialog(
+                    context: context,
+                    dialogBgColor: context.appColors.background,
+                    fromDialog: true,
+                    action: () => ref
+                        .read(productsController.notifier)
+                        .editProduct(product),
+                    successMessage: 'Product Modified Successfully',
+                  );
                 }
               }
             },

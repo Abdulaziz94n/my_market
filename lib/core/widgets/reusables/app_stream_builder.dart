@@ -19,7 +19,7 @@ class AppStreamBuilder<T> extends StatelessWidget {
               return const AppLoadingIndicator();
             case ConnectionState.active:
               if (snapshot.hasError) {
-                debugPrint('HAS ERROR');
+                debugPrint('HAS ERROR ${snapshot.error}');
                 return const AppErrorWidget();
               } else if (snapshot.hasData) {
                 debugPrint('HAS DATA');
