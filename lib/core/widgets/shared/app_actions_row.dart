@@ -76,24 +76,13 @@ class AppActionsRow extends StatelessWidget {
                       ),
                       const HorizontalSpacingWidget(Sizes.p8),
                       !showActions.value
-                          ? const ProductFilterPopupButton()
+                          ? const ProductFilterPopupMenu()
                           : Align(
                               alignment: Alignment.centerRight,
                               child: Row(
                                 children: actions,
                               ),
                             )
-                      // if (!showActions.value) const ProductFilterPopupButton(),
-                      // if (showActions.value)
-                      //   Align(
-                      //     alignment: Alignment.centerRight,
-                      //     child: SingleChildScrollView(
-                      //       scrollDirection: Axis.horizontal,
-                      //       child: Row(
-                      //         children: actions,
-                      //       ),
-                      //     ),
-                      //   )
                     ],
                   ),
                 ),

@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:my_market/features/product/domain/product_provider_model.dart';
 
 class ProvidersDetails {
-  final double buyPrice;
+  final List<double> buyPrice;
   final ProductProviderModel provider;
   const ProvidersDetails({
     required this.buyPrice,
@@ -12,7 +12,7 @@ class ProvidersDetails {
   });
 
   ProvidersDetails copyWith({
-    double? buyPrice,
+    List<double>? buyPrice,
     ProductProviderModel? provider,
   }) {
     return ProvidersDetails(
@@ -30,7 +30,7 @@ class ProvidersDetails {
 
   factory ProvidersDetails.fromMap(Map<String, dynamic> map) {
     return ProvidersDetails(
-      buyPrice: map['buyPrice'] as double,
+      buyPrice: List.from(map['buyPrice']),
       provider:
           ProductProviderModel.fromMap(map['provider'] as Map<String, dynamic>),
     );

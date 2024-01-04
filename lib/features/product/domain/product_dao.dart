@@ -26,8 +26,9 @@ class ProductLocalDAO implements DAO<ProductEntity> {
 
   @override
   Stream<List<ProductEntity>> getAll() {
-    final res = box.query().watch(triggerImmediately: true);
-    return res.map((event) => event.find());
+    final query = box.query().watch(triggerImmediately: true);
+    final res = query.map((event) => event.find());
+    return res;
   }
 
   @override

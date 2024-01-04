@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_market/core/constants/dummy_data.dart';
 import 'package:my_market/core/constants/sizes.dart';
@@ -9,14 +8,12 @@ import 'package:my_market/core/extensions/build_context_extension.dart';
 import 'package:my_market/core/extensions/string_extension.dart';
 import 'package:my_market/core/mixins/text_formatters_mixin.dart';
 import 'package:my_market/core/mixins/validators_mixin.dart';
-import 'package:my_market/core/utils/async_value_utils.dart';
 import 'package:my_market/core/widgets/shared/app_dialog_form_field.dart';
 import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 import 'package:my_market/features/categories/domain/category_model.dart';
 import 'package:my_market/features/product/domain/product_model.dart';
 import 'package:my_market/features/product/domain/product_provider_model.dart';
-import 'package:my_market/features/product/presentation/products_controller.dart';
 import 'package:my_market/features/product/presentation/widgets/edit_product_dialog_actions.dart';
 
 class EditProductDialog extends StatefulHookConsumerWidget {
@@ -40,15 +37,6 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
     final selectedProductProvider = useState<ProductProviderModel?>(null);
     const horizontalSpace = HorizontalSpacingWidget(Sizes.p16);
 
-    ref.listen(productsController, (previous, next) {
-      AsyncValueUtils.handleAsyncVal(
-        context: context,
-        previous: previous,
-        next: next,
-        successMessage: 'Product Added Successfully',
-        onSuccessAction: () => context.pop(),
-      );
-    });
     return Form(
       key: formKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -104,8 +92,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
                       hint: 'Le Prix est',
                       onTextChanged: (value) =>
                           newProduct.value = newProduct.value.copyWith(
-                        providersDetails: newProduct.value.providersDetails
-                            .copyWith(buyPrice: value.tryParseDouble),
+                        providersDetails: newProduct.value.providersDetails,
                       ),
                     ),
                   ),
@@ -174,31 +161,31 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog>
                     ),
                   ),
                   horizontalSpace,
-                  Expanded(
-                    child: AppDialogFormField<ProductProviderModel>(
-                      title: 'Fournisseur',
-                      hint: 'Ajouter n Code a barre',
-                      asDropDown: (
-                        items: DummyData.productProviders,
-                        childBuilder: (value) => AppText(text: value.name),
-                        dropDownvalidator: validateGenericIsEmpty,
-                        isDropDown: true,
-                        onChanged: (val) {
-                          selectedProductProvider.value = val!;
-                          newProduct.value = newProduct.value.copyWith(
-                            providersDetails:
-                                newProduct.value.providersDetails.copyWith(
-                              provider: selectedProductProvider.value,
-                            ),
-                          );
-                        },
-                        value: DummyData.productProviders.firstWhere(
-                            (element) =>
-                                element ==
-                                widget.product.providersDetails.provider),
-                      ),
-                    ),
-                  ),
+                  // Expanded(
+                  //   child: AppDialogFormField<ProductProviderModel>(
+                  //     title: 'Fournisseur',
+                  //     hint: 'Ajouter n Code a barre',
+                  //     asDropDown: (
+                  //       items: DummyData.productProviders,
+                  //       childBuilder: (value) => AppText(text: value.name),
+                  //       dropDownvalidator: validateGenericIsEmpty,
+                  //       isDropDown: true,
+                  //       onChanged: (val) {
+                  //         selectedProductProvider.value = val!;
+                  //         newProduct.value = newProduct.value.copyWith(
+                  //           providersDetails:
+                  //               newProduct.value.providersDetails.copyWith(
+                  //             provider: selectedProductProvider.value,
+                  //           ),
+                  //         );
+                  //       },
+                  //       value: DummyData.productProviders.firstWhere(
+                  //           (element) =>
+                  //               element ==
+                  //               widget.product.providersDetails.provider),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
               const VerticalSpacingWidget(Sizes.p32),

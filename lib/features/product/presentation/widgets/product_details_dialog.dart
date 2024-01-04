@@ -66,7 +66,7 @@ class ProductDetailsDialog extends ConsumerWidget {
                   ),
                   _DetailRow(
                     label: 'Fournisseur',
-                    value: selectedProduct.providersDetails.provider.name,
+                    value: selectedProduct.providersDetails.first.provider.name,
                   ),
                   _DetailRow(
                     label: 'Date de creation',

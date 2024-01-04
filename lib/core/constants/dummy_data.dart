@@ -47,8 +47,9 @@ class DummyData {
     sellPrice: 27,
     alertCount: 25,
     stockCount: 10,
-    providersDetails:
-        ProvidersDetails(buyPrice: 22, provider: productProviders.last),
+    providersDetails: [
+      ProvidersDetails(buyPrice: [22], provider: productProviders.last),
+    ],
     createdBy: usersList.first.id.toString().toString(),
     createdAt: DateTime(2023, 01, 01),
   );
@@ -65,8 +66,9 @@ class DummyData {
       sellPrice: 25,
       alertCount: 20,
       stockCount: 10,
-      providersDetails:
-          ProvidersDetails(buyPrice: 21, provider: productProviders[0]),
+      providersDetails: [
+        ProvidersDetails(buyPrice: [21], provider: productProviders[0]),
+      ],
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
@@ -81,8 +83,7 @@ class DummyData {
       sellPrice: 27,
       alertCount: 25,
       stockCount: 10,
-      providersDetails:
-          ProvidersDetails(buyPrice: 22, provider: productProviders[0]),
+      providersDetails: [],
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
@@ -97,8 +98,9 @@ class DummyData {
       sellPrice: 22,
       alertCount: 10,
       stockCount: 10,
-      providersDetails:
-          ProvidersDetails(buyPrice: 18, provider: productProviders[1]),
+      providersDetails: [
+        ProvidersDetails(buyPrice: [18], provider: productProviders[1]),
+      ],
       createdBy: usersList.last.id.toString(),
       createdAt: DateTime.now(),
     ),
@@ -113,8 +115,9 @@ class DummyData {
       sellPrice: 10,
       alertCount: 25,
       stockCount: 10,
-      providersDetails:
-          ProvidersDetails(buyPrice: 7, provider: productProviders[2]),
+      providersDetails: [
+        ProvidersDetails(buyPrice: [7], provider: productProviders[2]),
+      ],
       createdBy: usersList.last.id.toString(),
       createdAt: DateTime.now(),
     ),
@@ -129,8 +132,9 @@ class DummyData {
       sellPrice: 10,
       alertCount: 25,
       stockCount: 10,
-      providersDetails:
-          ProvidersDetails(buyPrice: 8, provider: productProviders[2]),
+      providersDetails: [
+        ProvidersDetails(buyPrice: [8], provider: productProviders[2]),
+      ],
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
@@ -145,8 +149,9 @@ class DummyData {
       sellPrice: 15,
       alertCount: 25,
       stockCount: 10,
-      providersDetails:
-          ProvidersDetails(buyPrice: 12, provider: productProviders[2]),
+      providersDetails: [
+        ProvidersDetails(buyPrice: [12], provider: productProviders[2]),
+      ],
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
@@ -161,8 +166,9 @@ class DummyData {
       sellPrice: 11,
       alertCount: 25,
       stockCount: 10,
-      providersDetails:
-          ProvidersDetails(buyPrice: 9, provider: productProviders[2]),
+      providersDetails: [
+        ProvidersDetails(buyPrice: [9], provider: productProviders[2]),
+      ],
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
@@ -177,8 +183,9 @@ class DummyData {
       sellPrice: 30,
       alertCount: 25,
       stockCount: 10,
-      providersDetails:
-          ProvidersDetails(buyPrice: 20, provider: productProviders[2]),
+      providersDetails: [
+        ProvidersDetails(buyPrice: [20], provider: productProviders[2]),
+      ],
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
@@ -193,8 +200,9 @@ class DummyData {
       sellPrice: 15,
       alertCount: 25,
       stockCount: 10,
-      providersDetails:
-          ProvidersDetails(buyPrice: 10, provider: productProviders[2]),
+      providersDetails: [
+        ProvidersDetails(buyPrice: [10], provider: productProviders[2]),
+      ],
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),
@@ -209,8 +217,9 @@ class DummyData {
       sellPrice: 15,
       alertCount: 25,
       stockCount: 10,
-      providersDetails:
-          ProvidersDetails(buyPrice: 9, provider: productProviders[2]),
+      providersDetails: [
+        ProvidersDetails(buyPrice: [9], provider: productProviders[2]),
+      ],
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
     ),

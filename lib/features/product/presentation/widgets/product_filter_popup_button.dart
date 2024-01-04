@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_market/core/constants/sizes.dart';
 import 'package:my_market/core/extensions/build_context_extension.dart';
 import 'package:my_market/core/widgets/shared/app_dialog_form_field.dart';
+import 'package:my_market/core/widgets/shared/app_filter_button.dart';
 import 'package:my_market/core/widgets/shared/app_primary_button.dart';
 import 'package:my_market/core/widgets/shared/app_secondary_button.dart';
 import 'package:my_market/core/widgets/shared/app_text.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
 
-class ProductFilterPopupButton extends ConsumerWidget {
-  const ProductFilterPopupButton({super.key});
+class ProductFilterPopupMenu extends ConsumerWidget {
+  const ProductFilterPopupMenu({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.appColors;
     return PopupMenuButton(
       // elevation: 0,
+      clipBehavior: Clip.hardEdge,
       constraints: const BoxConstraints(minWidth: 350),
       shadowColor: Colors.transparent,
       shape: RoundedRectangleBorder(
@@ -24,9 +27,7 @@ class ProductFilterPopupButton extends ConsumerWidget {
       ),
       color: colors.white,
       surfaceTintColor: Colors.transparent,
-      child: const Card(
-        child: AppText(text: 'Filter'),
-      ),
+      child: const AppFilterPopupButton(),
       itemBuilder: (context) {
         const verticalSpace = VerticalSpacingWidget(Sizes.p16);
         return [
@@ -47,11 +48,6 @@ class ProductFilterPopupButton extends ConsumerWidget {
                   AppDialogFormField(
                     title: 'Famille',
                     hint: 'Choisir la Famille',
-                  ),
-                  verticalSpace,
-                  AppDialogFormField(
-                    title: 'Fournisseur',
-                    hint: 'Choisir la Fournisseur',
                   ),
                   verticalSpace,
                   AppDialogFormField(
@@ -81,7 +77,7 @@ class ProductFilterPopupButton extends ConsumerWidget {
                     children: [
                       Expanded(
                         child: AppSecondaryButton(
-                          onPressed: () {},
+                          onPressed: () => context.pop(),
                           text: 'Effacer',
                         ),
                       ),

@@ -83,7 +83,7 @@ class _ProductRow extends ConsumerWidget {
             child: AppRoundedBox(
                 color: color,
                 onTap: isSelected ? null : () => onSelect(product),
-                child: AppText(text: product.buyPrice.maskedString)),
+                child: AppText(text: product.buyPrice[0].maskedString)),
           ),
           const HorizontalSpacingWidget(Sizes.p8),
           Expanded(

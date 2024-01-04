@@ -19,6 +19,8 @@ import 'package:my_market/features/home/presentation/widgets/app_navigation_rail
 import 'package:my_market/features/order/domain/order_item_model.dart';
 import 'package:my_market/features/order/domain/order_model.dart';
 import 'package:my_market/features/product/data/product_repository.dart';
+import 'package:my_market/features/product/domain/product_dao.dart';
+import 'package:my_market/features/product/domain/product_price_info_model.dart';
 import 'package:my_market/features/product/presentation/products_controller.dart';
 import 'package:my_market/features/users/domain/user_role_enum.dart';
 import 'package:my_market/main.dart';
@@ -35,7 +37,11 @@ class HomeScreen extends HookConsumerWidget {
     final selectedDestination = useState(RailDestination.dashboard);
     return AppScaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {},
+        onPressed: () async {
+          final res = await ref.read(productsRepo).getAll().first;
+          print(res);
+          // objectBox.productBox.removeAll();
+        },
       ),
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

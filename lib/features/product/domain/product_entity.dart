@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:my_market/features/product/domain/product_price_info_model.dart';
@@ -16,7 +17,7 @@ class ProductEntity {
   int stockCount;
   int alertCount;
   String createdBy;
-  ProvidersDetails? providersDetails;
+  List<ProvidersDetails>? providersDetails;
   DateTime? createdAt;
   DateTime? expirationDate;
   int? utilityId;
@@ -38,8 +39,25 @@ class ProductEntity {
     this.id = 0,
   });
 
-  String get dbProvidersDetails => jsonEncode(providersDetails?.toJson());
+  String get dbProvidersDetails {
+    List<Map<String, dynamic>> jsonList = providersDetails!
+        .map((providerDetails) => {
+              'buyPrice': providerDetails.buyPrice,
+              'provider': providerDetails.provider.toMap(),
+            })
+        .toList();
+    return jsonEncode(jsonList);
+  }
 
-  set dbProvidersDetails(String value) =>
-      providersDetails = ProvidersDetails.fromJson(jsonDecode(value));
+  set dbProvidersDetails(String value) {
+    List<dynamic> jsonList = jsonDecode(value);
+    providersDetails = jsonList
+        .map((providerData) => ProvidersDetails.fromMap(providerData))
+        .toList();
+  }
+
+  @override
+  String toString() {
+    return 'ProductEntity(id: $id, globalId: $globalId, name: $name, desc: $desc, barcode: $barcode, shortCode: $shortCode, sellPrice: $sellPrice, categoryId: $categoryId, stockCount: $stockCount, alertCount: $alertCount, createdBy: $createdBy, providersDetails: $providersDetails, createdAt: $createdAt, expirationDate: $expirationDate, utilityId: $utilityId)';
+  }
 }

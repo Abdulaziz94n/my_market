@@ -17,7 +17,7 @@ class ProductModel {
   final int categoryId;
   final int stockCount;
   final int alertCount;
-  final ProvidersDetails providersDetails;
+  final List<ProvidersDetails> providersDetails;
   final String createdBy;
   final DateTime? createdAt;
   final DateTime? expirationDate;
@@ -79,7 +79,7 @@ class ProductModel {
     );
   }
 
-  double get buyPrice => providersDetails.buyPrice;
+  List<double> get buyPrice => providersDetails.first.buyPrice;
 
   static ProductModel initial() {
     final uuid = const Uuid().v4();
@@ -93,16 +93,12 @@ class ProductModel {
         categoryId: 0,
         sellPrice: 0,
         alertCount: 0,
-        providersDetails: ProvidersDetails(
-          buyPrice: 0,
-          provider: ProductProviderModel(
-            name: 'name',
-            localId: 0,
-            createdBy: '',
-            globalId: '',
-            createdAt: null,
-          ),
-        ),
+        providersDetails: [
+          ProvidersDetails(
+            buyPrice: [0.0],
+            provider: ProductProviderModel.initial(),
+          )
+        ],
         createdBy: 'created by',
         createdAt: null,
         stockCount: 0,
@@ -119,7 +115,7 @@ class ProductModel {
     double? sellPrice,
     int? alertCount,
     int? stockCount,
-    ProvidersDetails? providersDetails,
+    List<ProvidersDetails>? providersDetails,
     String? createdBy,
     DateTime? createdAt,
     Optional<DateTime>? expirationDate,
@@ -157,7 +153,12 @@ class ProductModel {
       'alertCount': alertCount,
       'stockCount': stockCount,
       'utilityId': utilityId,
-      'providerDetails': providersDetails.toMap(),
+      'providerDetails': providersDetails
+          .map((e) => {
+                'buyPrice': e.buyPrice,
+                'provider': e.provider,
+              })
+          .toList(),
       'createdBy': createdBy,
       if (createdAt != null) 'createdAt': Timestamp.fromDate(createdAt!),
       'expirationDate': expirationDate,
@@ -178,9 +179,10 @@ class ProductModel {
       alertCount: map['alertCount'] as int,
       stockCount: map['stockCount'] as int,
       utilityId: map['utilityId'] as int?,
-      providersDetails: ProvidersDetails.fromMap(
-        map['providerDetails'] as Map<String, dynamic>,
-      ),
+      providersDetails: (map['providerDetails'] as List<dynamic>?)!
+          .map((providerData) =>
+              ProvidersDetails.fromMap(providerData as Map<String, dynamic>))
+          .toList(),
       createdBy: map['createdBy'] as String,
       createdAt: map['createdAt'] != null
           ? (map['createdAt'] as Timestamp).toDate()

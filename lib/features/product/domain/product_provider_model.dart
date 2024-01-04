@@ -17,6 +17,10 @@ class ProductProviderModel {
     required this.createdBy,
   });
 
+  factory ProductProviderModel.initial() {
+    return ProductProviderModel(name: '', globalId: '', createdBy: '');
+  }
+
   ProductProviderModel copyWith({
     String? name,
     String? globalId,

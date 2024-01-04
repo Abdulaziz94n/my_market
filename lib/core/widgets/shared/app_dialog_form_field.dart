@@ -23,7 +23,10 @@ class AppDialogFormField<T> extends StatelessWidget {
     this.initialValue,
     this.readOnly,
     this.textAlign = TextAlign.start,
-  }) : assert(asDropDown?.onChanged == null || onSave == null);
+    this.controller,
+  })  : assert(asDropDown?.onChanged == null || onSave == null),
+        assert(controller == null || initialValue == null),
+        assert(controller == null || onTextChanged == null);
 
   final String title;
   final String hint;
@@ -33,6 +36,7 @@ class AppDialogFormField<T> extends StatelessWidget {
   final String? Function(String?)? textFieldValidator;
   final TextInputType? inputType;
   final List<TextInputFormatter>? inputFormatter;
+  final TextEditingController? controller;
   final bool? readOnly;
   final ({
     bool isDropDown,
@@ -55,6 +59,7 @@ class AppDialogFormField<T> extends StatelessWidget {
         const VerticalSpacingWidget(Sizes.p4),
         if (asDropDown == null)
           AppBorderedTextField(
+            controller: controller,
             readOnly: readOnly ?? false,
             initialValue: initialValue,
             hintText: hint,

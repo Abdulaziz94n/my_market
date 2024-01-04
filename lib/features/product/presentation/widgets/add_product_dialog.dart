@@ -89,8 +89,10 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
                       inputFormatter: [amountInputFormatter()],
                       hint: 'Le Prix est',
                       onSave: (value) => product.value = product.value.copyWith(
-                        providersDetails: product.value.providersDetails
-                            .copyWith(buyPrice: value!.tryParseDouble),
+                        providersDetails: [
+                          product.value.providersDetails.first
+                              .copyWith(buyPrice: [value!.tryParseDouble!])
+                        ],
                       ),
                     ),
                   ),
@@ -165,10 +167,10 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
                         onChanged: (val) {
                           selectedProductProvider.value = val!;
                           product.value = product.value.copyWith(
-                            providersDetails:
-                                product.value.providersDetails.copyWith(
-                              provider: selectedProductProvider.value,
-                            ),
+                            providersDetails: [
+                              product.value.providersDetails.first
+                                  .copyWith(provider: val)
+                            ],
                           );
                         },
                         value: selectedProductProvider.value,

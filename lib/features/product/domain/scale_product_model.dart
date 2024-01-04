@@ -47,7 +47,7 @@ class ScaleProductModel {
     required this.kgPrice,
   });
 
-  double get buyPrice => providersDetails.buyPrice;
+  List<double> get buyPrice => providersDetails.buyPrice;
 
   ScaleProductModel copyWith({
     String? name,
