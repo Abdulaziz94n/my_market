@@ -7,7 +7,7 @@ class AppTextField extends StatelessWidget {
   const AppTextField.withController({
     super.key,
     required this.controller,
-    required this.label,
+    required this.hint,
     this.inputFormatters,
     this.enabled,
     this.prefixIcon,
@@ -23,6 +23,11 @@ class AppTextField extends StatelessWidget {
     this.width,
     this.readOnly,
     this.onTap,
+    this.hintStyle,
+    this.textAlign,
+    this.focusNode,
+    this.onFieldSubmitted,
+    this.hideUnderline = false,
   })  : initialValue = null,
         assert(controller != null);
 
@@ -30,7 +35,8 @@ class AppTextField extends StatelessWidget {
   final bool? enabled;
   final bool? readOnly;
   final bool? obscure;
-  final String label;
+  final String hint;
+  final TextStyle? hintStyle;
   final Widget? prefixIcon;
   final int? maxLines;
   final double? fontSize;
@@ -39,16 +45,20 @@ class AppTextField extends StatelessWidget {
   final bool? isDense;
   final String? initialValue;
   final TextInputType? inputType;
+  final TextAlign? textAlign;
   final List<TextInputFormatter>? inputFormatters;
   final Widget? suffixIcon;
   final VoidCallback? onTap;
+  final FocusNode? focusNode;
   final String? Function(String?)? validator;
   final void Function(String?)? onChanged;
+  final bool hideUnderline;
+  final void Function(String)? onFieldSubmitted;
 
   const AppTextField.withOnChanged({
     super.key,
     required this.onChanged,
-    required this.label,
+    required this.hint,
     this.inputFormatters,
     this.obscure,
     this.enabled,
@@ -64,6 +74,11 @@ class AppTextField extends StatelessWidget {
     this.width,
     this.readOnly,
     this.onTap,
+    this.hintStyle,
+    this.textAlign,
+    this.hideUnderline = false,
+    this.focusNode,
+    this.onFieldSubmitted,
   }) : controller = null;
 
   @override
@@ -73,10 +88,12 @@ class AppTextField extends StatelessWidget {
       child: InkWell(
         onTap: readOnly == true ? onTap : null,
         child: TextFormField(
+          focusNode: focusNode,
           initialValue: initialValue,
           obscureText: obscure ?? false,
           readOnly: readOnly ?? false,
           enabled: enabled,
+          onFieldSubmitted: onFieldSubmitted,
           controller: controller,
           style: TextStyle(fontSize: fontSize),
           textAlignVertical: TextAlignVertical.center,
@@ -86,7 +103,7 @@ class AppTextField extends StatelessWidget {
           validator: validator,
           decoration: _decoration(context),
           inputFormatters: inputFormatters,
-          textAlign: TextAlign.center,
+          textAlign: textAlign ?? TextAlign.center,
         ),
       ),
     );
@@ -94,8 +111,11 @@ class AppTextField extends StatelessWidget {
 
   InputDecoration _decoration(BuildContext context) {
     return InputDecoration(
-      hintText: label,
-      hintStyle: const TextStyle(),
+      border: hideUnderline
+          ? const UnderlineInputBorder(borderSide: BorderSide.none)
+          : null,
+      hintText: hint,
+      hintStyle: hintStyle,
       prefixIcon: prefixIcon,
       prefixIconConstraints: const BoxConstraints(minWidth: 35, maxWidth: 40),
       suffixIcon: suffixIcon,

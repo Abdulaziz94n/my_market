@@ -79,7 +79,7 @@ class ProductModel {
     );
   }
 
-  List<double> get buyPrice => providersDetails.first.buyPrice;
+  double get buyPrice => providersDetails.first.buyPrice;
 
   static ProductModel initial() {
     final uuid = const Uuid().v4();
@@ -95,7 +95,7 @@ class ProductModel {
         alertCount: 0,
         providersDetails: [
           ProvidersDetails(
-            buyPrice: [0.0],
+            buyPrice: 0.0,
             provider: ProductProviderModel.initial(),
           )
         ],

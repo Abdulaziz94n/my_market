@@ -4,8 +4,8 @@ import 'package:my_market/features/categories/domain/plus_category_entity.dart';
 import 'package:my_market/main.dart';
 import 'package:objectbox/objectbox.dart';
 
-class CategoryDao implements DAO<PlusCategoryEntity> {
-  CategoryDao(this.box);
+class PlusCategoryDao implements DAO<PlusCategoryEntity> {
+  PlusCategoryDao(this.box);
   final Box<PlusCategoryEntity> box;
 
   @override
@@ -36,6 +36,6 @@ class CategoryDao implements DAO<PlusCategoryEntity> {
   }
 }
 
-final categoryDaoProvider = Provider<CategoryDao>((ref) {
-  return CategoryDao(objectBox.plusCategoryBox);
+final plusCategoryDaoProvider = Provider<PlusCategoryDao>((ref) {
+  return PlusCategoryDao(objectBox.plusCategoryBox);
 });

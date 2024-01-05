@@ -39,7 +39,7 @@ class ClientSelectionDialog extends HookWidget {
             AppTextField.withController(
               width: 100,
               controller: searchCtrl,
-              label: 'Recherche',
+              hint: 'Recherche',
             ),
             const VerticalSpacingWidget(Sizes.p8),
             Row(

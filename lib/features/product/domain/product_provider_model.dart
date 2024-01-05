@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:my_market/features/product/domain/product_provider_entity.dart';
 
 class ProductProviderModel {
   final String name;
@@ -34,6 +35,25 @@ class ProductProviderModel {
       localId: localId ?? this.localId,
       createdAt: createdAt ?? this.createdAt,
       createdBy: createdBy ?? this.createdBy,
+    );
+  }
+
+  ProductProviderEntity toEntity() {
+    return ProductProviderEntity(
+      name: name,
+      globalId: globalId,
+      createdAt: createdAt,
+      createdBy: createdBy,
+    );
+  }
+
+  factory ProductProviderModel.fromEntity(ProductProviderEntity entity) {
+    return ProductProviderModel(
+      localId: entity.id,
+      name: entity.name,
+      globalId: entity.globalId,
+      createdBy: entity.createdBy,
+      createdAt: entity.createdAt,
     );
   }
 

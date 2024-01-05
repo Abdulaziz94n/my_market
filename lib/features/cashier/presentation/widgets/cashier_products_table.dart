@@ -66,7 +66,7 @@ class _BarcodeSearchFields extends HookWidget {
         Expanded(
           child: AppTextField.withController(
             controller: barcodeCtrl,
-            label: 'Code a barre...',
+            hint: 'Code a barre...',
             prefixIcon: const Icon(Icons.qr_code_2_outlined),
           ),
         ),
@@ -74,7 +74,7 @@ class _BarcodeSearchFields extends HookWidget {
         Expanded(
           child: AppTextField.withController(
             controller: barcodeCtrl2,
-            label: 'Code a barre...',
+            hint: 'Code a barre...',
             prefixIcon: const Icon(Icons.abc),
           ),
         ),

@@ -81,7 +81,7 @@ class ProductsTabBody extends HookConsumerWidget {
                   filterableProducts.value[index].localId.toString(),
                   filterableProducts.value[index].name,
                   filterableProducts.value[index].sellPrice.toString(),
-                  filterableProducts.value[index].buyPrice.last.toString(),
+                  filterableProducts.value[index].buyPrice.toString(),
                   filterableProducts.value[index].stockCount.toString(),
                   filterableProducts.value[index].alertCount.toString(),
                 ],

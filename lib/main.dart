@@ -39,6 +39,16 @@ import 'package:window_size/window_size.dart';
 ///
 late ObjectBox objectBox;
 
+resetProductsDb() => objectBox.productBox.removeAll();
+resetScaleProductsDb() => objectBox.scaleProductBox.removeAll();
+resetProductProvidersDb() => objectBox.productProviderBox.removeAll();
+resetCategories() => objectBox.categoryBox.removeAll();
+resetPlusCategoriesDb() => objectBox.plusCategoryBox.removeAll();
+resetOrdersDb() => objectBox.ordersBox.removeAll();
+resetUsersDb() => objectBox.userBox.removeAll();
+resetCreditClientDb() => objectBox.creditClientBox.removeAll();
+resetCompanyClientDb() => objectBox.companyClientBox.removeAll();
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   objectBox = await ObjectBox.create();

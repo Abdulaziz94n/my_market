@@ -49,7 +49,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> with Validators {
               const VerticalSpacingWidget(Sizes.p100),
               AppTextField.withController(
                 controller: nameCtrl,
-                label: 'Username',
+                hint: 'Username',
                 prefixIcon: const Icon(Icons.person),
                 width: _fieldWidth,
                 validator: validateIsEmpty,
@@ -57,7 +57,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> with Validators {
               const VerticalSpacingWidget(Sizes.p48),
               AppTextField.withController(
                 controller: passwordCtrl,
-                label: 'Password',
+                hint: 'Password',
                 prefixIcon: const Icon(Icons.abc),
                 width: _fieldWidth,
                 validator: validateIsEmpty,

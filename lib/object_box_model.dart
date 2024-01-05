@@ -5,6 +5,7 @@ import 'package:my_market/features/client/domain/credit_client_model.dart';
 import 'package:my_market/features/order/domain/order_model.dart';
 import 'package:my_market/features/product/domain/product_entity.dart';
 import 'package:my_market/features/product/domain/product_provider_entity.dart';
+import 'package:my_market/features/product/domain/scale_product_entity.dart';
 import 'package:my_market/features/users/domain/user_model.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
@@ -18,6 +19,7 @@ class ObjectBox {
   late final Box<CompanyClientModel> companyClientBox;
   late final Box<CreditOrderModel> ordersBox;
   late final Box<ProductEntity> productBox;
+  late final Box<ScaleProductEntity> scaleProductBox;
   late final Box<CategoryEntity> categoryBox;
   late final Box<PlusCategoryEntity> plusCategoryBox;
   late final Box<ProductProviderEntity> productProviderBox;
@@ -27,6 +29,7 @@ class ObjectBox {
     creditClientBox = Box<CreditClientModel>(store);
     companyClientBox = Box<CompanyClientModel>(store);
     productBox = Box<ProductEntity>(store);
+    scaleProductBox = Box<ScaleProductEntity>(store);
     ordersBox = Box<CreditOrderModel>(store);
     categoryBox = Box<CategoryEntity>(store);
     plusCategoryBox = Box<PlusCategoryEntity>(store);

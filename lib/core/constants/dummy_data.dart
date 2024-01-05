@@ -48,7 +48,7 @@ class DummyData {
     alertCount: 25,
     stockCount: 10,
     providersDetails: [
-      ProvidersDetails(buyPrice: [22], provider: productProviders.last),
+      ProvidersDetails(buyPrice: 22, provider: productProviders.last),
     ],
     createdBy: usersList.first.id.toString().toString(),
     createdAt: DateTime(2023, 01, 01),
@@ -67,7 +67,7 @@ class DummyData {
       alertCount: 20,
       stockCount: 10,
       providersDetails: [
-        ProvidersDetails(buyPrice: [21], provider: productProviders[0]),
+        ProvidersDetails(buyPrice: 21, provider: productProviders[0]),
       ],
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
@@ -99,7 +99,7 @@ class DummyData {
       alertCount: 10,
       stockCount: 10,
       providersDetails: [
-        ProvidersDetails(buyPrice: [18], provider: productProviders[1]),
+        ProvidersDetails(buyPrice: 18, provider: productProviders[1]),
       ],
       createdBy: usersList.last.id.toString(),
       createdAt: DateTime.now(),
@@ -116,7 +116,7 @@ class DummyData {
       alertCount: 25,
       stockCount: 10,
       providersDetails: [
-        ProvidersDetails(buyPrice: [7], provider: productProviders[2]),
+        ProvidersDetails(buyPrice: 7, provider: productProviders[2]),
       ],
       createdBy: usersList.last.id.toString(),
       createdAt: DateTime.now(),
@@ -133,7 +133,7 @@ class DummyData {
       alertCount: 25,
       stockCount: 10,
       providersDetails: [
-        ProvidersDetails(buyPrice: [8], provider: productProviders[2]),
+        ProvidersDetails(buyPrice: 8, provider: productProviders[2]),
       ],
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
@@ -150,7 +150,7 @@ class DummyData {
       alertCount: 25,
       stockCount: 10,
       providersDetails: [
-        ProvidersDetails(buyPrice: [12], provider: productProviders[2]),
+        ProvidersDetails(buyPrice: 12, provider: productProviders[2]),
       ],
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
@@ -167,7 +167,7 @@ class DummyData {
       alertCount: 25,
       stockCount: 10,
       providersDetails: [
-        ProvidersDetails(buyPrice: [9], provider: productProviders[2]),
+        ProvidersDetails(buyPrice: 9, provider: productProviders[2]),
       ],
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
@@ -184,7 +184,7 @@ class DummyData {
       alertCount: 25,
       stockCount: 10,
       providersDetails: [
-        ProvidersDetails(buyPrice: [20], provider: productProviders[2]),
+        ProvidersDetails(buyPrice: 20, provider: productProviders[2]),
       ],
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
@@ -201,7 +201,7 @@ class DummyData {
       alertCount: 25,
       stockCount: 10,
       providersDetails: [
-        ProvidersDetails(buyPrice: [10], provider: productProviders[2]),
+        ProvidersDetails(buyPrice: 10, provider: productProviders[2]),
       ],
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),
@@ -218,7 +218,7 @@ class DummyData {
       alertCount: 25,
       stockCount: 10,
       providersDetails: [
-        ProvidersDetails(buyPrice: [9], provider: productProviders[2]),
+        ProvidersDetails(buyPrice: 9, provider: productProviders[2]),
       ],
       createdBy: usersList.first.id.toString(),
       createdAt: DateTime.now(),

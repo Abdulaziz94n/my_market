@@ -91,7 +91,7 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
                       onSave: (value) => product.value = product.value.copyWith(
                         providersDetails: [
                           product.value.providersDetails.first
-                              .copyWith(buyPrice: [value!.tryParseDouble!])
+                              .copyWith(buyPrice: value!.tryParseDouble!)
                         ],
                       ),
                     ),
