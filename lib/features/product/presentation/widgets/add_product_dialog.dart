@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_market/core/constants/dummy_data.dart';
 import 'package:my_market/core/constants/sizes.dart';
 import 'package:my_market/core/extensions/build_context_extension.dart';
 import 'package:my_market/core/extensions/string_extension.dart';
@@ -13,8 +12,13 @@ import 'package:my_market/core/utils/optional_model.dart';
 import 'package:my_market/core/widgets/shared/app_date_textfield.dart';
 import 'package:my_market/core/widgets/shared/app_dialog_form_field.dart';
 import 'package:my_market/core/widgets/shared/app_text.dart';
+import 'package:my_market/core/widgets/shared/async_value_widget.dart';
 import 'package:my_market/core/widgets/shared/spacing_widgets.dart';
+import 'package:my_market/features/categories/data/categories_repository.dart';
+import 'package:my_market/features/categories/data/plus_category_repository.dart';
 import 'package:my_market/features/categories/domain/category_model.dart';
+import 'package:my_market/features/categories/domain/plus_category_model.dart';
+import 'package:my_market/features/product/data/product_provider_repository.dart';
 import 'package:my_market/features/product/domain/product_model.dart';
 import 'package:my_market/features/product/domain/product_provider_model.dart';
 import 'package:my_market/features/product/presentation/products_controller.dart';
@@ -37,6 +41,7 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
     final colors = context.appColors;
     final product = useState<ProductModel>(ProductModel.initial());
     final selectedCategory = useState<CategoryModel?>(null);
+    final selectedPlusCategory = useState<PlusCategoryModel?>(null);
     final selectedProductProvider = useState<ProductProviderModel?>(null);
     const horizontalSpace = HorizontalSpacingWidget(Sizes.p16);
     return Form(
@@ -88,6 +93,7 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
                       textFieldValidator: validateIsEmpty,
                       inputFormatter: [amountInputFormatter()],
                       hint: 'Le Prix est',
+                      // TODO:
                       onSave: (value) => product.value = product.value.copyWith(
                         providersDetails: [
                           product.value.providersDetails.first
@@ -137,56 +143,94 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
               Row(
                 children: [
                   Expanded(
-                    child: AppDialogFormField<CategoryModel>(
-                      title: 'Famille',
-                      hint: 'Ajouter n Code a barre',
-                      asDropDown: (
-                        items: DummyData.categoriesList,
-                        childBuilder: (value) => AppText(text: value.name),
-                        dropDownvalidator: validateGenericIsEmpty,
-                        isDropDown: true,
-                        onChanged: (val) {
-                          selectedCategory.value = val;
-                          product.value =
-                              product.value.copyWith(categoryId: val!.localId);
-                        },
-                        value: selectedCategory.value,
+                    child: AsyncValueWidget(
+                      value: ref.watch(categoryStreamProvider),
+                      data: (categories) => AppDialogFormField<CategoryModel>(
+                        title: 'Famille',
+                        hint: 'Ajouter n Code a barre',
+                        asDropDown: (
+                          items: categories,
+                          childBuilder: (value) => AppText(text: value.name),
+                          dropDownvalidator: validateGenericIsEmpty,
+                          isDropDown: true,
+                          onChanged: (val) {
+                            selectedCategory.value = val;
+                            product.value = product.value
+                                .copyWith(categoryId: val!.localId);
+                          },
+                          value: selectedCategory.value,
+                        ),
                       ),
                     ),
                   ),
                   horizontalSpace,
                   Expanded(
-                    child: AppDialogFormField<ProductProviderModel>(
-                      title: 'Fournisseur',
-                      hint: 'Ajouter n Code a barre',
-                      asDropDown: (
-                        items: DummyData.productProviders,
-                        childBuilder: (value) => AppText(text: value.name),
-                        dropDownvalidator: validateGenericIsEmpty,
-                        isDropDown: true,
-                        onChanged: (val) {
-                          selectedProductProvider.value = val!;
-                          product.value = product.value.copyWith(
-                            providersDetails: [
-                              product.value.providersDetails.first
-                                  .copyWith(provider: val)
-                            ],
-                          );
-                        },
-                        value: selectedProductProvider.value,
+                    child: AsyncValueWidget(
+                      value: ref.watch(productsStreamProvider),
+                      data: (providers) =>
+                          AppDialogFormField<ProductProviderModel>(
+                        title: 'Fournisseur',
+                        hint: 'Ajouter n Code a barre',
+                        asDropDown: (
+                          items: providers,
+                          childBuilder: (value) => AppText(text: value.name),
+                          dropDownvalidator: validateGenericIsEmpty,
+                          isDropDown: true,
+                          onChanged: (val) {
+                            selectedProductProvider.value = val!;
+                            product.value = product.value.copyWith(
+                              providersDetails: [
+                                product.value.providersDetails.first
+                                    .copyWith(provider: val)
+                              ],
+                            );
+                          },
+                          value: selectedProductProvider.value,
+                        ),
                       ),
                     ),
                   ),
                 ],
               ),
               const VerticalSpacingWidget(Sizes.p16),
-              AppDateTextField(
-                title: 'Expiration Date',
-                hint: 'select Expiration Date',
-                selectedDate: product.value.expirationDate,
-                lastDate: DateTime.now().add(const Duration(days: 360 * 7)),
-                onDateSelect: (val) => product.value =
-                    product.value.copyWith(expirationDate: Optional.value(val)),
+              Row(
+                children: [
+                  Expanded(
+                    child: AsyncValueWidget(
+                      value: ref.watch(plusCategoryStreamProvider),
+                      data: (plusCategories) =>
+                          AppDialogFormField<PlusCategoryModel>(
+                        title: 'Plus Utilities',
+                        hint: 'Ajouter Utility',
+                        asDropDown: (
+                          items: plusCategories,
+                          childBuilder: (value) => AppText(text: value.name),
+                          dropDownvalidator: null,
+                          isDropDown: true,
+                          onChanged: (val) {
+                            selectedPlusCategory.value = val!;
+                            product.value = product.value.copyWith(
+                              utilityId: selectedPlusCategory.value!.localId,
+                            );
+                          },
+                          value: selectedPlusCategory.value,
+                        ),
+                      ),
+                    ),
+                  ),
+                  horizontalSpace,
+                  Expanded(
+                    child: AppDateTextField2(
+                      title: 'Expiration Date',
+                      hint: 'select Expiration Date',
+                      selectedDate: product.value.expirationDate,
+                      lastDate:
+                          DateTime.now().add(const Duration(days: 360 * 7)),
+                      onDateSelect: (val) => product.value = product.value
+                          .copyWith(expirationDate: Optional.value(val)),
+                    ),
+                  ),
+                ],
               ),
               const VerticalSpacingWidget(Sizes.p32),
               AddProductDialogActions(
@@ -195,7 +239,9 @@ class _AddProductDialogState extends ConsumerState<AddProductDialog>
                 product: product.value,
                 onAdd: () {
                   if (formKey.currentState!.validate()) {
+                    final now = DateTime.now();
                     formKey.currentState!.save();
+                    product.value = product.value.copyWith(createdAt: now);
                     AppDialogs.syncDialog(
                       fromDialog: true,
                       dialogBgColor: colors.background,

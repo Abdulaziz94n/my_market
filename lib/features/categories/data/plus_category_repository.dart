@@ -34,7 +34,8 @@ final plusCategoryRepo = Provider<PlusCategoriesRepository>((ref) {
   return PlusCategoriesRepository(PlusCategoryDao(objectBox.plusCategoryBox));
 });
 
-final watchCategoryList = StreamProvider<List<PlusCategoryModel>>((ref) {
+final plusCategoryStreamProvider =
+    StreamProvider<List<PlusCategoryModel>>((ref) {
   final repo = ref.read(plusCategoryRepo);
   return repo.getAll();
 });

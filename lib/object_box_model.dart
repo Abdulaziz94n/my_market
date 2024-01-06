@@ -34,13 +34,16 @@ class ObjectBox {
     categoryBox = Box<CategoryEntity>(store);
     plusCategoryBox = Box<PlusCategoryEntity>(store);
     productProviderBox = Box<ProductProviderEntity>(store);
+
+    //TODO:
+    // Add Default and Draft PlusUtilities once
     // Add any additional setup code, e.g. build queries.
   }
 
   static Future<ObjectBox> create() async {
     final docsDir = await getApplicationDocumentsDirectory();
     final store =
-        await openStore(directory: p.join(docsDir.path, "market-app"));
+        await openStore(directory: p.join(docsDir.path, "market-app-v1"));
     return ObjectBox._create(store);
   }
 }

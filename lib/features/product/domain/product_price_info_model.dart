@@ -21,6 +21,13 @@ class ProvidersDetails {
     );
   }
 
+  Map<String, dynamic> toEntity() {
+    return <String, dynamic>{
+      'buyPrice': buyPrice,
+      'provider': provider.toEntity(),
+    };
+  }
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'buyPrice': buyPrice,
@@ -31,8 +38,8 @@ class ProvidersDetails {
   factory ProvidersDetails.fromMap(Map<String, dynamic> map) {
     return ProvidersDetails(
       buyPrice: map['buyPrice'] as double,
-      provider:
-          ProductProviderModel.fromMap(map['provider'] as Map<String, dynamic>),
+      provider: ProductProviderModel.fromLocalMap(
+          map['provider'] as Map<String, dynamic>),
     );
   }
 

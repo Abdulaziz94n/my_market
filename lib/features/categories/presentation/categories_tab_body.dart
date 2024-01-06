@@ -36,6 +36,7 @@ class CategoriesTabBody extends HookConsumerWidget {
                   AppStreamBuilder(
                     stream: ref.watch(categoryRepo).getAll(),
                     streamSuccessWidget: (categories) {
+                      print(categories);
                       return ItemsCard<CategoryModel>(
                         key: UniqueKey(),
                         title: 'Familles',

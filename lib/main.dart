@@ -22,8 +22,9 @@ import 'package:window_size/window_size.dart';
 
 // General
 /// Add Throwable Function typedef to handle sync throw, maybe async too?
-/// ToEntity / FromEntity Codes move to another place
+/// ToEntity / FromEntity Codes move to another place and check remote and local mapping (toMap,toLocalMap etc..) rename
 /// Manage ToOne and ToMany Relations between tables
+/// remove redundant fields on Entites after correctly handling relations
 
 /// ref.read(notifier).fn() of B Controller called in A Controller ? or go Like like [OrderItemsList] onIncrease...
 /// submitOrderController only for 1 async call + access to another controller through ref ?
@@ -60,7 +61,7 @@ Future<void> main() async {
     }
   }
   final container = ProviderContainer();
-  container.read(watchCategoryList);
+  container.read(categoryStreamProvider);
   container.read(connectivityProvider);
   container.read(internetConnectionProvider);
   runApp(

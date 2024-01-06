@@ -45,7 +45,7 @@ class ProductModel {
     return ProductModel(
       localId: entity.id,
       globalId: entity.globalId,
-      categoryId: entity.categoryId,
+      categoryId: entity.secId,
       name: entity.name,
       desc: entity.desc,
       barcode: entity.barcode,
@@ -68,7 +68,7 @@ class ProductModel {
       barcode: barcode,
       shortCode: shortCode,
       sellPrice: sellPrice,
-      categoryId: categoryId,
+      secId: categoryId,
       stockCount: stockCount,
       alertCount: alertCount,
       createdBy: createdBy,
@@ -153,12 +153,7 @@ class ProductModel {
       'alertCount': alertCount,
       'stockCount': stockCount,
       'utilityId': utilityId,
-      'providerDetails': providersDetails
-          .map((e) => {
-                'buyPrice': e.buyPrice,
-                'provider': e.provider,
-              })
-          .toList(),
+      'providersDetails': providersDetails.map((e) => e.toMap()).toList(),
       'createdBy': createdBy,
       if (createdAt != null) 'createdAt': Timestamp.fromDate(createdAt!),
       'expirationDate': expirationDate,

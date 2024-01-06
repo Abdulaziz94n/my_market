@@ -41,6 +41,12 @@ class HomeScreen extends HookConsumerWidget {
     return AppScaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
+          // resetCategories();
+          // resetProductsDb();
+          // final res = await ref.read(categoryRepo).getAll().first;
+          // print(res.length);
+          print('Category = ${objectBox.categoryBox.get(1)}');
+          print('TOTAL PROD = ${objectBox.categoryBox.get(1)?.products}');
           // print(res);
           // objectBox.productBox.removeAll();
         },

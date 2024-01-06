@@ -57,6 +57,16 @@ class ProductProviderModel {
     );
   }
 
+  Map<String, dynamic> toLocalMap() {
+    return <String, dynamic>{
+      'name': name,
+      'globalId': globalId,
+      'localId': localId,
+      'createdAt': createdAt?.toIso8601String(),
+      'createdBy': createdBy,
+    };
+  }
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'name': name,
@@ -65,6 +75,16 @@ class ProductProviderModel {
       if (createdAt != null) 'createdAt': Timestamp.fromDate(createdAt!),
       'createdBy': createdBy,
     };
+  }
+
+  factory ProductProviderModel.fromLocalMap(Map<String, dynamic> map) {
+    return ProductProviderModel(
+      name: map['name'] as String,
+      globalId: map['globalId'] as String,
+      localId: map['localId'] as int,
+      createdAt: DateTime.parse(map['createdAt']),
+      createdBy: map['createdBy'] as String,
+    );
   }
 
   factory ProductProviderModel.fromMap(Map<String, dynamic> map) {

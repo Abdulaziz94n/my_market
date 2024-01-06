@@ -34,7 +34,7 @@ final categoryRepo = Provider<CategoriesRepository>((ref) {
   return CategoriesRepository(CategoryDao(objectBox.categoryBox));
 });
 
-final watchCategoryList = StreamProvider<List<CategoryModel>>((ref) {
+final categoryStreamProvider = StreamProvider<List<CategoryModel>>((ref) {
   final repo = ref.read(categoryRepo);
   return repo.getAll();
 });

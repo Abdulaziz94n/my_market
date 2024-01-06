@@ -22,7 +22,7 @@ class CategorySelectionList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AsyncValueWidget(
-      value: ref.watch(watchCategoryList),
+      value: ref.watch(categoryStreamProvider),
       data: (categoriesList) => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

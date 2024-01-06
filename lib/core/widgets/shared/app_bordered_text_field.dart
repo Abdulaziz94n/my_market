@@ -17,6 +17,7 @@ class AppBorderedTextField extends StatelessWidget {
     this.maxLines,
     this.fontSize,
     this.width,
+    this.height,
     this.contentPadding,
     this.isDense = true,
     this.initialValue,
@@ -41,6 +42,7 @@ class AppBorderedTextField extends StatelessWidget {
   final int? maxLines;
   final double? fontSize;
   final double? width;
+  final double? height;
   final EdgeInsets? contentPadding;
   final bool? isDense;
   final String? initialValue;
@@ -56,30 +58,34 @@ class AppBorderedTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      mouseCursor: mouseCursor,
-      onTap: onTap,
-      controller: controller,
-      initialValue: initialValue,
-      onChanged: onChanged,
-      onFieldSubmitted: onFieldSubmitted,
-      onSaved: onSave,
-      validator: validator,
-      style: context.appTextTheme.bodySmall,
-      enabled: enabled,
-      readOnly: readOnly,
-      inputFormatters: inputFormatters,
-      textAlign: textAlign ?? TextAlign.center,
-      decoration: InputDecoration(
-        isDense: isDense,
-        contentPadding: contentPadding,
-        hintText: hintText,
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
-        enabledBorder: OutlineInputBorder(borderRadius: _borderRadius),
-        focusedBorder: OutlineInputBorder(borderRadius: _borderRadius),
-        disabledBorder: OutlineInputBorder(borderRadius: _borderRadius),
-        errorBorder: OutlineInputBorder(borderRadius: _borderRadius),
+    return SizedBox(
+      height: height,
+      width: width,
+      child: TextFormField(
+        mouseCursor: mouseCursor,
+        onTap: onTap,
+        controller: controller,
+        initialValue: initialValue,
+        onChanged: onChanged,
+        onFieldSubmitted: onFieldSubmitted,
+        onSaved: onSave,
+        validator: validator,
+        style: context.appTextTheme.bodySmall,
+        enabled: enabled,
+        readOnly: readOnly,
+        inputFormatters: inputFormatters,
+        textAlign: textAlign ?? TextAlign.center,
+        decoration: InputDecoration(
+          isDense: isDense,
+          contentPadding: contentPadding,
+          hintText: hintText,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
+          enabledBorder: OutlineInputBorder(borderRadius: _borderRadius),
+          focusedBorder: OutlineInputBorder(borderRadius: _borderRadius),
+          disabledBorder: OutlineInputBorder(borderRadius: _borderRadius),
+          errorBorder: OutlineInputBorder(borderRadius: _borderRadius),
+        ),
       ),
     );
   }

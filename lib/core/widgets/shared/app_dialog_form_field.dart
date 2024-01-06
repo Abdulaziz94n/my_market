@@ -9,22 +9,24 @@ import '/core/widgets/shared/app_text.dart';
 import '/core/widgets/shared/spacing_widgets.dart';
 
 class AppDialogFormField<T> extends StatelessWidget {
-  AppDialogFormField({
-    super.key,
-    required this.title,
-    required this.hint,
-    this.onTextChanged,
-    this.onSave,
-    this.asDropDown,
-    this.icon,
-    this.textFieldValidator,
-    this.inputType,
-    this.inputFormatter,
-    this.initialValue,
-    this.readOnly,
-    this.textAlign = TextAlign.start,
-    this.controller,
-  })  : assert(asDropDown?.onChanged == null || onSave == null),
+  AppDialogFormField(
+      {super.key,
+      required this.title,
+      required this.hint,
+      this.onTextChanged,
+      this.onSave,
+      this.asDropDown,
+      this.icon,
+      this.textFieldValidator,
+      this.inputType,
+      this.inputFormatter,
+      this.initialValue,
+      this.readOnly,
+      this.textAlign = TextAlign.start,
+      this.controller,
+      this.mouseCursor,
+      this.onTap})
+      : assert(asDropDown?.onChanged == null || onSave == null),
         assert(controller == null || initialValue == null),
         assert(controller == null || onTextChanged == null);
 
@@ -38,6 +40,8 @@ class AppDialogFormField<T> extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatter;
   final TextEditingController? controller;
   final bool? readOnly;
+  final MouseCursor? mouseCursor;
+  final VoidCallback? onTap;
   final ({
     bool isDropDown,
     List<T> items,
@@ -59,6 +63,7 @@ class AppDialogFormField<T> extends StatelessWidget {
         const VerticalSpacingWidget(Sizes.p4),
         if (asDropDown == null)
           AppBorderedTextField(
+            mouseCursor: mouseCursor,
             controller: controller,
             readOnly: readOnly ?? false,
             initialValue: initialValue,
@@ -72,15 +77,18 @@ class AppDialogFormField<T> extends StatelessWidget {
             validator: textFieldValidator,
           ),
         if (asDropDown != null)
-          AppDropDown(
-            value: asDropDown!.value,
-            items: asDropDown!.items.toDropdownItems(
-              childBuilder: asDropDown!.childBuilder,
+          InkWell(
+            onTap: onTap,
+            child: AppDropDown(
+              value: asDropDown!.value,
+              items: asDropDown!.items.toDropdownItems(
+                childBuilder: asDropDown!.childBuilder,
+              ),
+              onChanged: asDropDown!.onChanged,
+              hint: hint,
+              validator: asDropDown!.dropDownvalidator,
+              enabled: true,
             ),
-            onChanged: asDropDown!.onChanged,
-            hint: hint,
-            validator: asDropDown!.dropDownvalidator,
-            enabled: true,
           )
       ],
     );

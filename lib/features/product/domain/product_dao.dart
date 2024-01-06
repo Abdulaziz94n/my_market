@@ -10,6 +10,8 @@ class ProductLocalDAO implements DAO<ProductEntity> {
 
   @override
   void add(data) {
+    final category = objectBox.categoryBox.get(data.secId);
+    data.category.target = category;
     box.put(data);
   }
 
@@ -33,6 +35,8 @@ class ProductLocalDAO implements DAO<ProductEntity> {
 
   @override
   void update(ProductEntity newData) {
+    final category = objectBox.categoryBox.get(newData.secId);
+    newData.category.target = category;
     box.put(newData, mode: PutMode.put);
   }
 }

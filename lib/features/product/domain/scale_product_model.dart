@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_market/features/product/domain/product_price_info_model.dart';
+import 'package:my_market/features/product/domain/scale_product_entity.dart';
 
 class ScaleProductModel {
   final int localId;
@@ -16,7 +17,7 @@ class ScaleProductModel {
   final double kgSellPrice;
   final int stockCount;
   final int alertCount;
-  final ProvidersDetails providersDetails;
+  final List<ProvidersDetails> providersDetails;
   final String createdBy;
   final DateTime? createdAt;
   final DateTime? expirationDate;
@@ -47,7 +48,7 @@ class ScaleProductModel {
     required this.kgPrice,
   });
 
-  double get buyPrice => providersDetails.buyPrice;
+  double get buyPrice => providersDetails.first.buyPrice;
 
   ScaleProductModel copyWith({
     String? name,
@@ -59,7 +60,7 @@ class ScaleProductModel {
     double? kgSellPrice,
     int? stockCount,
     int? alertCount,
-    ProvidersDetails? providersDetails,
+    List<ProvidersDetails>? providersDetails,
     String? createdBy,
     DateTime? createdAt,
     DateTime? expirationDate,
@@ -91,6 +92,51 @@ class ScaleProductModel {
     );
   }
 
+  ScaleProductEntity toEntity() {
+    return ScaleProductEntity(
+      globalId: globalId,
+      createdAt: createdAt,
+      expirationDate: expirationDate,
+      name: name,
+      desc: desc,
+      barcode: barcode,
+      shortCode: shortCode,
+      categoryId: categoryId,
+      unitSellPrice: unitSellPrice,
+      kgSellPrice: kgSellPrice,
+      stockCount: stockCount,
+      alertCount: alertCount,
+      providersDetails: providersDetails,
+      createdBy: createdBy,
+      unitCount: unitCount,
+      unitWeight: unitWeight,
+      unitPrice: unitPrice,
+      kgPrice: kgPrice,
+    );
+  }
+
+  factory ScaleProductModel.fromEntity(ScaleProductEntity entity) {
+    return ScaleProductModel(
+      globalId: entity.globalId,
+      name: entity.name,
+      desc: entity.desc,
+      barcode: entity.barcode,
+      shortCode: entity.shortCode,
+      categoryId: entity.categoryId,
+      unitSellPrice: entity.unitSellPrice,
+      kgSellPrice: entity.kgSellPrice,
+      stockCount: entity.stockCount,
+      alertCount: entity.alertCount,
+      providersDetails: entity.providersDetails!,
+      createdBy: entity.createdBy,
+      createdAt: entity.createdAt,
+      unitCount: entity.unitCount,
+      unitWeight: entity.unitWeight,
+      unitPrice: entity.unitPrice,
+      kgPrice: entity.kgPrice,
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'localId': localId,
@@ -104,7 +150,7 @@ class ScaleProductModel {
       'kgSellPrice': kgSellPrice,
       'stockCount': stockCount,
       'alertCount': alertCount,
-      'providersDetails': providersDetails.toMap(),
+      'providersDetails': providersDetails.map((e) => e.toMap()).toList(),
       'createdBy': createdBy,
       if (createdAt != null) 'createdAt': Timestamp.fromDate(createdAt!),
       if (expirationDate != null)
@@ -129,8 +175,10 @@ class ScaleProductModel {
       kgSellPrice: map['kgSellPrice'] as double,
       stockCount: map['stockCount'] as int,
       alertCount: map['alertCount'] as int,
-      providersDetails: ProvidersDetails.fromMap(
-          map['providersDetails'] as Map<String, dynamic>),
+      providersDetails: (map['providerDetails'] as List<dynamic>?)!
+          .map((providerData) =>
+              ProvidersDetails.fromMap(providerData as Map<String, dynamic>))
+          .toList(),
       createdBy: map['createdBy'] as String,
       createdAt: map['createdAt'] != null
           ? (map['createdAt'] as Timestamp).toDate()

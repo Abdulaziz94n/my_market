@@ -71,4 +71,18 @@ extension DateTimeExtension on DateTime {
     final res = DateTime(date.year, date.month, date.day, 23, 59, 59, 999, 999);
     return res;
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'year': year,
+      'month': month,
+      'day': day,
+      'hour': hour,
+      'minute': minute,
+      'second': second,
+      'milliseconds': millisecond,
+      'microiseconds': microsecond,
+      'timeZoneOffset': timeZoneOffset.inSeconds,
+    };
+  }
 }
